@@ -1,0 +1,1 @@
+"C:\Program Files\Java\jdk1.7.0_02\bin\javadoc.exe" -public -splitindex bwapi bwta -sourcepath C:\Users\PC\IdeaProjects\BWLIB -d C:\Users\PC\IdeaProjects\BWLIB\javadoc
