@@ -3389,6 +3389,188 @@ JNIEXPORT jboolean JNICALL Java_bwta_BaseLocation_isStartLocation_1native(JNIEnv
 BWTA::BaseLocation* x_baseLocation = (BWTA::BaseLocation*)pointer;
 return x_baseLocation->isStartLocation();
 }
+JNIEXPORT void JNICALL Java_bwta_BWTA_readMap(JNIEnv * env, jclass jclz){
+BWTA::readMap();
+}
+JNIEXPORT void JNICALL Java_bwta_BWTA_analyze(JNIEnv * env, jclass jclz){
+BWTA::analyze();
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegions(JNIEnv * env, jclass jclz){
+std::set<BWTA::Region*> cresult = BWTA::getRegions();
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/Region");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Region;");
+for(std::set<BWTA::Region*>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const BWTA::Region* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getChokepoints(JNIEnv * env, jclass jclz){
+std::set<BWTA::Chokepoint*> cresult = BWTA::getChokepoints();
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/Chokepoint");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Chokepoint;");
+for(std::set<BWTA::Chokepoint*>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const BWTA::Chokepoint* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getBaseLocations(JNIEnv * env, jclass jclz){
+std::set<BWTA::BaseLocation*> cresult = BWTA::getBaseLocations();
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/BaseLocation");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/BaseLocation;");
+for(std::set<BWTA::BaseLocation*>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const BWTA::BaseLocation* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getStartLocations(JNIEnv * env, jclass jclz){
+std::set<BWTA::BaseLocation*> cresult = BWTA::getStartLocations();
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/BaseLocation");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/BaseLocation;");
+for(std::set<BWTA::BaseLocation*>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const BWTA::BaseLocation* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getUnwalkablePolygons(JNIEnv * env, jclass jclz){
+std::set<BWTA::Polygon*> cresult = BWTA::getUnwalkablePolygons();
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/Polygon");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Polygon;");
+for(std::set<BWTA::Polygon*>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const BWTA::Polygon* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getStartLocation(JNIEnv * env, jclass jclz, jobject p_player){
+Player* player = (Player*)env->GetLongField(p_player, FindCachedField(env, env->GetObjectClass(p_player), "pointer", "J"));
+jlong resptr = (jlong)BWTA::getStartLocation(player);
+jclass retcls = FindCachedClass(env, "bwta/BaseLocation");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/BaseLocation;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegion__II(JNIEnv * env, jclass jclz, jint x, jint y){
+jlong resptr = (jlong)BWTA::getRegion(x, y);
+jclass retcls = FindCachedClass(env, "bwta/Region");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Region;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegion__Lbwapi_TilePosition_2(JNIEnv * env, jclass jclz, jobject p_tileposition){
+TilePosition tileposition((int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "x", "I")), (int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "y", "I")));
+jlong resptr = (jlong)BWTA::getRegion(tileposition);
+jclass retcls = FindCachedClass(env, "bwta/Region");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Region;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegion__Lbwapi_Position_2(JNIEnv * env, jclass jclz, jobject p_position){
+Position position((int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "x", "I")), (int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "y", "I")));
+jlong resptr = (jlong)BWTA::getRegion(position);
+jclass retcls = FindCachedClass(env, "bwta/Region");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Region;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestChokepoint__II(JNIEnv * env, jclass jclz, jint x, jint y){
+jlong resptr = (jlong)BWTA::getNearestChokepoint(x, y);
+jclass retcls = FindCachedClass(env, "bwta/Chokepoint");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Chokepoint;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestChokepoint__Lbwapi_TilePosition_2(JNIEnv * env, jclass jclz, jobject p_tileposition){
+TilePosition tileposition((int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "x", "I")), (int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "y", "I")));
+jlong resptr = (jlong)BWTA::getNearestChokepoint(tileposition);
+jclass retcls = FindCachedClass(env, "bwta/Chokepoint");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Chokepoint;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestChokepoint__Lbwapi_Position_2(JNIEnv * env, jclass jclz, jobject p_position){
+Position position((int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "x", "I")), (int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "y", "I")));
+jlong resptr = (jlong)BWTA::getNearestChokepoint(position);
+jclass retcls = FindCachedClass(env, "bwta/Chokepoint");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Chokepoint;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestBaseLocation__II(JNIEnv * env, jclass jclz, jint x, jint y){
+jlong resptr = (jlong)BWTA::getNearestBaseLocation(x, y);
+jclass retcls = FindCachedClass(env, "bwta/BaseLocation");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/BaseLocation;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestBaseLocation__Lbwapi_TilePosition_2(JNIEnv * env, jclass jclz, jobject p_tileposition){
+TilePosition tileposition((int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "x", "I")), (int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "y", "I")));
+jlong resptr = (jlong)BWTA::getNearestBaseLocation(tileposition);
+jclass retcls = FindCachedClass(env, "bwta/BaseLocation");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/BaseLocation;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestBaseLocation__Lbwapi_Position_2(JNIEnv * env, jclass jclz, jobject p_position){
+Position position((int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "x", "I")), (int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "y", "I")));
+jlong resptr = (jlong)BWTA::getNearestBaseLocation(position);
+jclass retcls = FindCachedClass(env, "bwta/BaseLocation");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/BaseLocation;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestUnwalkablePolygon__II(JNIEnv * env, jclass jclz, jint x, jint y){
+jlong resptr = (jlong)BWTA::getNearestUnwalkablePolygon(x, y);
+jclass retcls = FindCachedClass(env, "bwta/Polygon");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Polygon;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestUnwalkablePolygon__Lbwapi_TilePosition_2(JNIEnv * env, jclass jclz, jobject p_tileposition){
+TilePosition tileposition((int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "x", "I")), (int)env->GetIntField(p_tileposition, FindCachedField(env, env->GetObjectClass(p_tileposition), "y", "I")));
+jlong resptr = (jlong)BWTA::getNearestUnwalkablePolygon(tileposition);
+jclass retcls = FindCachedClass(env, "bwta/Polygon");
+jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwta/Polygon;");
+return env->CallStaticObjectMethod(retcls, mid, resptr);
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestUnwalkablePosition(JNIEnv * env, jclass jclz, jobject p_position){
+Position position((int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "x", "I")), (int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "y", "I")));
+Position cresult = BWTA::getNearestUnwalkablePosition(position);
+jclass retcls = FindCachedClass(env, "bwapi/Position");
+jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(II)V");
+jobject result = env->NewObject(retcls, retConsID, cresult.x(), cresult.y());
+return result;
+}
+JNIEXPORT jboolean JNICALL Java_bwta_BWTA_isConnected__IIII(JNIEnv * env, jclass jclz, jint x1, jint y1, jint x2, jint y2){
+return BWTA::isConnected(x1, y1, x2, y2);
+}
+JNIEXPORT jboolean JNICALL Java_bwta_BWTA_isConnected__Lbwapi_TilePosition_2Lbwapi_TilePosition_2(JNIEnv * env, jclass jclz, jobject p_a, jobject p_b){
+TilePosition a((int)env->GetIntField(p_a, FindCachedField(env, env->GetObjectClass(p_a), "x", "I")), (int)env->GetIntField(p_a, FindCachedField(env, env->GetObjectClass(p_a), "y", "I")));
+TilePosition b((int)env->GetIntField(p_b, FindCachedField(env, env->GetObjectClass(p_b), "x", "I")), (int)env->GetIntField(p_b, FindCachedField(env, env->GetObjectClass(p_b), "y", "I")));
+return BWTA::isConnected(a, b);
+}
+JNIEXPORT jdouble JNICALL Java_bwta_BWTA_getGroundDistance(JNIEnv * env, jclass jclz, jobject p_start, jobject p_end){
+TilePosition start((int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "x", "I")), (int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "y", "I")));
+TilePosition end((int)env->GetIntField(p_end, FindCachedField(env, env->GetObjectClass(p_end), "x", "I")), (int)env->GetIntField(p_end, FindCachedField(env, env->GetObjectClass(p_end), "y", "I")));
+return BWTA::getGroundDistance(start, end);
+}
 JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getCenter_1native(JNIEnv * env, jobject obj, jlong pointer){
 BWTA::Chokepoint* x_chokepoint = (BWTA::Chokepoint*)pointer;
 Position cresult = x_chokepoint->getCenter();

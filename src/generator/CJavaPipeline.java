@@ -235,6 +235,7 @@ public class CJavaPipeline {
         Properties props = new Properties();
         props.put(COMPILE_DIR_PROPERTY, "compiled");
         props.put(HEADERS_DIR_PROPERTY, "headers");
+        props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c/impl.cpp");
 
         new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
 
@@ -242,6 +243,6 @@ public class CJavaPipeline {
 
     private static final String COMPILE_DIR_PROPERTY = "compiled_dir";
     private static final String HEADERS_DIR_PROPERTY = "headers_dir";
-    private static final String C_IMPLEMENTATION_FILE_PROPERTY = "c/impl.cpp";
+    private static final String C_IMPLEMENTATION_FILE_PROPERTY = "impl_file";
 
 }

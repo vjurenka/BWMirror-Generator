@@ -64,6 +64,7 @@ public class CApiParser {
 
     public void setGlobalClass(CClass globalClass) {
         this.globalClass = globalClass;
+        declarations.add(globalClass);
     }
 
     private String javadoc = null;
