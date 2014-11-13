@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-The <a href="UpgradeType.html">UpgradeType</a> class is used to get information about a particular upgrade.
-List of all <a href="UpgradeType.html">UpgradeTypes</a>.
-
-
-*/
 public class UpgradeType {
 
-	/** Returns the name for the upgrade type. */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -24,13 +17,10 @@ public class UpgradeType {
         return c_str();
     }
 
-	/** Returns the race the upgrade is for. For example, UpgradeTypes::Terran_Infantry_Armor.getRace()
-	* will return Races::Terran. */
     public Race getRace() {
         return getRace_native(pointer);
     }
 
-	/** Returns the mineral price for the first upgrade. */
     public int mineralPrice() {
         return mineralPrice_native(pointer);
     }
@@ -39,12 +29,10 @@ public class UpgradeType {
         return mineralPrice_native(pointer, level);
     }
 
-	/** Returns the amount that the mineral price increases for each additional upgrade. */
     public int mineralPriceFactor() {
         return mineralPriceFactor_native(pointer);
     }
 
-	/** Returns the vespene gas price for the first upgrade. */
     public int gasPrice() {
         return gasPrice_native(pointer);
     }
@@ -53,12 +41,10 @@ public class UpgradeType {
         return gasPrice_native(pointer, level);
     }
 
-	/** Returns the amount that the vespene gas price increases for each additional upgrade. */
     public int gasPriceFactor() {
         return gasPriceFactor_native(pointer);
     }
 
-	/** Returns the number of frames needed to research the first upgrade. */
     public int upgradeTime() {
         return upgradeTime_native(pointer);
     }
@@ -67,22 +53,18 @@ public class UpgradeType {
         return upgradeTime_native(pointer, level);
     }
 
-	/** Returns the number of frames that the upgrade time increases for each additional upgrade. */
     public int upgradeTimeFactor() {
         return upgradeTimeFactor_native(pointer);
     }
 
-	/** Returns the maximum number of times the upgrade can be researched. */
     public int maxRepeats() {
         return maxRepeats_native(pointer);
     }
 
-	/** Returns the type of unit that researches the upgrade. */
     public UnitType whatUpgrades() {
         return whatUpgrades_native(pointer);
     }
 
-	/** Returns the type of unit that is additionally required for the upgrade. */
     public UnitType whatsRequired() {
         return whatsRequired_native(pointer);
     }
@@ -91,7 +73,6 @@ public class UpgradeType {
         return whatsRequired_native(pointer, level);
     }
 
-	/** Returns the set of units that are affected by this upgrade. */
     public List<UnitType> whatUses() {
         return whatUses_native(pointer);
     }
@@ -208,6 +189,9 @@ public class UpgradeType {
     }
 
     private static UpgradeType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         UpgradeType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new UpgradeType(pointer);

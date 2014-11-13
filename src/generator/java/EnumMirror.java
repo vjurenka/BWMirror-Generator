@@ -36,7 +36,13 @@ public class EnumMirror extends Mirror {
 
         File innerDir = new File(root, context.getPackageDirs());
         if (cEnum.getNameSpaceName() != null) {
-            innerDir = new File(innerDir, cEnum.getNameSpaceName());
+            String namespace = cEnum.getNameSpaceName();
+            if(namespace.contains(".")){
+                innerDir = new File(innerDir,namespace.substring(0, namespace.indexOf(".")));
+                innerDir.mkdirs();
+                namespace = namespace.substring(namespace.indexOf(".") + 1);
+            }
+            innerDir = new File(innerDir,namespace);
             innerDir.mkdirs();
         }
         File file = new File(innerDir, cEnum.getName() + ".java");

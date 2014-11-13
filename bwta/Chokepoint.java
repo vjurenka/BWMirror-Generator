@@ -10,25 +10,12 @@ import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Player;
 
-/**
-A chokepoint connects exactly two regions.
-
-
-*/
 public class Chokepoint {
 
-/**
-Returns the center of the chokepoint.
-
-*/
     public Position getCenter() {
         return getCenter_native(pointer);
     }
 
-/**
-Returns the width of the chokepoint.
-
-*/
     public double getWidth() {
         return getWidth_native(pointer);
     }
@@ -41,6 +28,9 @@ Returns the width of the chokepoint.
     }
 
     private static Chokepoint get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Chokepoint instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Chokepoint(pointer);

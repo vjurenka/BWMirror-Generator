@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-	/**<br/><br/>
-	*  Used in UnitCommand
-	*/
 public enum Enum {
 
 	None(0),

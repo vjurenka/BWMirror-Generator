@@ -15,6 +15,9 @@ import java.io.PrintStream;
  * Time: 14:27
  */
 public abstract class Mirror {
+
+    private static final boolean WRITE_DOC = false;
+
     protected static final String SPACE = " ";
 
     protected static final String SEMICOLON = ";";
@@ -36,32 +39,34 @@ public abstract class Mirror {
     protected String lastDoc = null;
 
     protected void writeJavadoc(CDeclaration field) {
-        if (field.getJavadoc() != null) {
-            if (field.getJavadoc().contains("copydoc")) {
-                if (lastDoc != null) {
-                    out.print(lastDoc);
+        if (WRITE_DOC) {
+            if (field.getJavadoc() != null) {
+                if (field.getJavadoc().contains("copydoc")) {
+                    if (lastDoc != null) {
+                        out.print(lastDoc);
+                    }
+                } else {
+                    out.print(field.getJavadoc());
+                    lastDoc = field.getJavadoc();
                 }
             } else {
-                out.print(field.getJavadoc());
-                lastDoc = field.getJavadoc();
-            }
-        } else {
-            if (field instanceof CClass) {
-                Crawler cl = new Crawler();
-                if(context.getPackage().equals("bwta")){
-                    cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
+                if (field instanceof CClass) {
+                    Crawler cl = new Crawler();
+                    if (context.getPackage().equals("bwta")) {
+                        cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
+                    }
+                    documentation = cl.request(getDecl().getName());
+                    if (documentation != null) {
+                        printJavadoc(documentation.header);
+                    }
                 }
-                documentation = cl.request(getDecl().getName());
-                if (documentation != null) {
-                    printJavadoc(documentation.header);
+                if (documentation == null) {
+                    return;
                 }
-            }
-            if (documentation == null) {
-                return;
-            }
-            String javadoc = documentation.fields.get(new DocumentedField(field.getName()));
-            if (javadoc != null) {
-                printJavadoc(javadoc);
+                String javadoc = documentation.fields.get(new DocumentedField(field.getName()));
+                if (javadoc != null) {
+                    printJavadoc(javadoc);
+                }
             }
         }
     }

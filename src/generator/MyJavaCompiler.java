@@ -30,7 +30,14 @@ public class MyJavaCompiler {
         for (File file : inDir.listFiles()) {
             if(file.isDirectory()){
                 for(File ffile : file.listFiles()){
+                    if(ffile.isDirectory()){
+                        for(File fffile : ffile.listFiles()){
+                            javaFileObjects.add(new JavaSourceFile(fffile));
+                        }
+                        continue;
+                    }
                     javaFileObjects.add(new JavaSourceFile(ffile));
+
                 }
                 continue;
             }

@@ -4,13 +4,14 @@ import c.CClass;
 import c.CDeclaration;
 import c.CEnum;
 import c.DeclarationType;
-import generator.ccalls.CallImplementer;
 import generator.c.Bind;
 import generator.c.HeaderMaker;
 import generator.c.IdCache;
 import generator.c.TypeTable;
+import generator.ccalls.CallImplementer;
 import impl.CApiParser;
 import impl.Clazz;
+import util.FileUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -29,36 +30,27 @@ import java.util.Properties;
 @SuppressWarnings("ConstantConditions")
 public class CJavaPipeline {
 
+    public static final int BWAPI_V3 = 3;
+
+    public static final int BWAPI_V4 = 4;
+
+
+    public static int BWAPI_VERSION = BWAPI_V3;
+
     /**
      * Classes from BWAPI 4 that don't need mirroring
      * Not used in mirroring BWAPI 3
      */
-    private static final List<String> ignoredClasses = Arrays.asList("Vectorset", "ConstVectorset", "VSetIterator",
-            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl");
+    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Vectorset", "ConstVectorset", "VSetIterator",
+            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl"));
 
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void deleteDirectory(File directory) {
-        if (directory.exists()) {
-            File[] files = directory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        deleteDirectory(file);
-                    } else {
-                        file.delete();
-                    }
-                }
-            }
-        }
-    }
 
     public void run(PackageProcessOptions[] packages, Properties processingOptions) {
         /**
          Init
          */
         for (PackageProcessOptions pkg : packages) {
-            deleteDirectory(new File(pkg.packageName));
+            FileUtils.deleteDirectory(new File(pkg.packageName));
         }
 
         MirrorContext context = new MirrorContext();
@@ -145,7 +137,7 @@ public class CJavaPipeline {
             packageDirNames.add(pkg.packageName);
         }
         HeaderMaker hm = new HeaderMaker();
-        hm.run(packageDirNames, javaOut);
+        hm.run(packageDirNames, javaOut, processingOptions.getProperty(HEADER_FILE_PROPERTY) , processingOptions.getProperty(HEADERS_DIR_PROPERTY));
 
         /**
          * Phase 6 - implementation of native functions
@@ -221,28 +213,51 @@ public class CJavaPipeline {
 
     public static void main(String... args) {
 
-        PackageProcessOptions bwapiOptions = new PackageProcessOptions();
-        bwapiOptions.packageName = "bwapi";
-        bwapiOptions.cHeadersDir = new File("bwapi-master");
-        bwapiOptions.manualCopyClassesDir = new File("manual-bwapi");
+        if (BWAPI_VERSION == BWAPI_V3) {
 
-        PackageProcessOptions bwtaOptions = new PackageProcessOptions();
-        bwtaOptions.packageName = "bwta";
-        bwtaOptions.cHeadersDir = new File("bwta-c");
-        bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player");
-        bwtaOptions.globalClassName = "BWTA";
+            PackageProcessOptions bwapiOptions = new PackageProcessOptions();
+            bwapiOptions.packageName = "bwapi";
+            bwapiOptions.cHeadersDir = new File("bwapi-master");
+            bwapiOptions.manualCopyClassesDir = new File("manual-bwapi");
 
-        Properties props = new Properties();
-        props.put(COMPILE_DIR_PROPERTY, "compiled");
-        props.put(HEADERS_DIR_PROPERTY, "headers");
-        props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c/impl.cpp");
+            PackageProcessOptions bwtaOptions = new PackageProcessOptions();
+            bwtaOptions.packageName = "bwta";
+            bwtaOptions.cHeadersDir = new File("bwta-c");
+            bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player");
+            bwtaOptions.globalClassName = "BWTA";
 
-        new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
+            Properties props = new Properties();
+            props.put(COMPILE_DIR_PROPERTY, "compiled");
+            props.put(HEADERS_DIR_PROPERTY, "headers");
+            props.put(HEADER_FILE_PROPERTY, "concat_header.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c/impl.cpp");
+
+            new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
+        }
+
+        if (BWAPI_VERSION == BWAPI_V4) {
+
+            ignoredClasses.add("Position");
+
+            PackageProcessOptions bwapiOptions = new PackageProcessOptions();
+            bwapiOptions.packageName = "bwapi4";
+            bwapiOptions.cHeadersDir = new File("bwapi4-includes");
+            bwapiOptions.manualCopyClassesDir = new File("manual-bwapi4");
+
+            Properties props = new Properties();
+            props.put(COMPILE_DIR_PROPERTY, "compiled4");
+            props.put(HEADERS_DIR_PROPERTY, "headers4");
+            props.put(HEADER_FILE_PROPERTY, "concat_header4.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c4/impl.cpp");
+
+            new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions}, props);
+        }
 
     }
 
     private static final String COMPILE_DIR_PROPERTY = "compiled_dir";
     private static final String HEADERS_DIR_PROPERTY = "headers_dir";
     private static final String C_IMPLEMENTATION_FILE_PROPERTY = "impl_file";
+    private static final String HEADER_FILE_PROPERTY = "header_file";
 
 }

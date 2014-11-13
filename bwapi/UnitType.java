@@ -7,11 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-	/** The UnitType class is used to get information about a particular type of unit, such as the build time
-	* of a Lurker, or the mineral price of an Ultralisk. TODO Add the unittype table from the wiki*/
 public class UnitType {
 
-	/** Returns the name of the unit. */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -20,164 +17,118 @@ public class UnitType {
         return c_str();
     }
 
-	/** Returns the race that the unit belongs to. For example UnitTypes::Terran_SCV.getRace() will return
-	* Races::Terran. */
     public Race getRace() {
         return getRace_native(pointer);
     }
 
-	/** Returns what builds this unit type. The second number will usually be 1 unless the unit type is
-	* Protoss_Archon or Protoss_Dark_Archon. Units that cannot be created, such as critters and mineral
-	* fields, will return a pair where the unit type is UnitTypes::None, and the second component is 0.
-	*<br/><br/>
-	* Example: UnitTypes::Terran_Marine.whatBuilds() will return an std::pair, where the first component
-	* is UnitTypes::Terran_Barracks. */
     public TechType requiredTech() {
         return requiredTech_native(pointer);
     }
 
-	/** Returns the tech used to cloak the unit, or TechTypes::None if the unit cannot cloak or is
-	permanently cloaked */
     public TechType cloakingTech() {
         return cloakingTech_native(pointer);
     }
 
-	/** Returns the set of tech types this unit can use, provided the tech types have been researched and
-	* the unit has enough energy. */
     public List<TechType> abilities() {
         return abilities_native(pointer);
     }
 
-	/** Returns the set of upgrade types that can affect this unit. */
     public List<UpgradeType> upgrades() {
         return upgrades_native(pointer);
     }
 
-	/** Returns the upgrade that increase's the unit's armor, or UpgradeTypes::None if no upgrade
-	* increase's this unit's armor. For example UnitTypes::Terran_Marine.armorUpgrade() will return a
-	* pointer to UpgradeTypes::Terran_Infantry_Armor. */
     public UpgradeType armorUpgrade() {
         return armorUpgrade_native(pointer);
     }
 
-	/** Returns the maximum amount of hit points the unit type can have. */
     public int maxHitPoints() {
         return maxHitPoints_native(pointer);
     }
 
-	/** Returns the maximum amount of shields the unit type can have. */
     public int maxShields() {
         return maxShields_native(pointer);
     }
 
-	/** Returns the maximum amount of energy the unit type can have. */
     public int maxEnergy() {
         return maxEnergy_native(pointer);
     }
 
-	/** Returns the amount of armor the non-upgraded unit type has. */
     public int armor() {
         return armor_native(pointer);
     }
 
-	/** Returns the mineral price of the unit.
-	*<br/><br/>
-	* Example: UnitTypes::Siege_Tank_Tank_Mode.mineralPrice() returns 150. */
     public int mineralPrice() {
         return mineralPrice_native(pointer);
     }
 
-	/** UnitTypes::Siege_Tank_Tank_Mode.gasPrice() returns 100. */
     public int gasPrice() {
         return gasPrice_native(pointer);
     }
 
-	/** Returns the number of frames needed to make this unit type. */
     public int buildTime() {
         return buildTime_native(pointer);
     }
 
-	/** Returns the amount of supply used by this unit. Supply counts returned by BWAPI are double what you
-	*  would expect to see from playing the game. This is because zerglings take up 0.5 in-game supply. */
     public int supplyRequired() {
         return supplyRequired_native(pointer);
     }
 
-	/** Returns the amount of supply produced by this unit (i.e. for a Protoss_Pylon). Supply counts
-	* returned by BWAPI are double what you would expect to see from playing the game. This is because
-	* zerglings take up 0.5 in-game supply. */
     public int supplyProvided() {
         return supplyProvided_native(pointer);
     }
 
-	/** Returns the amount of space this unit type takes up inside a bunker or transport unit. */
     public int spaceRequired() {
         return spaceRequired_native(pointer);
     }
 
-	/** Returns the amount of space this unit type provides. */
     public int spaceProvided() {
         return spaceProvided_native(pointer);
     }
 
-	/** Returns the score which is used to determine the total scores in the after-game stats screen. */
     public int buildScore() {
         return buildScore_native(pointer);
     }
 
-	/** Returns the score which is used to determine the total scores in the after-game stats screen. */
     public int destroyScore() {
         return destroyScore_native(pointer);
     }
 
-	/** Returns the size of the unit - either Small, Medium, Large, or Independent. */
     public UnitSizeType size() {
         return size_native(pointer);
     }
 
-	/** Returns the tile width of the unit. Useful for determining the size of buildings. For example
-	* UnitTypes::Terran_Supply_Depot.tileWidth() will return 3. */
     public int tileWidth() {
         return tileWidth_native(pointer);
     }
 
-	/** Returns the tile height of the unit. Useful for determining the size of buildings. For example
-	* UnitTypes::Terran_Supply_Depot.tileHeight() will return 2. */
     public int tileHeight() {
         return tileHeight_native(pointer);
     }
 
-	/** Distance from the center of the unit to the left edge of the unit, measured in pixels. */
     public int dimensionLeft() {
         return dimensionLeft_native(pointer);
     }
 
-	/** Distance from the center of the unit to the top edge of the unit, measured in pixels. */
     public int dimensionUp() {
         return dimensionUp_native(pointer);
     }
 
-	/** Distance from the center of the unit to the right edge of the unit, measured in pixels. */
     public int dimensionRight() {
         return dimensionRight_native(pointer);
     }
 
-	/** Distance from the center of the unit to the bottom edge of the unit, measured in pixels. */
     public int dimensionDown() {
         return dimensionDown_native(pointer);
     }
 
-	/** Returns the range at which the unit will start targeting enemy units, measured in pixels. */
     public int seekRange() {
         return seekRange_native(pointer);
     }
 
-	/** Returns how far the un-upgraded unit type can see into the fog of war, measured in pixels. */
     public int sightRange() {
         return sightRange_native(pointer);
     }
 
-	/** Returns the unit's ground weapon. */
     public WeaponType groundWeapon() {
         return groundWeapon_native(pointer);
     }
@@ -186,7 +137,6 @@ public class UnitType {
         return maxGroundHits_native(pointer);
     }
 
-	/** Returns the unit's air weapon. */
     public WeaponType airWeapon() {
         return airWeapon_native(pointer);
     }
@@ -195,210 +145,154 @@ public class UnitType {
         return maxAirHits_native(pointer);
     }
 
-	/** Returns the unit's non-upgraded top speed in pixels per frame. For Terran buildings that can lift
-	* off and the Zerg Infested Command Center, this returns how fast the building moves when it is
-	* lifted. */
     public double topSpeed() {
         return topSpeed_native(pointer);
     }
 
-	/** Returns how fast the unit can accelerate to its top speed. What units this quantity is measured in
-	* is currently unknown. */
     public int acceleration() {
         return acceleration_native(pointer);
     }
 
-	/** Related to how fast the unit can halt. What units this quantity is measured in is currently
-	* unknown. */
     public int haltDistance() {
         return haltDistance_native(pointer);
     }
 
-	/** Related to how fast the unit can turn. What units this quantity is measured in is currently
-	* unknown. */
     public int turnRadius() {
         return turnRadius_native(pointer);
     }
 
-	/** Returns true if the unit can train other units. For example, UnitTypes::Terran_Barracks.canProduce()
-	* will return true, while UnitTypes::Terran_Marine?.canProduce() will return false. This is also true
-	* for two non-building units: Protoss Carrier (can produce interceptors) and Protoss Reaver
-	* (can produce scarabs). */
     public boolean canProduce() {
         return canProduce_native(pointer);
     }
 
-	/** Returns true if the unit can attack (either ground or air). Returns false for units that can only
-	* inflict damage via special abilities (such as Protoss High Templar). */
     public boolean canAttack() {
         return canAttack_native(pointer);
     }
 
-	/** Returns true if the unit can move. Note that buildings will return false, even Terran buildings
-	* which can move once lifted. */
     public boolean canMove() {
         return canMove_native(pointer);
     }
 
-	/** Returns true for flying/air units. */
     public boolean isFlyer() {
         return isFlyer_native(pointer);
     }
 
-	/** Returns true for units that regenerate health (i.e. zerg units). */
     public boolean regeneratesHP() {
         return regeneratesHP_native(pointer);
     }
 
-	/** Returns true if the unit type is capable of casting spells / using technology. */
     public boolean isSpellcaster() {
         return isSpellcaster_native(pointer);
     }
 
-	/** Returns true for the two units that are permanently cloaked - Protoss Observer and Protoss Dark
-	* Templar. */
     public boolean hasPermanentCloak() {
         return hasPermanentCloak_native(pointer);
     }
 
-	/** Returns true for units that cannot be destroyed (i.e. Terran Nuclear Missile, Mineral Field,
-	* Vespene Geyser, etc) */
     public boolean isInvincible() {
         return isInvincible_native(pointer);
     }
 
-	/** Returns true if the unit is organic, such as a Terran Marine. */
     public boolean isOrganic() {
         return isOrganic_native(pointer);
     }
 
-	/** Returns true if the unit is mechanical such as a Terran Vulture. */
     public boolean isMechanical() {
         return isMechanical_native(pointer);
     }
 
-	/** Returns true for the four robotic Protoss units - Probe, Shuttle, Reaver, and Observer. */
     public boolean isRobotic() {
         return isRobotic_native(pointer);
     }
 
-	/** Returns true for the seven units that can detect cloaked units - Terran Science Vessel, Spell
-	* Scanner Sweep, Zerg Overlord, Protoss Observer, Terran Missile Turret, Zerg Spore Colony, and Protoss
-	* Photon Cannon. */
     public boolean isDetector() {
         return isDetector_native(pointer);
     }
 
-	/** Returns true for the five units that hold resources - Mineral Field, Vespene Geyser,
-	* Terran Refinery, Zerg Extractor, and Protoss Assimilator. */
     public boolean isResourceContainer() {
         return isResourceContainer_native(pointer);
     }
 
-	/** Returns true for the five units that can accept resources - Terran Command Center, Protoss Nexus,
-	* Zerg Hatchery, Zerg Lair, and Zerg Hive. */
     public boolean isResourceDepot() {
         return isResourceDepot_native(pointer);
     }
 
-	/** Returns true for Terran Refinery, Zerg Extractor, and Protoss Assimilator. */
     public boolean isRefinery() {
         return isRefinery_native(pointer);
     }
 
-	/** Returns true for Protoss Probe, Terran SCV, and Zerg Drone. */
     public boolean isWorker() {
         return isWorker_native(pointer);
     }
 
-	/** Returns true for buildings that must be near a pylon to be constructed. */
     public boolean requiresPsi() {
         return requiresPsi_native(pointer);
     }
 
-	/** Returns true for buildings that can only be built on zerg creep. */
     public boolean requiresCreep() {
         return requiresCreep_native(pointer);
     }
 
-	/** Returns true for Zergling and Scourge. */
     public boolean isTwoUnitsInOneEgg() {
         return isTwoUnitsInOneEgg_native(pointer);
     }
 
-	/** Returns true for Zerg Lurker and units that can burrow when burrow tech is researched. */
     public boolean isBurrowable() {
         return isBurrowable_native(pointer);
     }
 
-	/** Returns true for units that can be cloaked - Terran Ghost and Terran Wraith. Does not include units
-	* which have permanent cloak (Protoss Observer and Protoss Dark Templar). */
     public boolean isCloakable() {
         return isCloakable_native(pointer);
     }
 
-	/** Returns true if the unit is a building (also true for mineral field and vespene geyser). */
     public boolean isBuilding() {
         return isBuilding_native(pointer);
     }
 
-	/** Returns true if the unit is an add-on, such as a Terran Comsat Station. */
     public boolean isAddon() {
         return isAddon_native(pointer);
     }
 
-	/** Returns true for Terran buildings that can lift off (i.e. Barracks). */
     public boolean isFlyingBuilding() {
         return isFlyingBuilding_native(pointer);
     }
 
-	/** Returns true if the unit is neutral, such as a critter or mineral field. */
     public boolean isNeutral() {
         return isNeutral_native(pointer);
     }
 
-	/** Returns true if the unit is a Hero unit. */
     public boolean isHero() {
         return isHero_native(pointer);
     }
 
-	/** Returns true if the unit is a Powerup unit. */
     public boolean isPowerup() {
         return isPowerup_native(pointer);
     }
 
-	/** Returns true if the unit is a regular Beacon. */
     public boolean isBeacon() {
         return isBeacon_native(pointer);
     }
 
-	/** Returns true if the unit is a flag Beacon. */
     public boolean isFlagBeacon() {
         return isFlagBeacon_native(pointer);
     }
 
-	/** Returns true if the unit is a special building. */
     public boolean isSpecialBuilding() {
         return isSpecialBuilding_native(pointer);
     }
 
-	/** Returns true if the unit is a spell unit. */
     public boolean isSpell() {
         return isSpell_native(pointer);
     }
 
-	/** Returns true if the unit produces larva. */
     public boolean producesLarva() {
         return producesLarva_native(pointer);
     }
 
-	/** Returns true if the unit is one of the three mineral field types. */
     public boolean isMineralField() {
         return isMineralField_native(pointer);
     }
 
-	/** Returns true if the unit is capable of constructing an addon.
-	This consists of Command Center, Factory, Starport, and Science Facility. */
     public boolean canBuildAddon() {
         return canBuildAddon_native(pointer);
     }
@@ -833,6 +727,9 @@ public class UnitType {
     }
 
     private static UnitType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         UnitType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new UnitType(pointer);

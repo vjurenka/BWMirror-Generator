@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-List of all <a href="PlayerType.html">PlayerTypes</a>.
-
-
-*/
 public class PlayerType {
 
-	/** Returns the name of the player type. For example PlayerTypes::Computer.getName() will return an
-	* std::string object containing "Computer". */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -54,6 +47,9 @@ public class PlayerType {
     }
 
     private static PlayerType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         PlayerType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new PlayerType(pointer);

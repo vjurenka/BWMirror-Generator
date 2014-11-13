@@ -42,7 +42,8 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //                    1     2             3         45       6        78     9   10                        11               12          13,14   15,16
-    String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
+    String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?\\s*";
+
     static final int F_REGEX_RETURN_TYPE = 7;
     static final int F_REGEX_NAME = 12;
     static final int F_REGEX_PARAMS = 13;
@@ -72,7 +73,7 @@ public class CApiParser {
     private LineState processLine(String line) {
         line = line.trim();
         if (javadoc == null && line.contains("/*")) {
-            if(line.endsWith("*")){
+            if (line.endsWith("*")) {
                 line += "<br/><br/>";
             }
             if (line.contains("*/")) {
@@ -81,7 +82,7 @@ public class CApiParser {
                 javadoc = "\t" + line.substring(line.indexOf("/*")) + "\n";
             }
         } else if (javadoc != null && !javadoc.endsWith("*/\n")) {
-            if(line.endsWith("*")){
+            if (line.endsWith("*")) {
                 line += "<br/><br/>";
             }
             if (line.contains("*/")) {
@@ -261,22 +262,34 @@ public class CApiParser {
             }
 
             if (matcher.group(F_REGEX_PARAMS) != null) {
-                String paramStrings[] = matcher.group(F_REGEX_PARAMS).split("\\,\\s");
+                String paramsString = matcher.group(F_REGEX_PARAMS);
+                String paramStrings[] = paramsString.split("\\,");
                 for (String param : paramStrings) {
                     if (param.isEmpty()) {
                         continue;
                     }
-                    String[] arg = param.trim().split("\\s");
+                    param = param.trim();
+
+                    String[] arg = param.split("\\s");
                     if (arg[0].equals("...")) {
                         //function.args.add(new Param("Object[]", "arr"));
                         continue;
+                    }
+
+                    if (!param.contains(" ")) {
+                        System.err.println("Macro function skipped " + function.name);
+                        return null;
                     }
 
                     try {
                         String argType = "";
                         String argName = "";
 
-                        if (arg[0].equals("const") || arg[0].equals("unsigned")) {
+                        if (arg[0].equals("const")  || arg[0].equals("unsigned")) {
+                            if (arg.length == 2) {
+                                System.err.println("Macro function skipped " + function.name);
+                                return null;
+                            }
                             argType = arg[1];
                             argName = arg[2];
                         } else {
@@ -368,10 +381,9 @@ public class CApiParser {
                             return null;
                         }
 
-                        if(arg.length > 2 && arg[2].equals("=")){
+                        if (arg.length > 2 && arg[2].equals("=")) {
                             function.args.add(new Param(argType, argName, arg[3]));
-                        }
-                        else{
+                        } else {
                             function.args.add(new Param(argType, argName));
                         }
                     } catch (Exception e) {
@@ -451,6 +463,9 @@ public class CApiParser {
                 }
                 if (lineState == LineState.ENUM_DEF) {
                     String enumName = line.trim().split(" ")[1];
+                    if (currentNamespace != null && currentNamespace.equals("Size")) {
+                        currentNamespace = "Text.Size";
+                    }
                     Enum e = new Enum(enumName, currentNamespace);
                     if (javadoc != null) {
                         e.setJavadoc(javadoc);

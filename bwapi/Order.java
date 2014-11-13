@@ -7,14 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-	/** To get detailed information about what a unit is doing, you can use the Unit::getOrder method, which
-	* will return an Order object. Note that a single command, like gather minerals, can consist of several
-	* orders ( MoveToMinerals, HarvestMinerals2, MiningMinerals, ReturnMinerals, etc) which will indicate what
-	* state the unit is in while executing the command. For information about how to issue commands to units,
-	* go to Unit. */
 public class Order {
 
-	/** Returns the name of this order. */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -345,6 +339,9 @@ public class Order {
     }
 
     private static Order get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Order instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Order(pointer);

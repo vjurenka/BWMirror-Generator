@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-Each type of Unit in Starcraft: Broodwar has a particular <a href="WeaponType.html">WeaponType</a> for its ground weapon and air weapon (either of which could be <a href="WeaponType.html">WeaponTypes</a>::None). Each type of Weapon has a particular damage type, which could be explosive, concussive, or something else. Here is the list of all the possible <a href="DamageType.html">DamageTypes</a>.
-
-
-*/
 public class DamageType {
 
-	/** Returns the name of this damage type. For example DamageTypes::Explosive.getName() will return
-	* std::string("Explosive"). */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -46,6 +39,9 @@ public class DamageType {
     }
 
     private static DamageType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         DamageType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new DamageType(pointer);

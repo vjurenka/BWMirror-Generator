@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-List of all <a href="UnitSizeType.html">UnitSizeTypes</a>.
-
-
-*/
 public class UnitSizeType {
 
-	/** Returns the string corresponding to the UnitSizeType object. For example,
-	* UnitSizeTypes::Medium.getName() returns std::string("Medium")*/
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -44,6 +37,9 @@ public class UnitSizeType {
     }
 
     private static UnitSizeType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         UnitSizeType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new UnitSizeType(pointer);

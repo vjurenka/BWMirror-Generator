@@ -7,14 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-Each type of Unit in Starcraft: Broodwar has a particular <a href="WeaponType.html">WeaponType</a> for its ground weapon and air weapon (either of which could be <a href="WeaponType.html">WeaponTypes</a>::None). Each type of Weapon has a particular explosion type. Here is the list of all the possible <a href="ExplosionType.html">ExplosionTypes</a>.
-
-
-*/
 public class ExplosionType {
 
-	/** Returns the name of this explosion type. */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -81,6 +75,9 @@ public class ExplosionType {
     }
 
     private static ExplosionType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         ExplosionType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new ExplosionType(pointer);

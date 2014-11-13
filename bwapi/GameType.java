@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-List of all <a href="GameType.html">GameTypes</a>.
-
-
-*/
 public class GameType {
 
-	/** Returns the name of the game type. For example GameTypes::Melee.getName() will return an
-	* std::string object containing "Melee". */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -64,6 +57,9 @@ public class GameType {
     }
 
     private static GameType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         GameType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new GameType(pointer);

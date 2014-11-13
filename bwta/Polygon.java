@@ -10,48 +10,24 @@ import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Player;
 
-/**
-A Polygon is a geometric representation of <a href="Region.html">Region</a>
-
-*/
 public class Polygon {
 
-/**
-Returns the area of the polygon.
-
-*/
     public double getArea() {
         return getArea_native(pointer);
     }
 
-/**
-Returns the perimeter of the polygon.
-
-*/
     public double getPerimeter() {
         return getPerimeter_native(pointer);
     }
 
-/**
-Returns the centroid of the polygon.
-
-*/
     public Position getCenter() {
         return getCenter_native(pointer);
     }
 
-/**
-Returns true if the given point is inside the polygon.
-
-*/
     public boolean isInside(Position p) {
         return isInside_native(pointer, p);
     }
 
-/**
-Returns the point on the boundary of the polygon that is nearest to the given point.
-
-*/
     public Position getNearestPoint(Position p) {
         return getNearestPoint_native(pointer, p);
     }
@@ -64,6 +40,9 @@ Returns the point on the boundary of the polygon that is nearest to the given po
     }
 
     private static Polygon get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Polygon instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Polygon(pointer);

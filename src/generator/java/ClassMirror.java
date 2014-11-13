@@ -56,6 +56,9 @@ public class ClassMirror extends Mirror {
 
     private void writeInstanceGetter() {
         out.println(INTEND + "private" + SPACE + "static" + SPACE + cClass.getName() + SPACE + "get(long pointer)" + SPACE + "{");
+        out.println(INTEND + INTEND + "if (pointer == 0 ) {");
+        out.println(INTEND + INTEND + INTEND + "return null" + SEMICOLON);
+        out.println(INTEND + INTEND + "}");
         out.println(INTEND + INTEND + cClass.getName() + SPACE + "instance = instances.get(pointer)" + SEMICOLON);
         out.println(INTEND + INTEND + "if (instance == null ) {");
         out.println(INTEND + INTEND + INTEND + "instance = new" + SPACE + cClass.getName() + "(pointer)" + SEMICOLON);

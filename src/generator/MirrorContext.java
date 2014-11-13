@@ -71,6 +71,9 @@ public class MirrorContext {
         if( cType.endsWith("*")){
             return cType.substring(0, cType.length() - 1);
         }
+        if(CJavaPipeline.BWAPI_VERSION == CJavaPipeline.BWAPI_V4 && cType.contains("bwapi.")){
+            cType = cType.replace("bwapi.", "bwapi4.");
+        }
         return result != null ? result : cType;
     }
 

@@ -7,16 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-Specifies the type of <a href="UnitCommand.html">UnitCommand</a>. Used when constructing <a href="UnitCommand.html">UnitCommand</a> objects, which are then passed to <a href="Unit.html">Unit::issueCommand</a> which uses this type to determine which Unit member function to call.
-List of all <a href="UnitCommandType.html">UnitCommandTypes</a>.
-
-
-*/
 public class UnitCommandType {
 
-	/** Returns the string corresponding to the UnitCommandType object. For example,
-	* UnitCommandTypes::Set_Rally_Position.getName() returns std::string("Set Rally Position")*/
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -125,6 +117,9 @@ public class UnitCommandType {
     }
 
     private static UnitCommandType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         UnitCommandType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new UnitCommandType(pointer);

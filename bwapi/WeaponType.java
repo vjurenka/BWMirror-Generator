@@ -7,14 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-List of all <a href="WeaponType.html">WeaponTypes</a>.
-
-
-*/
 public class WeaponType {
 
-	/** Returns the name of the weapon. */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -23,136 +17,94 @@ public class WeaponType {
         return c_str();
     }
 
-	/** Returns the tech type that must be researched before this weapon can be used, or TechTypes::None if
-	* no tech type is required. */
     public TechType getTech() {
         return getTech_native(pointer);
     }
 
-	/** Returns the unit that can use this weapon. */
     public UnitType whatUses() {
         return whatUses_native(pointer);
     }
 
-	/** Returns the amount of damage that this weapon deals per attack. */
     public int damageAmount() {
         return damageAmount_native(pointer);
     }
 
-/**
-
-*/
     public int damageBonus() {
         return damageBonus_native(pointer);
     }
 
-	/** Returns the amount of cooldown time between attacks. */
     public int damageCooldown() {
         return damageCooldown_native(pointer);
     }
 
-	/** Returns the amount that the damage increases per upgrade.
-	* \see WeaponType::upgradeType. */
     public int damageFactor() {
         return damageFactor_native(pointer);
     }
 
-	/** Returns the upgrade type that can be upgraded to increase the attack damage. */
     public UpgradeType upgradeType() {
         return upgradeType_native(pointer);
     }
 
-	/** Returns the type of damage that this weapon uses (i.e. concussive, normal, explosive, etc). */
     public DamageType damageType() {
         return damageType_native(pointer);
     }
 
-	/** Returns the type of explosion that this weapon uses. */
     public ExplosionType explosionType() {
         return explosionType_native(pointer);
     }
 
-	/** Returns the minimum attack range of the weapon, measured in pixels, 0 for most things except
-	* WeaponTypes::Arclite_Shock_Cannon (the weapon of the Terran Siege Tank in Siege Mode). */
     public int minRange() {
         return minRange_native(pointer);
     }
 
-	/** Returns the maximum attack range of the weapon, measured in pixels. */
     public int maxRange() {
         return maxRange_native(pointer);
     }
 
-	/** Inner radius used in splash damage calculations. */
     public int innerSplashRadius() {
         return innerSplashRadius_native(pointer);
     }
 
-	/** Median radius used in splash damage calculations. */
     public int medianSplashRadius() {
         return medianSplashRadius_native(pointer);
     }
 
-	/** Outer radius used in splash damage calculations. */
     public int outerSplashRadius() {
         return outerSplashRadius_native(pointer);
     }
 
-	/** Returns true if this weapon can attack air units. */
     public boolean targetsAir() {
         return targetsAir_native(pointer);
     }
 
-	/** Returns true if this weapon can attack ground units. */
     public boolean targetsGround() {
         return targetsGround_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsMechanical() {
         return targetsMechanical_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsOrganic() {
         return targetsOrganic_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsNonBuilding() {
         return targetsNonBuilding_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsNonRobotic() {
         return targetsNonRobotic_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsTerrain() {
         return targetsTerrain_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsOrgOrMech() {
         return targetsOrgOrMech_native(pointer);
     }
 
-/**
-
-*/
     public boolean targetsOwn() {
         return targetsOwn_native(pointer);
     }
@@ -369,6 +321,9 @@ public class WeaponType {
     }
 
     private static WeaponType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         WeaponType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new WeaponType(pointer);

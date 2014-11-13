@@ -7,14 +7,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
 
-/**
-Each <a href="Bullet.html">Bullet</a> object in the game has a certain type. The list of all the possible Bullet types is available here: <a href="BulletType.html">BulletTypes</a>.
-
-
-*/
 public class BulletType {
 
-	/** Returns the name of this bullet type. */
     public String c_str() {
         return c_str_native(pointer);
     }
@@ -105,6 +99,9 @@ public class BulletType {
     }
 
     private static BulletType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         BulletType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new BulletType(pointer);

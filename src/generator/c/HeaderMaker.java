@@ -33,10 +33,10 @@ public class HeaderMaker {
         return result.toString();
     }
 
-    public void run(List<String> javaRoot, File clpath) {
+    public void run(List<String> javaRoot, File clpath, String outputFile, String outputDir) {
         String command;
 
-        command = "javah -o concat_header.h -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath);
+        command = "javah -o " + outputFile +" -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath);
 //        System.out.println(command);
         try {
             Process process = Runtime.getRuntime().exec(command);
@@ -49,7 +49,7 @@ public class HeaderMaker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        command = "javah -d headers -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath);
+        command = "javah -d " + outputDir +" -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath);
         try {
             Process process = Runtime.getRuntime().exec(command);
             //process.getErrorStream()
