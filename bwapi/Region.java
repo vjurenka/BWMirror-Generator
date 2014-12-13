@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
+import bwapi.CenteredObject;
 
-public class Region {
+public class Region extends CenteredObject 
+{
 
     public int getID() {
         return getID_native(pointer);

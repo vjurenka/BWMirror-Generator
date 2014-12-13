@@ -23,7 +23,7 @@ public class ClassMirror extends Mirror {
         this.cClass = cClass;
     }
 
-    public void write(File root, MirrorContext context) throws Exception {
+    public void write(File root, MirrorContext context, String superClass) throws Exception {
         nativeBinds = "";
         this.context = context;
         File file = new File(new File(root, context.getPackageDirs()), cClass.getName() + ".java");
@@ -31,8 +31,13 @@ public class ClassMirror extends Mirror {
         out = new PrintStream(file);
 
         writePackage();
-        writeImports();
-        out.println("public" + SPACE + "class" + SPACE + cClass.getName() + SPACE + "{");
+        writeImports(superClass);
+        out.print("public" + SPACE + "class" + SPACE + cClass.getName() + SPACE );
+        if(superClass != null){
+            out.println("extends" + SPACE + superClass + SPACE);
+        }
+        out.println("{");
+
         out.println();
         writeFields(cClass.getFields());
         if (!cClass.isStatic()) {

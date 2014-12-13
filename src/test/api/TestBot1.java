@@ -2,6 +2,8 @@ package test.api;
 
 import bwapi.*;
 import bwta.BWTA;
+import bwta.BaseLocation;
+import org.jsoup.Connection;
 
 /**
  * User: PC
@@ -59,14 +61,17 @@ public class TestBot1 {
                             }
                         }
 
+
                         if (closestMineral != null) {
                             myUnit.gather(closestMineral, false);
                         }
                     }
                 }
 
+
+
                 //draw my units on screen
-                game.drawTextScreen(10, 25, units.toString());
+                game.drawTextScreen(10, 25, Utils.formatText("hello world", Utils.Blue));
             }
         });
         /*

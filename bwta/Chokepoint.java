@@ -9,8 +9,10 @@ import java.util.List;
 import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Player;
+import bwapi.CenteredObject;
 
-public class Chokepoint {
+public class Chokepoint extends CenteredObject 
+{
 
     public Position getCenter() {
         return getCenter_native(pointer);

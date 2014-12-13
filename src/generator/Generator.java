@@ -7,6 +7,7 @@ import generator.java.EnumMirror;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class Generator {
 
     private MirrorContext context;
 
+    private HashMap<String,String> javaSuperClasses = new HashMap<>();
+
     public Generator(MirrorContext context) {
         this.context = context;
     }
@@ -32,6 +35,10 @@ public class Generator {
 
     public void addEnum(CEnum cenum){
         enums.add(cenum);
+    }
+
+    public void setJavaSuperClasses(HashMap<String, String> javaSuperClasses) {
+        this.javaSuperClasses = javaSuperClasses;
     }
 
     public void run(File javaRoot){
@@ -52,7 +59,7 @@ public class Generator {
     protected void processClass(File root, CClass cClass){
         ClassMirror mirror = new ClassMirror(cClass);
         try {
-            mirror.write(root, context);
+            mirror.write(root, context, javaSuperClasses.get(cClass.getName()));
         } catch (Exception e) {
             e.printStackTrace();
         }

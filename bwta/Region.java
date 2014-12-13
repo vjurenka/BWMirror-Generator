@@ -9,8 +9,10 @@ import java.util.List;
 import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Player;
+import bwapi.CenteredObject;
 
-public class Region {
+public class Region extends CenteredObject 
+{
 
     public Polygon getPolygon() {
         return getPolygon_native(pointer);

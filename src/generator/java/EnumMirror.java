@@ -50,7 +50,7 @@ public class EnumMirror extends Mirror {
         out = new PrintStream(file);
 
         writePackage();
-        writeImports();
+        writeImports(null);
         out.println("public" + SPACE + "enum" + SPACE + cEnum.getName() + SPACE + "{");
         out.println();
         writeValues(cEnum.getValues());

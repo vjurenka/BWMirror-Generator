@@ -83,7 +83,7 @@ public abstract class Mirror {
     }
 
 
-    protected void writeImports() {
+    protected void writeImports(String superClass) {
         out.println("import" + SPACE + context.getPackage() + ".*" + SEMICOLON);
         out.println();
         out.println("import java.util.Map" + SEMICOLON);
@@ -92,6 +92,9 @@ public abstract class Mirror {
         out.println("import java.util.List" + SEMICOLON);
         for (String pkg : context.getAdditionalImports()) {
             out.println("import" + SPACE + pkg + SEMICOLON);
+        }
+        if(superClass != null){
+            out.println("import bwapi."+superClass + SEMICOLON);
         }
         out.println();
         writeJavadoc(getDecl());

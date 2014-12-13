@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
+import bwapi.PositionedObject;
 
-public class Unit {
+public class Unit extends PositionedObject 
+{
 
     public int getID() {
         return getID_native(pointer);

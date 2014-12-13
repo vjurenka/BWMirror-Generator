@@ -14,12 +14,10 @@ import impl.Clazz;
 import util.FileUtils;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,6 +43,15 @@ public class CJavaPipeline {
             "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl"));
 
 
+    private static final HashMap<String, String> superClasses = new HashMap<>();
+
+    static {
+        superClasses.put("Unit", "PositionedObject");
+        superClasses.put("Region", "CenteredObject");
+        superClasses.put("Chokepoint", "CenteredObject");
+        superClasses.put("BaseLocation", "PositionedObject");
+    }
+
     public void run(PackageProcessOptions[] packages, Properties processingOptions) {
         /**
          Init
@@ -55,6 +62,7 @@ public class CJavaPipeline {
 
         MirrorContext context = new MirrorContext();
         Generator generator = new Generator(context);
+        generator.setJavaSuperClasses(superClasses);
         List<CDeclaration> allDecs = new ArrayList<>();
 
         /**

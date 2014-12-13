@@ -9,8 +9,10 @@ import java.util.List;
 import bwapi.Position;
 import bwapi.TilePosition;
 import bwapi.Player;
+import bwapi.PositionedObject;
 
-public class BaseLocation {
+public class BaseLocation extends PositionedObject 
+{
 
     public Position getPosition() {
         return getPosition_native(pointer);
