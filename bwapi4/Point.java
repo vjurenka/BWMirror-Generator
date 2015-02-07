@@ -25,6 +25,9 @@ public class Point {
     }
 
     private static Point get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Point instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Point(pointer);

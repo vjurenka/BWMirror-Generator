@@ -9,43 +9,43 @@ import java.util.List;
 
 public class Game {
 
-    public Forceset getForces() {
+    public List<Force> getForces() {
         return getForces_native(pointer);
     }
 
-    public Playerset getPlayers() {
+    public List<Player> getPlayers() {
         return getPlayers_native(pointer);
     }
 
-    public Unitset getAllUnits() {
+    public List<Unit> getAllUnits() {
         return getAllUnits_native(pointer);
     }
 
-    public Unitset getMinerals() {
+    public List<Unit> getMinerals() {
         return getMinerals_native(pointer);
     }
 
-    public Unitset getGeysers() {
+    public List<Unit> getGeysers() {
         return getGeysers_native(pointer);
     }
 
-    public Unitset getNeutralUnits() {
+    public List<Unit> getNeutralUnits() {
         return getNeutralUnits_native(pointer);
     }
 
-    public Unitset getStaticMinerals() {
+    public List<Unit> getStaticMinerals() {
         return getStaticMinerals_native(pointer);
     }
 
-    public Unitset getStaticGeysers() {
+    public List<Unit> getStaticGeysers() {
         return getStaticGeysers_native(pointer);
     }
 
-    public Unitset getStaticNeutralUnits() {
+    public List<Unit> getStaticNeutralUnits() {
         return getStaticNeutralUnits_native(pointer);
     }
 
-    public Bulletset getBullets() {
+    public List<Bullet> getBullets() {
         return getBullets_native(pointer);
     }
 
@@ -133,27 +133,27 @@ public class Game {
         enableFlag_native(pointer, flag);
     }
 
-    public Unitset getUnitsOnTile(int tileX, int tileY, UnitFilter pred) {
+    public List<Unit> getUnitsOnTile(int tileX, int tileY, UnitFilter pred) {
         return getUnitsOnTile_native(pointer, tileX, tileY, pred);
     }
 
-    public Unitset getUnitsOnTile(TilePosition tile, UnitFilter pred) {
+    public List<Unit> getUnitsOnTile(TilePosition tile, UnitFilter pred) {
         return getUnitsOnTile_native(pointer, tile, pred);
     }
 
-    public Unitset getUnitsInRectangle(int left, int top, int right, int bottom, UnitFilter pred) {
+    public List<Unit> getUnitsInRectangle(int left, int top, int right, int bottom, UnitFilter pred) {
         return getUnitsInRectangle_native(pointer, left, top, right, bottom, pred);
     }
 
-    public Unitset getUnitsInRectangle(Position topLeft, Position bottomRight, UnitFilter pred) {
+    public List<Unit> getUnitsInRectangle(Position topLeft, Position bottomRight, UnitFilter pred) {
         return getUnitsInRectangle_native(pointer, topLeft, bottomRight, pred);
     }
 
-    public Unitset getUnitsInRadius(int x, int y, int radius, UnitFilter pred) {
+    public List<Unit> getUnitsInRadius(int x, int y, int radius, UnitFilter pred) {
         return getUnitsInRadius_native(pointer, x, y, radius, pred);
     }
 
-    public Unitset getUnitsInRadius(Position center, int radius, UnitFilter pred) {
+    public List<Unit> getUnitsInRadius(Position center, int radius, UnitFilter pred) {
         return getUnitsInRadius_native(pointer, center, radius, pred);
     }
 
@@ -373,12 +373,24 @@ public class Game {
         return canUpgrade_native(pointer, type, unit, checkCanIssueCommandType);
     }
 
+    public void printf(String cstr_format) {
+        printf_native(pointer, cstr_format);
+    }
+
     public void vPrintf(String cstr_format, Object ... args) {
         vPrintf_native(pointer, cstr_format, args);
     }
 
+    public void sendText(String cstr_format) {
+        sendText_native(pointer, cstr_format);
+    }
+
     public void vSendText(String cstr_format, Object ... args) {
         vSendText_native(pointer, cstr_format, args);
+    }
+
+    public void sendTextEx(boolean toAllies, String cstr_format) {
+        sendTextEx_native(pointer, toAllies, cstr_format);
     }
 
     public void vSendTextEx(boolean toAllies, String cstr_format, Object ... args) {
@@ -425,11 +437,11 @@ public class Game {
         setLocalSpeed_native(pointer, speed);
     }
 
-    public boolean issueCommand(Unitset units, UnitCommand command) {
+    public boolean issueCommand(List<Unit> units, UnitCommand command) {
         return issueCommand_native(pointer, units, command);
     }
 
-    public Unitset getSelectedUnits() {
+    public List<Unit> getSelectedUnits() {
         return getSelectedUnits_native(pointer);
     }
 
@@ -445,15 +457,15 @@ public class Game {
         return neutral_native(pointer);
     }
 
-    public Playerset allies() {
+    public List<Player> allies() {
         return allies_native(pointer);
     }
 
-    public Playerset enemies() {
+    public List<Player> enemies() {
         return enemies_native(pointer);
     }
 
-    public Playerset observers() {
+    public List<Player> observers() {
         return observers_native(pointer);
     }
 
@@ -467,6 +479,34 @@ public class Game {
 
     public void vDrawText(bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format, Object ... arg) {
         vDrawText_native(pointer, ctype, x, y, cstr_format, arg);
+    }
+
+    public void drawText(bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format) {
+        drawText_native(pointer, ctype, x, y, cstr_format);
+    }
+
+    public void drawTextMap(int x, int y, String cstr_format) {
+        drawTextMap_native(pointer, x, y, cstr_format);
+    }
+
+    public void drawTextMap(Position p, String cstr_format) {
+        drawTextMap_native(pointer, p, cstr_format);
+    }
+
+    public void drawTextMouse(int x, int y, String cstr_format) {
+        drawTextMouse_native(pointer, x, y, cstr_format);
+    }
+
+    public void drawTextMouse(Position p, String cstr_format) {
+        drawTextMouse_native(pointer, p, cstr_format);
+    }
+
+    public void drawTextScreen(int x, int y, String cstr_format) {
+        drawTextScreen_native(pointer, x, y, cstr_format);
+    }
+
+    public void drawTextScreen(Position p, String cstr_format) {
+        drawTextScreen_native(pointer, p, cstr_format);
     }
 
     public void drawBox(bwapi4.CoordinateType.Enum ctype, int left, int top, int right, int bottom, Color color) {
@@ -905,6 +945,9 @@ public class Game {
     }
 
     private static Game get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Game instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Game(pointer);
@@ -915,25 +958,25 @@ public class Game {
 
     private long pointer;
 
-    private native Forceset getForces_native(long pointer);
+    private native List<Force> getForces_native(long pointer);
 
-    private native Playerset getPlayers_native(long pointer);
+    private native List<Player> getPlayers_native(long pointer);
 
-    private native Unitset getAllUnits_native(long pointer);
+    private native List<Unit> getAllUnits_native(long pointer);
 
-    private native Unitset getMinerals_native(long pointer);
+    private native List<Unit> getMinerals_native(long pointer);
 
-    private native Unitset getGeysers_native(long pointer);
+    private native List<Unit> getGeysers_native(long pointer);
 
-    private native Unitset getNeutralUnits_native(long pointer);
+    private native List<Unit> getNeutralUnits_native(long pointer);
 
-    private native Unitset getStaticMinerals_native(long pointer);
+    private native List<Unit> getStaticMinerals_native(long pointer);
 
-    private native Unitset getStaticGeysers_native(long pointer);
+    private native List<Unit> getStaticGeysers_native(long pointer);
 
-    private native Unitset getStaticNeutralUnits_native(long pointer);
+    private native List<Unit> getStaticNeutralUnits_native(long pointer);
 
-    private native Bulletset getBullets_native(long pointer);
+    private native List<Bullet> getBullets_native(long pointer);
 
     private native Force getForce_native(long pointer, int forceID);
 
@@ -977,17 +1020,17 @@ public class Game {
 
     private native void enableFlag_native(long pointer, int flag);
 
-    private native Unitset getUnitsOnTile_native(long pointer, int tileX, int tileY, UnitFilter pred);
+    private native List<Unit> getUnitsOnTile_native(long pointer, int tileX, int tileY, UnitFilter pred);
 
-    private native Unitset getUnitsOnTile_native(long pointer, TilePosition tile, UnitFilter pred);
+    private native List<Unit> getUnitsOnTile_native(long pointer, TilePosition tile, UnitFilter pred);
 
-    private native Unitset getUnitsInRectangle_native(long pointer, int left, int top, int right, int bottom, UnitFilter pred);
+    private native List<Unit> getUnitsInRectangle_native(long pointer, int left, int top, int right, int bottom, UnitFilter pred);
 
-    private native Unitset getUnitsInRectangle_native(long pointer, Position topLeft, Position bottomRight, UnitFilter pred);
+    private native List<Unit> getUnitsInRectangle_native(long pointer, Position topLeft, Position bottomRight, UnitFilter pred);
 
-    private native Unitset getUnitsInRadius_native(long pointer, int x, int y, int radius, UnitFilter pred);
+    private native List<Unit> getUnitsInRadius_native(long pointer, int x, int y, int radius, UnitFilter pred);
 
-    private native Unitset getUnitsInRadius_native(long pointer, Position center, int radius, UnitFilter pred);
+    private native List<Unit> getUnitsInRadius_native(long pointer, Position center, int radius, UnitFilter pred);
 
     private native Unit getClosestUnit_native(long pointer, Position center, UnitFilter pred);
 
@@ -1097,9 +1140,15 @@ public class Game {
 
     private native boolean canUpgrade_native(long pointer, UpgradeType type, Unit unit, boolean checkCanIssueCommandType);
 
+    private native void printf_native(long pointer, String cstr_format);
+
     private native void vPrintf_native(long pointer, String cstr_format, Object ... args);
 
+    private native void sendText_native(long pointer, String cstr_format);
+
     private native void vSendText_native(long pointer, String cstr_format, Object ... args);
+
+    private native void sendTextEx_native(long pointer, boolean toAllies, String cstr_format);
 
     private native void vSendTextEx_native(long pointer, boolean toAllies, String cstr_format, Object ... args);
 
@@ -1123,9 +1172,9 @@ public class Game {
 
     private native void setLocalSpeed_native(long pointer, int speed);
 
-    private native boolean issueCommand_native(long pointer, Unitset units, UnitCommand command);
+    private native boolean issueCommand_native(long pointer, List<Unit> units, UnitCommand command);
 
-    private native Unitset getSelectedUnits_native(long pointer);
+    private native List<Unit> getSelectedUnits_native(long pointer);
 
     private native Player self_native(long pointer);
 
@@ -1133,17 +1182,31 @@ public class Game {
 
     private native Player neutral_native(long pointer);
 
-    private native Playerset allies_native(long pointer);
+    private native List<Player> allies_native(long pointer);
 
-    private native Playerset enemies_native(long pointer);
+    private native List<Player> enemies_native(long pointer);
 
-    private native Playerset observers_native(long pointer);
+    private native List<Player> observers_native(long pointer);
 
     private native void setTextSize_native(long pointer);
 
     private native void setTextSize_native(long pointer, bwapi4.Text.Size.Enum size);
 
     private native void vDrawText_native(long pointer, bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format, Object ... arg);
+
+    private native void drawText_native(long pointer, bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format);
+
+    private native void drawTextMap_native(long pointer, int x, int y, String cstr_format);
+
+    private native void drawTextMap_native(long pointer, Position p, String cstr_format);
+
+    private native void drawTextMouse_native(long pointer, int x, int y, String cstr_format);
+
+    private native void drawTextMouse_native(long pointer, Position p, String cstr_format);
+
+    private native void drawTextScreen_native(long pointer, int x, int y, String cstr_format);
+
+    private native void drawTextScreen_native(long pointer, Position p, String cstr_format);
 
     private native void drawBox_native(long pointer, bwapi4.CoordinateType.Enum ctype, int left, int top, int right, int bottom, Color color);
 

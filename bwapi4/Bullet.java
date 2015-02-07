@@ -73,6 +73,9 @@ public class Bullet {
     }
 
     private static Bullet get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Bullet instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Bullet(pointer);

@@ -9,6 +9,18 @@ import java.util.List;
 
 public class UnitSizeType {
 
+    public static UnitSizeType Independent;
+
+    public static UnitSizeType Small;
+
+    public static UnitSizeType Medium;
+
+    public static UnitSizeType Large;
+
+    public static UnitSizeType None;
+
+    public static UnitSizeType Unknown;
+
 
     private static Map<Long, UnitSizeType> instances = new HashMap<Long, UnitSizeType>();
 
@@ -17,6 +29,9 @@ public class UnitSizeType {
     }
 
     private static UnitSizeType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         UnitSizeType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new UnitSizeType(pointer);

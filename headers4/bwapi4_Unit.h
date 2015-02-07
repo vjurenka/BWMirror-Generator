@@ -554,7 +554,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getTransport_1native
 /*
  * Class:     bwapi4_Unit
  * Method:    getLoadedUnits_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLoadedUnits_1native
   (JNIEnv *, jobject, jlong);
@@ -578,7 +578,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getCarrier_1native
 /*
  * Class:     bwapi4_Unit
  * Method:    getInterceptors_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getInterceptors_1native
   (JNIEnv *, jobject, jlong);
@@ -594,7 +594,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getHatchery_1native
 /*
  * Class:     bwapi4_Unit
  * Method:    getLarva_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLarva_1native
   (JNIEnv *, jobject, jlong);
@@ -602,7 +602,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLarva_1native
 /*
  * Class:     bwapi4_Unit
  * Method:    getUnitsInRadius_native
- * Signature: (JILbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInRadius_1native
   (JNIEnv *, jobject, jlong, jint, jobject);
@@ -610,7 +610,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInRadius_1native
 /*
  * Class:     bwapi4_Unit
  * Method:    getUnitsInWeaponRange_native
- * Signature: (JLbwapi4/WeaponType;Lbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JLbwapi4/WeaponType;Lbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInWeaponRange_1native
   (JNIEnv *, jobject, jlong, jobject, jobject);

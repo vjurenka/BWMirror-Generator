@@ -9,6 +9,20 @@ import java.util.List;
 
 public class DamageType {
 
+    public static DamageType Independent;
+
+    public static DamageType Explosive;
+
+    public static DamageType Concussive;
+
+    public static DamageType Normal;
+
+    public static DamageType Ignore_Armor;
+
+    public static DamageType None;
+
+    public static DamageType Unknown;
+
 
     private static Map<Long, DamageType> instances = new HashMap<Long, DamageType>();
 
@@ -17,6 +31,9 @@ public class DamageType {
     }
 
     private static DamageType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         DamageType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new DamageType(pointer);

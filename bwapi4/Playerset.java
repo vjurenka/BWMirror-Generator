@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Playerset {
 
-    public Unitset getUnits() {
+    public List<Unit> getUnits() {
         return getUnits_native(pointer);
     }
 
@@ -33,6 +33,9 @@ public class Playerset {
     }
 
     private static Playerset get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Playerset instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Playerset(pointer);
@@ -43,7 +46,7 @@ public class Playerset {
 
     private long pointer;
 
-    private native Unitset getUnits_native(long pointer);
+    private native List<Unit> getUnits_native(long pointer);
 
     private native void setAlliance_native(long pointer, boolean allies);
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Forceset {
 
-    public Playerset getPlayers() {
+    public List<Player> getPlayers() {
         return getPlayers_native(pointer);
     }
 
@@ -21,6 +21,9 @@ public class Forceset {
     }
 
     private static Forceset get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Forceset instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Forceset(pointer);
@@ -31,7 +34,7 @@ public class Forceset {
 
     private long pointer;
 
-    private native Playerset getPlayers_native(long pointer);
+    private native List<Player> getPlayers_native(long pointer);
 
 
 }

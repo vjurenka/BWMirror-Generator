@@ -93,8 +93,8 @@ public abstract class Mirror {
         for (String pkg : context.getAdditionalImports()) {
             out.println("import" + SPACE + pkg + SEMICOLON);
         }
-        if(superClass != null){
-            out.println("import bwapi."+superClass + SEMICOLON);
+        if (superClass != null) {
+            out.println("import" + SPACE + context.getPackage() + "." + superClass + SEMICOLON);
         }
         out.println();
         writeJavadoc(getDecl());

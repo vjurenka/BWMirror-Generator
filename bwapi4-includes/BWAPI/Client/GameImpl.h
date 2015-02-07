@@ -1,5 +1,6 @@
 #pragma once
 #include <BWAPI.h>
+
 #include "GameData.h"
 #include "Client.h"
 #include "Shape.h"
@@ -10,14 +11,9 @@
 #include "RegionImpl.h"
 #include "UnitImpl.h"
 #include "BulletImpl.h"
+
 #include <list>
 #include <vector>
-
-#include <BWAPI/Unitset.h>
-#include <BWAPI/Bulletset.h>
-#include <BWAPI/Playerset.h>
-#include <BWAPI/Forceset.h>
-#include <BWAPI/Regionset.h>
 
 namespace BWAPI
 {
@@ -54,12 +50,12 @@ namespace BWAPI
       Unitset staticGeysers;
       Unitset staticNeutralUnits;
       Bulletset bullets;
-      Position::set nukeDots;
+      Position::list nukeDots;
       Unitset selectedUnits;
       Unitset pylons;
       Regionset regionsList;
 
-      TilePosition::set startLocations;
+      TilePosition::list startLocations;
       std::list< Event > events;
       bool flagEnabled[2];
       Player thePlayer;
@@ -94,7 +90,7 @@ namespace BWAPI
       virtual const Unitset& getStaticNeutralUnits() const override;
 
       virtual const Bulletset& getBullets() const override;
-      virtual const Position::set& getNukeDots() const override;
+      virtual const Position::list& getNukeDots() const override;
       virtual const std::list< Event>& getEvents() const override;
 
       virtual Force   getForce(int forceID) const override;
@@ -143,7 +139,7 @@ namespace BWAPI
       virtual bool canMake(UnitType type, Unit builder = nullptr) const override;
       virtual bool canResearch(TechType type, Unit unit = nullptr, bool checkCanIssueCommandType = true) override;
       virtual bool canUpgrade(UpgradeType type, Unit unit = nullptr, bool checkCanIssueCommandType = true) override;
-      virtual const TilePosition::set& getStartLocations() const override;
+      virtual const TilePosition::list& getStartLocations() const override;
 
       virtual void vPrintf(const char* format, va_list arg) override;
       virtual void vSendTextEx(bool toAllies, const char *format, va_list arg) override;
@@ -191,7 +187,6 @@ namespace BWAPI
       virtual int  getAPM(bool includeSelects = false) const override;
       virtual bool setMap(const char *mapFileName) override;
       virtual void setFrameSkip(int frameSkip) override;
-      virtual bool hasPath(Position source, Position destination) const override;
       virtual bool setAlliance(BWAPI::Player player, bool allied = true, bool alliedVictory = true) override;
       virtual bool setVision(BWAPI::Player player, bool enabled = true) override;
       virtual int  elapsedTime() const override;

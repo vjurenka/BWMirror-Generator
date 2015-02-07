@@ -25,53 +25,65 @@ public class MirrorContext {
         cToJavaTypes.put("string", "String");
     }
 
-    public void setPackage(String packageName){
+    public void setPackage(String packageName) {
         this.packageName = packageName;
     }
 
 
-    public String getPackage(){
+    public String getPackage() {
         return packageName;
     }
 
-    public String getPackageDirs(){
-        return  getPackage().replaceAll("\\.", "/");
+    public String getPackageDirs() {
+        return getPackage().replaceAll("\\.", "/");
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public void prepareWrite(File root){
+    public void prepareWrite(File root) {
         File dir = new File(root, getPackageDirs());
         dir.mkdirs();
     }
 
-    public boolean isCollection(String cType){
+    private boolean isCollection(String cType) {
         return cType.startsWith("set<");
     }
 
-    public String extractCollectionGeneric(String cType){
-        cType= cType.substring(cType.indexOf("<") + 1, cType.lastIndexOf(">")).trim();
-        if(cType.contains(":")){
+    private boolean isBWAPI4Collection(String cType) {
+        return cType.endsWith("set");
+    }
+
+    private String extractCollectionGeneric(String cType) {
+        cType = cType.substring(cType.indexOf("<") + 1, cType.lastIndexOf(">")).trim();
+        if (cType.contains(":")) {
             cType = cType.substring(cType.lastIndexOf(":") + 1);
         }
-        if(cType.endsWith("*")){
+        if (cType.endsWith("*")) {
             cType = cType.substring(0, cType.lastIndexOf("*"));
         }
         return cType;
     }
 
-    public String toJavaType(String cType){
-        if(isCollection(cType)){
-            return "List<" + extractCollectionGeneric(cType)+">";
+    private String extractBWAPI4CollectionGeneric(String cType) {
+        return cType.substring(0, cType.length() - 3);
+    }
+
+
+    public String toJavaType(String cType) {
+        if (isCollection(cType)) {
+            return "List<" + extractCollectionGeneric(cType) + ">";
+        }
+        if (isBWAPI4Collection(cType)) {
+            return "List<" + extractBWAPI4CollectionGeneric(cType) + ">";
         }
         String result = cToJavaTypes.get(cType);
         int ddIndex;
-        if(result != null && (ddIndex = result.lastIndexOf(':')) != -1){
+        if (result != null && (ddIndex = result.lastIndexOf(':')) != -1) {
             result = result.substring(ddIndex + 1);
         }
-        if( cType.endsWith("*")){
+        if (cType.endsWith("*")) {
             return cType.substring(0, cType.length() - 1);
         }
-        if(CJavaPipeline.BWAPI_VERSION == CJavaPipeline.BWAPI_V4 && cType.contains("bwapi.")){
+        if (CJavaPipeline.BWAPI_VERSION == CJavaPipeline.BWAPI_V4 && cType.contains("bwapi.")) {
             cType = cType.replace("bwapi.", "bwapi4.");
         }
         return result != null ? result : cType;

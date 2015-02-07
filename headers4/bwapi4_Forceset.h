@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     bwapi4_Forceset
  * Method:    getPlayers_native
- * Signature: (J)Lbwapi4/Playerset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Forceset_getPlayers_1native
   (JNIEnv *, jobject, jlong);

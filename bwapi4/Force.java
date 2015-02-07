@@ -17,7 +17,7 @@ public class Force {
         return getName_native(pointer);
     }
 
-    public Playerset getPlayers() {
+    public List<Player> getPlayers() {
         return getPlayers_native(pointer);
     }
 
@@ -29,6 +29,9 @@ public class Force {
     }
 
     private static Force get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Force instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Force(pointer);
@@ -43,7 +46,7 @@ public class Force {
 
     private native String getName_native(long pointer);
 
-    private native Playerset getPlayers_native(long pointer);
+    private native List<Player> getPlayers_native(long pointer);
 
 
 }

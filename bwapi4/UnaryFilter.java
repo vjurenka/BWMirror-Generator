@@ -17,6 +17,9 @@ public class UnaryFilter {
     }
 
     private static UnaryFilter get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         UnaryFilter instance = instances.get(pointer);
         if (instance == null ) {
             instance = new UnaryFilter(pointer);

@@ -85,6 +85,9 @@ public class AIModule {
     }
 
     private static AIModule get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         AIModule instance = instances.get(pointer);
         if (instance == null ) {
             instance = new AIModule(pointer);

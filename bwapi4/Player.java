@@ -257,6 +257,9 @@ public class Player {
     }
 
     private static Player get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Player instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Player(pointer);

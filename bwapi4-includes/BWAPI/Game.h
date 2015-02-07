@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <string>
+#include <cstdarg>
 
 #include <BWAPI/Interface.h>
 #include <BWAPI/UnitType.h>
@@ -114,7 +115,7 @@ namespace BWAPI
     /// @note Nuke dots are the red dots painted by a @Ghost when using the nuclear strike ability.
     ///
     /// @returns Set of Positions giving the coordinates of nuke locations.
-    virtual const Position::set& getNukeDots() const = 0;
+    virtual const Position::list& getNukeDots() const = 0;
 
     /// Retrieves the list of all unhandled game events.
     ///
@@ -605,6 +606,10 @@ namespace BWAPI
     /// checks for creep, power, and resource distance requirements in addition to the tiles'
     /// buildability and possible units obstructing the build location.
     ///
+    /// @note If the type is an addon and a builer is provided, then the location of the addon will
+    /// be placed 4 tiles to the right and 1 tile down from the given \p position. If the builder
+    /// is not given, then the check for the addon will be conducted at position.
+    ///
     /// @param position
     ///   Indicates the tile position that the top left corner of the structure is intended to go.
     /// @param type
@@ -671,10 +676,10 @@ namespace BWAPI
     /// Retrieves the set of all starting locations for the current map. A starting location is
     /// essentially a candidate for a player's spawn point.
     ///
-    /// @returns A TilePosition::set containing all the TilePosition objects that indicate a start
+    /// @returns A TilePosition::list containing all the TilePosition objects that indicate a start
     /// location.
     /// @see PlayerInterface::getStartLocation
-    virtual const TilePosition::set& getStartLocations() const = 0;
+    virtual const TilePosition::list& getStartLocations() const = 0;
 
     /// Prints text to the screen as a notification. This function allows text formatting using
     /// Text::Enum members. The behaviour of this function is the same as printf, located in 
@@ -1206,8 +1211,7 @@ namespace BWAPI
     virtual void setGUI(bool enabled) = 0;
 
     /// Retrieves the Starcraft instance number recorded by BWAPI to identify which Starcraft
-    /// instance an AI module belongs to. This only applies to users running multiple instances
-    /// of Starcraft.
+    /// instance an AI module belongs to. The very first instance should return 1.
     ///
     /// @returns
     ///   An integer value representing the instance number.
@@ -1243,6 +1247,8 @@ namespace BWAPI
     /// @param frameSkip
     ///   Number of graphical frames per logical frame. If this value is 0 or less, then it will
     ///   default to 1.
+    ///
+    /// @see setLocalSpeed
     virtual void setFrameSkip(int frameSkip) = 0;
 
     /// Checks if there is a path from source to destination. This only checks if the source
@@ -1257,7 +1263,7 @@ namespace BWAPI
     ///
     /// @retval true if there is a path between the two positions
     /// @retval false if there is no path
-    virtual bool hasPath(Position source, Position destination) const = 0;
+    bool hasPath(Position source, Position destination) const;
 
     /// Sets the alliance state of the current player with the target player.
     ///
@@ -1511,14 +1517,14 @@ namespace BWAPI
     /// Output stream operator for printing text to Broodwar. Using this operator invokes
     /// Game::printf when a newline character is encountered.
     template < class T >
-    GameWrapper &operator <<(const T &in)
+    inline GameWrapper &operator <<(const T &in)
     {
       // Pass whatever into the stream
       ss << in;
       return *this;
     };
     /// @overload
-    GameWrapper &operator <<( const ostream_manipulator &fn );    
+    GameWrapper &operator <<(ostream_manipulator fn);
     
     /// Flushes the Broodwar stream, printing all text in the stream to the screen.
     void flush();

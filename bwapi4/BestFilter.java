@@ -17,6 +17,9 @@ public class BestFilter {
     }
 
     private static BestFilter get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         BestFilter instance = instances.get(pointer);
         if (instance == null ) {
             instance = new BestFilter(pointer);

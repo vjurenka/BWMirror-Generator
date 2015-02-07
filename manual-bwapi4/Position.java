@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Positions are measured in pixels and are the highest resolution.
  */
-public class Position {
+public class Position extends AbstractPoint<Position>{
 
     private int x, y;
 
@@ -83,4 +83,8 @@ public class Position {
     }
 
     private long pointer;
+
+    public Position getPoint(){
+        return this;
+    }
 }

@@ -13,7 +13,7 @@ public class Regionset {
         return getCenter_native(pointer);
     }
 
-    public Unitset getUnits(UnitFilter pred) {
+    public List<Unit> getUnits(UnitFilter pred) {
         return getUnits_native(pointer, pred);
     }
 
@@ -25,6 +25,9 @@ public class Regionset {
     }
 
     private static Regionset get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Regionset instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Regionset(pointer);
@@ -37,7 +40,7 @@ public class Regionset {
 
     private native Position getCenter_native(long pointer);
 
-    private native Unitset getUnits_native(long pointer, UnitFilter pred);
+    private native List<Unit> getUnits_native(long pointer, UnitFilter pred);
 
 
 }

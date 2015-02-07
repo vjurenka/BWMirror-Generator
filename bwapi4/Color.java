@@ -53,6 +53,9 @@ public class Color {
     }
 
     private static Color get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Color instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Color(pointer);

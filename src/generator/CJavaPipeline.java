@@ -33,14 +33,14 @@ public class CJavaPipeline {
     public static final int BWAPI_V4 = 4;
 
 
-    public static int BWAPI_VERSION = BWAPI_V3;
+    public static int BWAPI_VERSION = BWAPI_V4;
 
     /**
      * Classes from BWAPI 4 that don't need mirroring
      * Not used in mirroring BWAPI 3
      */
     private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Vectorset", "ConstVectorset", "VSetIterator",
-            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl"));
+            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl", "SetContainer", "InterfaceEvent"));
 
 
     private static final HashMap<String, String> superClasses = new HashMap<>();
@@ -267,5 +267,9 @@ public class CJavaPipeline {
     private static final String HEADERS_DIR_PROPERTY = "headers_dir";
     private static final String C_IMPLEMENTATION_FILE_PROPERTY = "impl_file";
     private static final String HEADER_FILE_PROPERTY = "header_file";
+
+    public static boolean isBWAPI3(){
+        return BWAPI_VERSION == BWAPI_V3;
+    }
 
 }

@@ -4,10 +4,13 @@ import c.CClass;
 import c.CDeclaration;
 import c.DeclarationType;
 import c.Field;
+import generator.CJavaPipeline;
 import impl.ClassVariable;
 
 import java.io.PrintStream;
 import java.util.List;
+
+import static generator.JavaContext.checkBWAPI3brackets;
 
 /**
  * User: PC
@@ -28,6 +31,13 @@ public class Bind {
         out.println("\t\tprintln(\"BWAPI ready.\");");
     }
 
+    private String broodwarPtrSuffix() {
+        if (!CJavaPipeline.isBWAPI3()) {
+            return "ptr";
+        }
+        return "";
+    }
+
     private void implementGameStart() {
         out.println("println(\"Connecting to Broodwar...\");\n" +
                 "\t\treconnect();\n" +
@@ -41,7 +51,7 @@ public class Bind {
                 "\t\tjobject moduleObj = env->GetObjectField(obj, env->GetFieldID(cls, \"module\", \"Lbwapi/AIModule;\"));\n" +
                 "\t\tjclass moduleCls = env->GetObjectClass(moduleObj);\n" +
                 "\t\tenv->SetObjectField(obj, env->GetFieldID(cls, \"game\", \"Lbwapi/Game;\"), " +
-                "env->CallStaticObjectMethod(gamecls, env->GetStaticMethodID(gamecls, \"get\", \"(J)Lbwapi/Game;\"), (long)Broodwar));\n" +
+                "env->CallStaticObjectMethod(gamecls, env->GetStaticMethodID(gamecls, \"get\", \"(J)Lbwapi/Game;\"), (long)Broodwar" + broodwarPtrSuffix() + "));\n" +
                 "\n" +
                 "\t\tjmethodID updateMethodID = env->GetMethodID(env->GetObjectClass(obj), \"update\", \"()V\");");
 
@@ -66,27 +76,32 @@ public class Bind {
 
         out.println(
                 "\t\twhile (true) {\n" +
-                "            if (Broodwar != NULL) {\n" +
-                "\t\t\t\tprintln(\"Waiting...\");\n" +
-                "                while (!Broodwar->isInGame()) {\n" +
-                "                    BWAPIClient.update();\n" +
-                "\t\t\t\t\tif (Broodwar == NULL) {\n" +
-                "                            println(\"Match ended.\");\n" +
-                "                            return;\n" +
-                "                    }\n" +
-                "                }\n" +
-                "            }\n" +
-                "\n" +
-                "\t\t\tprintln(\"Game ready!!!\");\n" +
-                "\n" +
-                "\t\t\twhile (Broodwar->isInGame()) {\n" +
-                "\t\t\t\t\n" +
-                "\t\t\t\tenv->CallVoidMethod(obj, updateMethodID);\n");
+                        "            if (Broodwar" + broodwarPtrSuffix() + " != NULL) {\n" +
+                        "\t\t\t\tprintln(\"Waiting...\");\n" +
+                        "                while (!Broodwar" + broodwarPtrSuffix() + "->isInGame()) {\n" +
+                        "                    BWAPIClient.update();\n" +
+                        "\t\t\t\t\tif (Broodwar" + broodwarPtrSuffix() + " == NULL) {\n" +
+                        "                            println(\"Match ended.\");\n" +
+                        "                            return;\n" +
+                        "                    }\n" +
+                        "                }\n" +
+                        "            }\n" +
+                        "\n" +
+                        "\t\t\tprintln(\"Game ready!!!\");\n" +
+                        "\n" +
+                        "\t\t\twhile (Broodwar->isInGame()) {\n" +
+                        "\t\t\t\t\n" +
+                        "\t\t\t\tenv->CallVoidMethod(obj, updateMethodID);\n");
         out.println("\n" +
-                "\t\t\t\tfor(std::list<Event>::iterator it = Broodwar->getEvents().begin(); it!=Broodwar->getEvents().end(); it++)\n" +
+                "\t\t\t\tfor(std::list<Event>::const_iterator it = Broodwar->getEvents().begin(); it!=Broodwar->getEvents().end(); it++)\n" +
                 "\t\t\t\t  {\n" +
                 "\t\t\t\t\t  switch (it->getType()) {\n" +
                 "\t\t\t\t\t\t  case EventType::MatchStart:\n" +
+                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::regions.clear();\n" +
+                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::baselocations.clear();\n" +
+                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::startlocations.clear();\n" +
+                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::chokepoints.clear();\n" +
+                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::unwalkablePolygons.clear();\n" +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, matchStartCallback);\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::MatchEnd:\n" +
@@ -105,7 +120,7 @@ public class Bind {
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, playerLeftCallback, env->CallStaticObjectMethod(playerCls, env->GetStaticMethodID(playerCls, \"get\", \"(J)Lbwapi/Player;\"), (jlong)it->getPlayer()));\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::NukeDetect:\n" +
-                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, nukeDetectCallback, env->NewObject(posCls, env->GetMethodID(posCls,\"<init>\", \"(II)V\"), it->getPosition().x(), it->getPosition().y()));\n" +
+                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, nukeDetectCallback, env->NewObject(posCls, env->GetMethodID(posCls,\"<init>\", \"(II)V\"), it->getPosition().x" + checkBWAPI3brackets() + ", it->getPosition().y" + checkBWAPI3brackets() + "));\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::UnitDiscover:\n" +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, unitDiscoverCallback, env->CallStaticObjectMethod(unitCls, env->GetStaticMethodID(unitCls, \"get\", \"(J)Lbwapi/Unit;\"), (jlong)it->getUnit()));\n" +
@@ -137,20 +152,22 @@ public class Bind {
                 "\t\t\t\t\t\t  case EventType::UnitComplete:\n" +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, unitCompleteCallback, env->CallStaticObjectMethod(unitCls, env->GetStaticMethodID(unitCls, \"get\", \"(J)Lbwapi/Unit;\"), (jlong)it->getUnit()));\n" +
                 "\t\t\t\t\t\t  break;\n" +
-                "\t\t\t\t\t\t  case EventType::PlayerDropped:\n" +
-                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, playerDroppedCallback, env->CallStaticObjectMethod(playerCls, env->GetStaticMethodID(playerCls, \"get\", \"(J)Lbwapi/Player;\")));\n" +
-                "\t\t\t\t\t\t  break;\n" +
+                (CJavaPipeline.isBWAPI3() ?
+                        "\t\t\t\t\t\t  case EventType::PlayerDropped:\n" +
+                                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, playerDroppedCallback, env->CallStaticObjectMethod(playerCls, env->GetStaticMethodID(playerCls, \"get\", \"(J)Lbwapi/Player;\")));\n" +
+                                "\t\t\t\t\t\t  break;\n"
+                        : "") +
                 "\n" +
                 "\t\t\t\t\t  }\n" +
                 "\t\t\t\t  }");
         out.println(
                 "\t\t\t\tBWAPIClient.update();\n" +
-                "\t\t\t\tif (!BWAPI::BWAPIClient.isConnected()) {\n" +
-                "\t\t\t\t\t\tprintln(\"Reconnecting...\");\n" +
-                "\t\t\t\t\t\treconnect();\n" +
-                "\t\t\t\t}\n" +
-                "\t\t\t}\n" +
-                "\t\t}");
+                        "\t\t\t\tif (!BWAPI::BWAPIClient.isConnected()) {\n" +
+                        "\t\t\t\t\t\tprintln(\"Reconnecting...\");\n" +
+                        "\t\t\t\t\t\treconnect();\n" +
+                        "\t\t\t\t}\n" +
+                        "\t\t\t}\n" +
+                        "\t\t}");
     }
 
     private void implementHelpers() {
@@ -200,10 +217,9 @@ public class Bind {
             if (field.getDeclType().equals(DeclarationType.VARIABLE)) {
                 if (!printedIntro) {
                     out.println("cls = env->FindClass(\"Lbwapi/" + cClass.getName() + ";\");");
-                    if(cClass.getName().equals("Color")){
+                    if (cClass.getName().equals("Color")) {
                         out.println("getId = env->GetMethodID(cls,\"<init>\", \"(III)V\");");
-                    }
-                    else{
+                    } else {
                         out.println("getId = env->GetStaticMethodID(cls, \"get\", \"(J)Lbwapi/" + cClass.getName() + ";\");");
                     }
                     printedIntro = true;
@@ -215,14 +231,14 @@ public class Bind {
 
     private void bindVariable(CClass cClass, ClassVariable classVariable) {
 
-        String cValue =  cClass.getName() + "s::" + classVariable.getName();
+        String cValue = cClass.getName() + "s::" + classVariable.getName();
 
-        if(cClass.getName().equals("Color")){
+        if (cClass.getName().equals("Color")) {
             out.println(
-                "env->SetStaticObjectField(cls, " +
-                        "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"Lbwapi/" + classVariable.getType() + ";\"), " +
-                        "env->NewObject(cls, getId, " + cValue + ".red(), " + cValue + ".green(), "+ cValue + ".blue())" +
-                                    ");");
+                    "env->SetStaticObjectField(cls, " +
+                            "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"Lbwapi/" + classVariable.getType() + ";\"), " +
+                            "env->NewObject(cls, getId, " + cValue + ".red(), " + cValue + ".green(), " + cValue + ".blue())" +
+                            ");");
             return;
         }
         out.println(
@@ -230,7 +246,7 @@ public class Bind {
                         "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"Lbwapi/" + classVariable.getType() + ";\"), " +
                         "env->CallStaticObjectMethod(cls, getId, (jlong)&" + cValue + ")" +
                         ");");
-        if(cClass.getName().equals("Position") || cClass.getName().equals("TilePosition")){
+        if (cClass.getName().equals("Position") || cClass.getName().equals("TilePosition")) {
             return;
         }
         out.println("table" + cClass.getName() + ".insert(std::pair<int, const " + cClass.getName() + "*>(" + cValue + ".getID(), &" + cValue + "));");

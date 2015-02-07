@@ -4,6 +4,7 @@
 #include <BWTA.h>
 #include <jni.h>
 #include <cstring>
+#include "../BWTA_Result.h"
 
 using namespace BWAPI;
 
@@ -5295,6 +5296,14 @@ println("Connecting to Broodwar...");
 				  {
 					  switch (it->getType()) {
 						  case EventType::MatchStart:
+
+							 BWTA::BWTA_Result::regions.clear();
+							 BWTA::BWTA_Result::baselocations.clear();
+							 BWTA::BWTA_Result::startlocations.clear();
+							 BWTA::BWTA_Result::chokepoints.clear();
+							 BWTA::BWTA_Result::unwalkablePolygons.clear();
+
+
 							  env->CallVoidMethod(moduleObj, matchStartCallback);
 						  break;
 						  case EventType::MatchEnd:

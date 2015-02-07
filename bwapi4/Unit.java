@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
+import bwapi4.PositionedObject;
 
-public class Unit {
+public class Unit extends PositionedObject 
+{
 
     public int getID() {
         return getID_native(pointer);
@@ -281,7 +283,7 @@ public class Unit {
         return getTransport_native(pointer);
     }
 
-    public Unitset getLoadedUnits() {
+    public List<Unit> getLoadedUnits() {
         return getLoadedUnits_native(pointer);
     }
 
@@ -293,7 +295,7 @@ public class Unit {
         return getCarrier_native(pointer);
     }
 
-    public Unitset getInterceptors() {
+    public List<Unit> getInterceptors() {
         return getInterceptors_native(pointer);
     }
 
@@ -301,15 +303,15 @@ public class Unit {
         return getHatchery_native(pointer);
     }
 
-    public Unitset getLarva() {
+    public List<Unit> getLarva() {
         return getLarva_native(pointer);
     }
 
-    public Unitset getUnitsInRadius(int radius, UnitFilter pred) {
+    public List<Unit> getUnitsInRadius(int radius, UnitFilter pred) {
         return getUnitsInRadius_native(pointer, radius, pred);
     }
 
-    public Unitset getUnitsInWeaponRange(WeaponType weapon, UnitFilter pred) {
+    public List<Unit> getUnitsInWeaponRange(WeaponType weapon, UnitFilter pred) {
         return getUnitsInWeaponRange_native(pointer, weapon, pred);
     }
 
@@ -1845,6 +1847,9 @@ public class Unit {
     }
 
     private static Unit get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Unit instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Unit(pointer);
@@ -1991,21 +1996,21 @@ public class Unit {
 
     private native Unit getTransport_native(long pointer);
 
-    private native Unitset getLoadedUnits_native(long pointer);
+    private native List<Unit> getLoadedUnits_native(long pointer);
 
     private native int getSpaceRemaining_native(long pointer);
 
     private native Unit getCarrier_native(long pointer);
 
-    private native Unitset getInterceptors_native(long pointer);
+    private native List<Unit> getInterceptors_native(long pointer);
 
     private native Unit getHatchery_native(long pointer);
 
-    private native Unitset getLarva_native(long pointer);
+    private native List<Unit> getLarva_native(long pointer);
 
-    private native Unitset getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
+    private native List<Unit> getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
 
-    private native Unitset getUnitsInWeaponRange_native(long pointer, WeaponType weapon, UnitFilter pred);
+    private native List<Unit> getUnitsInWeaponRange_native(long pointer, WeaponType weapon, UnitFilter pred);
 
     private native Unit getClosestUnit_native(long pointer, UnitFilter pred);
 

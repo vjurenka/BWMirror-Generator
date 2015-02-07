@@ -33,6 +33,9 @@ public class PositionOrUnit {
     }
 
     private static PositionOrUnit get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         PositionOrUnit instance = instances.get(pointer);
         if (instance == null ) {
             instance = new PositionOrUnit(pointer);

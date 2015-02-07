@@ -17,6 +17,9 @@ public class Bulletset {
     }
 
     private static Bulletset get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Bulletset instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Bulletset(pointer);

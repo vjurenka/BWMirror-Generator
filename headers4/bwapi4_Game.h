@@ -10,7 +10,7 @@ extern "C" {
 /*
  * Class:     bwapi4_Game
  * Method:    getForces_native
- * Signature: (J)Lbwapi4/Forceset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getForces_1native
   (JNIEnv *, jobject, jlong);
@@ -18,7 +18,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getForces_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getPlayers_native
- * Signature: (J)Lbwapi4/Playerset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getPlayers_1native
   (JNIEnv *, jobject, jlong);
@@ -26,7 +26,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getPlayers_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getAllUnits_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getAllUnits_1native
   (JNIEnv *, jobject, jlong);
@@ -34,7 +34,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getAllUnits_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getMinerals_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getMinerals_1native
   (JNIEnv *, jobject, jlong);
@@ -42,7 +42,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getMinerals_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getGeysers_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getGeysers_1native
   (JNIEnv *, jobject, jlong);
@@ -50,7 +50,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getGeysers_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getNeutralUnits_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getNeutralUnits_1native
   (JNIEnv *, jobject, jlong);
@@ -58,7 +58,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getNeutralUnits_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getStaticMinerals_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getStaticMinerals_1native
   (JNIEnv *, jobject, jlong);
@@ -66,7 +66,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getStaticMinerals_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getStaticGeysers_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getStaticGeysers_1native
   (JNIEnv *, jobject, jlong);
@@ -74,7 +74,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getStaticGeysers_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getStaticNeutralUnits_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getStaticNeutralUnits_1native
   (JNIEnv *, jobject, jlong);
@@ -82,7 +82,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getStaticNeutralUnits_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getBullets_native
- * Signature: (J)Lbwapi4/Bulletset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBullets_1native
   (JNIEnv *, jobject, jlong);
@@ -258,7 +258,7 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_enableFlag_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getUnitsOnTile_native
- * Signature: (JIILbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JIILbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JIILbwapi4_UnitFilter_2
   (JNIEnv *, jobject, jlong, jint, jint, jobject);
@@ -266,7 +266,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JIILbwapi4_Un
 /*
  * Class:     bwapi4_Game
  * Method:    getUnitsOnTile_native
- * Signature: (JLbwapi4/TilePosition;Lbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JLbwapi4/TilePosition;Lbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JLbwapi4_TilePosition_2Lbwapi4_UnitFilter_2
   (JNIEnv *, jobject, jlong, jobject, jobject);
@@ -274,7 +274,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JLbwapi4_Tile
 /*
  * Class:     bwapi4_Game
  * Method:    getUnitsInRectangle_native
- * Signature: (JIIIILbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JIIIILbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JIIIILbwapi4_UnitFilter_2
   (JNIEnv *, jobject, jlong, jint, jint, jint, jint, jobject);
@@ -282,7 +282,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JIIIILbw
 /*
  * Class:     bwapi4_Game
  * Method:    getUnitsInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/Position;Lbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JLbwapi4/Position;Lbwapi4/Position;Lbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JLbwapi4_Position_2Lbwapi4_Position_2Lbwapi4_UnitFilter_2
   (JNIEnv *, jobject, jlong, jobject, jobject, jobject);
@@ -290,7 +290,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JLbwapi4
 /*
  * Class:     bwapi4_Game
  * Method:    getUnitsInRadius_native
- * Signature: (JIIILbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JIIILbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JIIILbwapi4_UnitFilter_2
   (JNIEnv *, jobject, jlong, jint, jint, jint, jobject);
@@ -298,7 +298,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JIIILbwapi4
 /*
  * Class:     bwapi4_Game
  * Method:    getUnitsInRadius_native
- * Signature: (JLbwapi4/Position;ILbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JLbwapi4/Position;ILbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JLbwapi4_Position_2ILbwapi4_UnitFilter_2
   (JNIEnv *, jobject, jlong, jobject, jint, jobject);
@@ -737,6 +737,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Game_canUpgrade_1native__JLbwapi4_Upgrade
 
 /*
  * Class:     bwapi4_Game
+ * Method:    printf_native
+ * Signature: (JLjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_printf_1native
+  (JNIEnv *, jobject, jlong, jstring);
+
+/*
+ * Class:     bwapi4_Game
  * Method:    vPrintf_native
  * Signature: (JLjava/lang/String;[Ljava/lang/Object;)V
  */
@@ -745,11 +753,27 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_vPrintf_1native
 
 /*
  * Class:     bwapi4_Game
+ * Method:    sendText_native
+ * Signature: (JLjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_sendText_1native
+  (JNIEnv *, jobject, jlong, jstring);
+
+/*
+ * Class:     bwapi4_Game
  * Method:    vSendText_native
  * Signature: (JLjava/lang/String;[Ljava/lang/Object;)V
  */
 JNIEXPORT void JNICALL Java_bwapi4_Game_vSendText_1native
   (JNIEnv *, jobject, jlong, jstring, jobjectArray);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    sendTextEx_native
+ * Signature: (JZLjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_sendTextEx_1native
+  (JNIEnv *, jobject, jlong, jboolean, jstring);
 
 /*
  * Class:     bwapi4_Game
@@ -842,7 +866,7 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_setLocalSpeed_1native
 /*
  * Class:     bwapi4_Game
  * Method:    issueCommand_native
- * Signature: (JLbwapi4/Unitset;Lbwapi4/UnitCommand;)Z
+ * Signature: (JLjava/util/List;Lbwapi4/UnitCommand;)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi4_Game_issueCommand_1native
   (JNIEnv *, jobject, jlong, jobject, jobject);
@@ -850,7 +874,7 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Game_issueCommand_1native
 /*
  * Class:     bwapi4_Game
  * Method:    getSelectedUnits_native
- * Signature: (J)Lbwapi4/Unitset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getSelectedUnits_1native
   (JNIEnv *, jobject, jlong);
@@ -882,7 +906,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_neutral_1native
 /*
  * Class:     bwapi4_Game
  * Method:    allies_native
- * Signature: (J)Lbwapi4/Playerset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_allies_1native
   (JNIEnv *, jobject, jlong);
@@ -890,7 +914,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_allies_1native
 /*
  * Class:     bwapi4_Game
  * Method:    enemies_native
- * Signature: (J)Lbwapi4/Playerset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_enemies_1native
   (JNIEnv *, jobject, jlong);
@@ -898,7 +922,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Game_enemies_1native
 /*
  * Class:     bwapi4_Game
  * Method:    observers_native
- * Signature: (J)Lbwapi4/Playerset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_observers_1native
   (JNIEnv *, jobject, jlong);
@@ -926,6 +950,62 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_setTextSize_1native__JLbwapi4_Text_Size_
  */
 JNIEXPORT void JNICALL Java_bwapi4_Game_vDrawText_1native
   (JNIEnv *, jobject, jlong, jobject, jint, jint, jstring, jobjectArray);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawText_native
+ * Signature: (JLbwapi4/CoordinateType/Enum;IILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawText_1native
+  (JNIEnv *, jobject, jlong, jobject, jint, jint, jstring);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawTextMap_native
+ * Signature: (JIILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextMap_1native__JIILjava_lang_String_2
+  (JNIEnv *, jobject, jlong, jint, jint, jstring);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawTextMap_native
+ * Signature: (JLbwapi4/Position;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextMap_1native__JLbwapi4_Position_2Ljava_lang_String_2
+  (JNIEnv *, jobject, jlong, jobject, jstring);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawTextMouse_native
+ * Signature: (JIILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextMouse_1native__JIILjava_lang_String_2
+  (JNIEnv *, jobject, jlong, jint, jint, jstring);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawTextMouse_native
+ * Signature: (JLbwapi4/Position;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextMouse_1native__JLbwapi4_Position_2Ljava_lang_String_2
+  (JNIEnv *, jobject, jlong, jobject, jstring);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawTextScreen_native
+ * Signature: (JIILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextScreen_1native__JIILjava_lang_String_2
+  (JNIEnv *, jobject, jlong, jint, jint, jstring);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    drawTextScreen_native
+ * Signature: (JLbwapi4/Position;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextScreen_1native__JLbwapi4_Position_2Ljava_lang_String_2
+  (JNIEnv *, jobject, jlong, jobject, jstring);
 
 /*
  * Class:     bwapi4_Game

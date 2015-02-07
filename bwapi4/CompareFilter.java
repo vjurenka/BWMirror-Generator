@@ -17,6 +17,9 @@ public class CompareFilter {
     }
 
     private static CompareFilter get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         CompareFilter instance = instances.get(pointer);
         if (instance == null ) {
             instance = new CompareFilter(pointer);

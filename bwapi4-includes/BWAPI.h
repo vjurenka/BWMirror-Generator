@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __BWAPI_H__
+#define __BWAPI_H__
+
 #include <BWAPI/InterfaceEvent.h>
 #include <BWAPI/Interface.h>
 #include <BWAPI/AIModule.h>
@@ -40,8 +43,8 @@
 #include <BWAPI/UnitSizeType.h>
 #include <BWAPI/UnitType.h>
 #include <BWAPI/UpgradeType.h>
-#include <BWAPI/Vectorset.h>
 #include <BWAPI/WeaponType.h>
+#include <BWAPI/WindowsTypes.h>
 
 namespace BWAPI
 {
@@ -61,3 +64,5 @@ namespace BWAPI
   /// @threadsafe
   bool BWAPI_isDebug();
 }
+
+#endif

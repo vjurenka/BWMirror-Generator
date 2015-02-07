@@ -43,6 +43,14 @@ public class TestBot1 {
 
                 StringBuilder units = new StringBuilder("My units:\n");
 
+                for(Player player : game.getPlayers()){
+                    System.out.println(player.getName());
+                    for(Unit enemyUnit: player.getUnits()){
+                        System.out.println(enemyUnit.getType());
+                    }
+                }
+
+
                 for (Unit myUnit : self.getUnits()) {
                     units.append(myUnit.getType()).append(" ").append(myUnit.getTilePosition()).append("\n");
 

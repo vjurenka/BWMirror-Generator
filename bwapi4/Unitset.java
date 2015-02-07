@@ -13,15 +13,15 @@ public class Unitset {
         return getPosition_native(pointer);
     }
 
-    public Unitset getLoadedUnits() {
+    public List<Unit> getLoadedUnits() {
         return getLoadedUnits_native(pointer);
     }
 
-    public Unitset getInterceptors() {
+    public List<Unit> getInterceptors() {
         return getInterceptors_native(pointer);
     }
 
-    public Unitset getLarva() {
+    public List<Unit> getLarva() {
         return getLarva_native(pointer);
     }
 
@@ -37,7 +37,7 @@ public class Unitset {
         setClientInfo_native(pointer, clientInfo, index);
     }
 
-    public Unitset getUnitsInRadius(int radius, UnitFilter pred) {
+    public List<Unit> getUnitsInRadius(int radius, UnitFilter pred) {
         return getUnitsInRadius_native(pointer, radius, pred);
     }
 
@@ -257,6 +257,9 @@ public class Unitset {
     }
 
     private static Unitset get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Unitset instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Unitset(pointer);
@@ -269,11 +272,11 @@ public class Unitset {
 
     private native Position getPosition_native(long pointer);
 
-    private native Unitset getLoadedUnits_native(long pointer);
+    private native List<Unit> getLoadedUnits_native(long pointer);
 
-    private native Unitset getInterceptors_native(long pointer);
+    private native List<Unit> getInterceptors_native(long pointer);
 
-    private native Unitset getLarva_native(long pointer);
+    private native List<Unit> getLarva_native(long pointer);
 
     private native void setClientInfo_native(long pointer, int clientInfo);
 
@@ -281,7 +284,7 @@ public class Unitset {
 
     private native void setClientInfo_native(long pointer, int clientInfo, int index);
 
-    private native Unitset getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
+    private native List<Unit> getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
 
     private native Unit getClosestUnit_native(long pointer, UnitFilter pred);
 

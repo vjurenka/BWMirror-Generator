@@ -4,6 +4,8 @@ import c.CClass;
 import c.CDeclaration;
 import c.DeclarationType;
 import c.Field;
+import generator.CJavaPipeline;
+import util.PointerTest;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -43,7 +45,7 @@ public class TypeTable {
     }
 
     public void implementTypeTable(String type) {
-        out.println("std::map<int, const " + type + "*> table" + type + ";");
+        out.println("std::map<int, const " + type + " *> table" + type + ";");
     }
 
 }

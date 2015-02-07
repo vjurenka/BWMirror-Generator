@@ -33,6 +33,9 @@ public class Client {
     }
 
     private static Client get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Client instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Client(pointer);

@@ -18,7 +18,7 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getCenter_1native
 /*
  * Class:     bwapi4_Regionset
  * Method:    getUnits_native
- * Signature: (JLbwapi4/UnitFilter;)Lbwapi4/Unitset;
+ * Signature: (JLbwapi4/UnitFilter;)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getUnits_1native
   (JNIEnv *, jobject, jlong, jobject);

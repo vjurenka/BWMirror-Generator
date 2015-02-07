@@ -26,7 +26,7 @@ JNIEXPORT jstring JNICALL Java_bwapi4_Force_getName_1native
 /*
  * Class:     bwapi4_Force
  * Method:    getPlayers_native
- * Signature: (J)Lbwapi4/Playerset;
+ * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Force_getPlayers_1native
   (JNIEnv *, jobject, jlong);

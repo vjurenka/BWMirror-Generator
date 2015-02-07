@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collection;
 import java.util.List;
+import bwapi4.CenteredObject;
 
-public class Region {
+public class Region extends CenteredObject 
+{
 
     public int getID() {
         return getID_native(pointer);
@@ -61,7 +63,7 @@ public class Region {
         return getDistance_native(pointer, other);
     }
 
-    public Unitset getUnits(UnitFilter pred) {
+    public List<Unit> getUnits(UnitFilter pred) {
         return getUnits_native(pointer, pred);
     }
 
@@ -73,6 +75,9 @@ public class Region {
     }
 
     private static Region get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Region instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Region(pointer);
@@ -109,7 +114,7 @@ public class Region {
 
     private native int getDistance_native(long pointer, Region other);
 
-    private native Unitset getUnits_native(long pointer, UnitFilter pred);
+    private native List<Unit> getUnits_native(long pointer, UnitFilter pred);
 
 
 }

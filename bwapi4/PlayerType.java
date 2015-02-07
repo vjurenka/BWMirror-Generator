@@ -9,6 +9,28 @@ import java.util.List;
 
 public class PlayerType {
 
+    public static PlayerType None;
+
+    public static PlayerType Computer;
+
+    public static PlayerType Player;
+
+    public static PlayerType RescuePassive;
+
+    public static PlayerType EitherPreferComputer;
+
+    public static PlayerType EitherPreferHuman;
+
+    public static PlayerType Neutral;
+
+    public static PlayerType Closed;
+
+    public static PlayerType PlayerLeft;
+
+    public static PlayerType ComputerLeft;
+
+    public static PlayerType Unknown;
+
 
     private static Map<Long, PlayerType> instances = new HashMap<Long, PlayerType>();
 
@@ -17,6 +39,9 @@ public class PlayerType {
     }
 
     private static PlayerType get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         PlayerType instance = instances.get(pointer);
         if (instance == null ) {
             instance = new PlayerType(pointer);

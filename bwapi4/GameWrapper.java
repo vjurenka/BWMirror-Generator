@@ -21,6 +21,9 @@ public class GameWrapper {
     }
 
     private static GameWrapper get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         GameWrapper instance = instances.get(pointer);
         if (instance == null ) {
             instance = new GameWrapper(pointer);

@@ -148,14 +148,21 @@ public class JavaContext {
         return implementCopyReturn(javaType, "cresult");
     }
 
+    public static String checkBWAPI3brackets(){
+        if(CJavaPipeline.isBWAPI3()){
+            return "()";
+        }
+        return "";
+    }
+
     public String implementCopyReturn(String javaType, String fieldName) {
         switch (javaType) {
             case "TilePosition":
-                return ", "+fieldName+".x()" +
-                        ", "+fieldName+".y()";
+                return ", "+fieldName+".x" + checkBWAPI3brackets() +
+                        ", "+fieldName+".y" + checkBWAPI3brackets() ;
             case "Position":
-                return ", "+fieldName+".x()" +
-                        ", "+fieldName+".y()";
+                return ", "+fieldName+".x" + checkBWAPI3brackets() +
+                        ", "+fieldName+".y" + checkBWAPI3brackets() ;
             case "Color":
                 return ", "+fieldName+".red()" +
                         ", "+fieldName+".green()" +

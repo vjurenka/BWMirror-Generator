@@ -37,6 +37,9 @@ public class Event {
     }
 
     private static Event get(long pointer) {
+        if (pointer == 0 ) {
+            return null;
+        }
         Event instance = instances.get(pointer);
         if (instance == null ) {
             instance = new Event(pointer);

@@ -66,7 +66,7 @@ namespace BWAPI
     /// The default color for Player 6.
     extern const Color Brown;
 
-    /// The default color for Player 7.
+    /// A bright white. Note that this is lighter than Player 7's white.
     extern const Color White;
 
     /// The default color for Player 8.
@@ -206,4 +206,6 @@ namespace BWAPI
     /// @returns Reference to the \p out parameter that was passed in.
     std::ostream &operator << (std::ostream &out, const Text::Enum &t);
   }
+
+  static_assert(sizeof(Color) == sizeof(int), "Expected type to resolve to primitive size.");
 }
