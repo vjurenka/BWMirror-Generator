@@ -111,14 +111,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Region_getClosestInaccessibleRegion_1nativ
 JNIEXPORT jint JNICALL Java_bwapi4_Region_getDistance_1native
   (JNIEnv *, jobject, jlong, jobject);
 
-/*
- * Class:     bwapi4_Region
- * Method:    getUnits_native
- * Signature: (JLbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Region_getUnits_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
 #ifdef __cplusplus
 }
 #endif

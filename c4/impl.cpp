@@ -5,7 +5,7 @@
 #include <chrono>
 #include <jni.h>
 #include <cstring>
-#include "../BWTA_Result.h"
+
 using namespace BWAPI;
 
 std::map<int, const BulletType *> tableBulletType;
@@ -66,17 +66,40 @@ jfieldID FindCachedField(JNIEnv * env, jclass clz, string name, string signature
 using namespace BWAPI;
 
 PositionOrUnit convertPositionOrUnit(JNIEnv * env, jobject obj){ 
-	jclass clz = FindCachedClass(env, "PositionOrUnit");
+	jclass clz = FindCachedClass(env, "bwapi4/PositionOrUnit");
 	jmethodID typeMethodId = FindCachedMethod(env, clz, "isUnit", "()Z");
 	bool isUnit = (bool)env->CallBooleanMethod(obj, typeMethodId);
 	if(isUnit){
 		jobject unitObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, "getUnit", "()Lbwapi4/Unit;"));
-		Unit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), "unitObj", "J"));
+		Unit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), "pointer", "J"));
 		return PositionOrUnit(unit);
 	}
 	jobject posObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, "getPosition", "()Lbwapi4/Position;"));
 	Position position((int)env->GetIntField(posObj, FindCachedField(env, env->GetObjectClass(posObj), "x", "I")), (int)env->GetIntField(posObj, FindCachedField(env, env->GetObjectClass(posObj), "y", "I")));
 	return PositionOrUnit(position);
+}
+
+
+UnitCommand convertUnitCommand(JNIEnv * env, jobject obj){	jclass clz = FindCachedClass(env, "bwapi4/UnitCommand");
+	jobject unitObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, "getUnit", "()Lbwapi4/Unit;"));
+	Unit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), "pointer", "J"));
+	jobject targetObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, "getTarget", "()Lbwapi4/Unit;"));
+	Unit target = (Unit)env->GetLongField(targetObj, FindCachedField(env, env->GetObjectClass(targetObj), "pointer", "J"));
+	jobject typeObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, "getType", "()Lbwapi4/UnitCommandType;"));
+	UnitCommandType type = (UnitCommandType)env->GetIntField(typeObj, FindCachedField(env, env->GetObjectClass(typeObj), "value", "I"));
+	int extra = (int)env->GetIntField(obj, FindCachedField(env, clz, "extra", "I"));
+	jobject posObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, "getPosition", "()Lbwapi4/Position;"));
+	Position position((int)env->GetIntField(posObj, FindCachedField(env, env->GetObjectClass(posObj), "x", "I")), (int)env->GetIntField(posObj, FindCachedField(env, env->GetObjectClass(posObj), "y", "I")));
+	return UnitCommand(unit, UnitCommandType(type), target, position.x, position.y, extra);
+}
+
+
+int resolveUnitCommandExtra(UnitCommand& command){
+	if(command.getUnitType() != UnitTypes::None){		return command.getUnitType().getID();}
+	if(command.getTechType() != TechTypes::None){		return command.getTechType().getID();}
+	if(command.getUpgradeType() != UpgradeTypes::None){		return command.getUpgradeType().getID();}
+	if(command.getSlot() != -1){		return command.extra;}
+	return command.isQueued();
 }
 
 
@@ -505,198 +528,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_enableFlag_1native(JNIEnv * env, jobject
 Game* x_game = (Game*)pointer;
 x_game->enableFlag(flag);
 }
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JIILbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jint tileX, jint tileY, jobject p_pred){
-Game* x_game = (Game*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_game->getUnitsOnTile(tileX, tileY, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JLbwapi4_TilePosition_2Lbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_tile, jobject p_pred){
-Game* x_game = (Game*)pointer;
-TilePosition tile((int)env->GetIntField(p_tile, FindCachedField(env, env->GetObjectClass(p_tile), "x", "I")), (int)env->GetIntField(p_tile, FindCachedField(env, env->GetObjectClass(p_tile), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_game->getUnitsOnTile(tile, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JIIIILbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jint left, jint top, jint right, jint bottom, jobject p_pred){
-Game* x_game = (Game*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_game->getUnitsInRectangle(left, top, right, bottom, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JLbwapi4_Position_2Lbwapi4_Position_2Lbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_topLeft, jobject p_bottomRight, jobject p_pred){
-Game* x_game = (Game*)pointer;
-Position topLeft((int)env->GetIntField(p_topLeft, FindCachedField(env, env->GetObjectClass(p_topLeft), "x", "I")), (int)env->GetIntField(p_topLeft, FindCachedField(env, env->GetObjectClass(p_topLeft), "y", "I")));
-Position bottomRight((int)env->GetIntField(p_bottomRight, FindCachedField(env, env->GetObjectClass(p_bottomRight), "x", "I")), (int)env->GetIntField(p_bottomRight, FindCachedField(env, env->GetObjectClass(p_bottomRight), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_game->getUnitsInRectangle(topLeft, bottomRight, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JIIILbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jint x, jint y, jint radius, jobject p_pred){
-Game* x_game = (Game*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_game->getUnitsInRadius(x, y, radius, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JLbwapi4_Position_2ILbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jint radius, jobject p_pred){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_game->getUnitsInRadius(center, radius, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnit_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnit(center, pred);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnit_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2I(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred, jint radius){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnit(center, pred, radius);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2III(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred, jint left, jint top, jint right){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnitInRectangle(center, pred, left, top, right);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2II(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred, jint left, jint top){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnitInRectangle(center, pred, left, top);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2I(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred, jint left){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnitInRectangle(center, pred, left);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnitInRectangle(center, pred);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2IIII(JNIEnv * env, jobject obj, jlong pointer, jobject p_center, jobject p_pred, jint left, jint top, jint right, jint bottom){
-Game* x_game = (Game*)pointer;
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getClosestUnitInRectangle(center, pred, left, top, right, bottom);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBestUnit_1native__JLbwapi4_BestUnitFilter_2Lbwapi4_UnitFilter_2Lbwapi4_Position_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_best, jobject p_pred, jobject p_center){
-Game* x_game = (Game*)pointer;
-BestUnitFilter best = (BestUnitFilter)env->GetLongField(p_best, FindCachedField(env, env->GetObjectClass(p_best), "pointer", "J"));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-jlong resptr = (jlong)x_game->getBestUnit(best, pred, center);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBestUnit_1native__JLbwapi4_BestUnitFilter_2Lbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_best, jobject p_pred){
-Game* x_game = (Game*)pointer;
-BestUnitFilter best = (BestUnitFilter)env->GetLongField(p_best, FindCachedField(env, env->GetObjectClass(p_best), "pointer", "J"));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_game->getBestUnit(best, pred);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBestUnit_1native__JLbwapi4_BestUnitFilter_2Lbwapi4_UnitFilter_2Lbwapi4_Position_2I(JNIEnv * env, jobject obj, jlong pointer, jobject p_best, jobject p_pred, jobject p_center, jint radius){
-Game* x_game = (Game*)pointer;
-BestUnitFilter best = (BestUnitFilter)env->GetLongField(p_best, FindCachedField(env, env->GetObjectClass(p_best), "pointer", "J"));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Position center((int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "x", "I")), (int)env->GetIntField(p_center, FindCachedField(env, env->GetObjectClass(p_center), "y", "I")));
-jlong resptr = (jlong)x_game->getBestUnit(best, pred, center, radius);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getLastError_1native(JNIEnv * env, jobject obj, jlong pointer){
 Game* x_game = (Game*)pointer;
 jlong resptr = (jlong)tableError.find(x_game->getLastError())->second;
@@ -745,6 +576,15 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Game_isWalkable_1native__JLbwapi4_WalkPos
 Game* x_game = (Game*)pointer;
 WalkPosition position((int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "x", "I")), (int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "y", "I")));
 return x_game->isWalkable(position);
+}
+JNIEXPORT jint JNICALL Java_bwapi4_Game_getGroundHeight_1native__JII(JNIEnv * env, jobject obj, jlong pointer, jint tileX, jint tileY){
+Game* x_game = (Game*)pointer;
+return x_game->getGroundHeight(tileX, tileY);
+}
+JNIEXPORT jint JNICALL Java_bwapi4_Game_getGroundHeight_1native__JLbwapi4_TilePosition_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_position){
+Game* x_game = (Game*)pointer;
+TilePosition position((int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "x", "I")), (int)env->GetIntField(p_position, FindCachedField(env, env->GetObjectClass(p_position), "y", "I")));
+return x_game->getGroundHeight(position);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Game_isBuildable_1native__JII(JNIEnv * env, jobject obj, jlong pointer, jint tileX, jint tileY){
 Game* x_game = (Game*)pointer;
@@ -970,7 +810,7 @@ x_game->setLocalSpeed(speed);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Game_issueCommand_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_units, jobject p_command){
 Game* x_game = (Game*)pointer;
-std::set<Unit> units;
+Unitset units;
 jclass colClass = env->GetObjectClass(p_units);
 jmethodID sizeMethodId = FindCachedMethod(env, colClass, "size", "()I");
 jmethodID getMethodId = FindCachedMethod(env, colClass, "get", "(I)Ljava/lang/Object;");
@@ -979,7 +819,7 @@ for( int i = 0; i < size; i++ ) {
 jobject jobj  = env->CallObjectMethod(p_units,getMethodId);
 units.insert((Unit)env->GetLongField(jobj, FindCachedField(env, env->GetObjectClass(jobj), "pointer", "J")));
 }
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_game->issueCommand(units, command);
 }
 JNIEXPORT jobject JNICALL Java_bwapi4_Game_getSelectedUnits_1native(JNIEnv * env, jobject obj, jlong pointer){
@@ -1069,12 +909,12 @@ x_game->setTextSize();
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_setTextSize_1native__JLbwapi4_Text_Size_Enum_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_size){
 Game* x_game = (Game*)pointer;
-Text::Size::Enum size;
+Text::Size::Enum size = (Text::Size::Enum)(int)env->GetIntField(p_size, FindCachedField(env, env->GetObjectClass(p_size), "value", "I"));
 x_game->setTextSize(size);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawText_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x, jint y, jstring cstr_format){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 x_game->drawText(ctype, x, y, std::string(env->GetStringUTFChars(cstr_format, NULL)).c_str());
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawTextMap_1native__JIILjava_lang_String_2(JNIEnv * env, jobject obj, jlong pointer, jint x, jint y, jstring cstr_format){
@@ -1106,13 +946,13 @@ x_game->drawTextScreen(p, std::string(env->GetStringUTFChars(cstr_format, NULL))
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawBox_1native__JLbwapi4_CoordinateType_Enum_2IIIILbwapi4_Color_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint left, jint top, jint right, jint bottom, jobject p_color){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawBox(ctype, left, top, right, bottom, color);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawBox_1native__JLbwapi4_CoordinateType_Enum_2IIIILbwapi4_Color_2Z(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint left, jint top, jint right, jint bottom, jobject p_color, jboolean isSolid){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawBox(ctype, left, top, right, bottom, color, (bool)isSolid);
 }
@@ -1190,13 +1030,13 @@ x_game->drawBoxScreen(leftTop, rightBottom, color, (bool)isSolid);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawTriangle_1native__JLbwapi4_CoordinateType_Enum_2IIIIIILbwapi4_Color_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint ax, jint ay, jint bx, jint by, jint cx, jint cy, jobject p_color){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawTriangle(ctype, ax, ay, bx, by, cx, cy, color);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawTriangle_1native__JLbwapi4_CoordinateType_Enum_2IIIIIILbwapi4_Color_2Z(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint ax, jint ay, jint bx, jint by, jint cx, jint cy, jobject p_color, jboolean isSolid){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawTriangle(ctype, ax, ay, bx, by, cx, cy, color, (bool)isSolid);
 }
@@ -1280,13 +1120,13 @@ x_game->drawTriangleScreen(a, b, c, color, (bool)isSolid);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawCircle_1native__JLbwapi4_CoordinateType_Enum_2IIILbwapi4_Color_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x, jint y, jint radius, jobject p_color){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawCircle(ctype, x, y, radius, color);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawCircle_1native__JLbwapi4_CoordinateType_Enum_2IIILbwapi4_Color_2Z(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x, jint y, jint radius, jobject p_color, jboolean isSolid){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawCircle(ctype, x, y, radius, color, (bool)isSolid);
 }
@@ -1358,13 +1198,13 @@ x_game->drawCircleScreen(p, radius, color, (bool)isSolid);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawEllipse_1native__JLbwapi4_CoordinateType_Enum_2IIIILbwapi4_Color_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x, jint y, jint xrad, jint yrad, jobject p_color){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawEllipse(ctype, x, y, xrad, yrad, color);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawEllipse_1native__JLbwapi4_CoordinateType_Enum_2IIIILbwapi4_Color_2Z(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x, jint y, jint xrad, jint yrad, jobject p_color, jboolean isSolid){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawEllipse(ctype, x, y, xrad, yrad, color, (bool)isSolid);
 }
@@ -1436,7 +1276,7 @@ x_game->drawEllipseScreen(p, xrad, yrad, color, (bool)isSolid);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawDot_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x, jint y, jobject p_color){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawDot(ctype, x, y, color);
 }
@@ -1475,7 +1315,7 @@ x_game->drawDotScreen(p, color);
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_drawLine_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_ctype, jint x1, jint y1, jint x2, jint y2, jobject p_color){
 Game* x_game = (Game*)pointer;
-CoordinateType::Enum ctype;
+CoordinateType::Enum ctype = (CoordinateType::Enum)(int)env->GetIntField(p_ctype, FindCachedField(env, env->GetObjectClass(p_ctype), "value", "I"));
 Color color((int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "r", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "g", "I")), (int)env->GetIntField(p_color, FindCachedField(env, env->GetObjectClass(p_color), "b", "I")));
 x_game->drawLine(ctype, x1, y1, x2, y2, color);
 }
@@ -1605,6 +1445,10 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Game_setVision_1native__JLbwapi4_Player_2
 Game* x_game = (Game*)pointer;
 Player player = (Player)env->GetLongField(p_player, FindCachedField(env, env->GetObjectClass(p_player), "pointer", "J"));
 return x_game->setVision(player, (bool)enabled);
+}
+JNIEXPORT jint JNICALL Java_bwapi4_Game_elapsedTime_1native(JNIEnv * env, jobject obj, jlong pointer){
+Game* x_game = (Game*)pointer;
+return x_game->elapsedTime();
 }
 JNIEXPORT void JNICALL Java_bwapi4_Game_setCommandOptimizationLevel_1native(JNIEnv * env, jobject obj, jlong pointer, jint level){
 Game* x_game = (Game*)pointer;
@@ -2110,44 +1954,12 @@ Region x_region = (Region)pointer;
 Region other = (Region)env->GetLongField(p_other, FindCachedField(env, env->GetObjectClass(p_other), "pointer", "J"));
 return x_region->getDistance(other);
 }
-JNIEXPORT jobject JNICALL Java_bwapi4_Region_getUnits_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_pred){
-Region x_region = (Region)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_region->getUnits(pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
 JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getCenter_1native(JNIEnv * env, jobject obj, jlong pointer){
 Regionset* x_regionset = (Regionset*)pointer;
 Position cresult = x_regionset->getCenter();
 jclass retcls = FindCachedClass(env, "bwapi/Position");
 jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(II)V");
 jobject result = env->NewObject(retcls, retConsID, cresult.x, cresult.y);
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getUnits_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_pred){
-Regionset* x_regionset = (Regionset*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_regionset->getUnits(pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
 return result;
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_TilePosition_isValid(JNIEnv * env, jobject obj){
@@ -2281,6 +2093,14 @@ return x_unit->hasPath(target);
 JNIEXPORT jint JNICALL Java_bwapi4_Unit_getLastCommandFrame_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
 return x_unit->getLastCommandFrame();
+}
+JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLastCommand_1native(JNIEnv * env, jobject obj, jlong pointer){
+Unit x_unit = (Unit)pointer;
+UnitCommand cresult = x_unit->getLastCommand();
+jclass retcls = FindCachedClass(env, "bwapi4/UnitCommand");
+jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi4/Unit;Lbwapi4/UnitCommandType;Lbwapi4/Unit;III)V");
+jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi4/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi4/Unit"), "get", "(J)Lbwapi4/Unit;"), cresult.getUnit()), env->CallStaticObjectMethod(FindCachedClass(env, "bwapi4/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi4/UnitCommandType"), "get", "(J)Lbwapi4/UnitCommandType;"), cresult.getType()), env->CallStaticObjectMethod(FindCachedClass(env, "bwapi4/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi4/Unit"), "get", "(J)Lbwapi4/Unit;"), cresult.getTarget()), cresult.getTargetPosition().x , cresult.getTargetPosition().y , resolveUnitCommandExtra(cresult));
+return result;
 }
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLastAttackingPlayer_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
@@ -2590,55 +2410,6 @@ env->CallVoidMethod(result, addMethodID, elem);
 }
 return result;
 }
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInRadius_1native(JNIEnv * env, jobject obj, jlong pointer, jint radius, jobject p_pred){
-Unit x_unit = (Unit)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_unit->getUnitsInRadius(radius, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInWeaponRange_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_weapon, jobject p_pred){
-Unit x_unit = (Unit)pointer;
-WeaponType weapon = (WeaponType)env->GetLongField(p_weapon, FindCachedField(env, env->GetObjectClass(p_weapon), "pointer", "J"));
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_unit->getUnitsInWeaponRange(weapon, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getClosestUnit_1native__JLbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_pred){
-Unit x_unit = (Unit)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_unit->getClosestUnit(pred);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getClosestUnit_1native__JLbwapi4_UnitFilter_2I(JNIEnv * env, jobject obj, jlong pointer, jobject p_pred, jint radius){
-Unit x_unit = (Unit)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_unit->getClosestUnit(pred, radius);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_hasNuke_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
 return x_unit->hasNuke();
@@ -2867,7 +2638,7 @@ return x_unit->isTargetable();
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_issueCommand_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_command){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->issueCommand(command);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_attack_1native__JLbwapi4_PositionOrUnit_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_target){
@@ -3125,72 +2896,72 @@ return x_unit->placeCOP(target);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2ZZZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanBuildUnitType, jboolean checkCanTargetUnit, jboolean checkCanIssueCommandType){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanBuildUnitType, (bool)checkCanTargetUnit, (bool)checkCanIssueCommandType);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2ZZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanBuildUnitType, jboolean checkCanTargetUnit){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanBuildUnitType, (bool)checkCanTargetUnit);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2ZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanBuildUnitType){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanBuildUnitType);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2ZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2Z(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command, (bool)checkCanUseTechPositionOnPositions);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_command){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommand_1native__JLbwapi4_UnitCommand_2ZZZZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanBuildUnitType, jboolean checkCanTargetUnit, jboolean checkCanIssueCommandType, jboolean checkCommandibility){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommand(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanBuildUnitType, (bool)checkCanTargetUnit, (bool)checkCanIssueCommandType, (bool)checkCommandibility);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2ZZZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanTargetUnit, jboolean checkCanIssueCommandType, jboolean checkCommandibilityGrouped){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanTargetUnit, (bool)checkCanIssueCommandType, (bool)checkCommandibilityGrouped);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2ZZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanTargetUnit, jboolean checkCanIssueCommandType){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanTargetUnit, (bool)checkCanIssueCommandType);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2ZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanTargetUnit){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanTargetUnit);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2ZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2Z(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command, (bool)checkCanUseTechPositionOnPositions);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_command){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canIssueCommandGrouped_1native__JLbwapi4_UnitCommand_2ZZZZZZ(JNIEnv * env, jobject obj, jlong pointer, jobject p_command, jboolean checkCanUseTechPositionOnPositions, jboolean checkCanUseTechUnitOnUnits, jboolean checkCanTargetUnit, jboolean checkCanIssueCommandType, jboolean checkCommandibilityGrouped, jboolean checkCommandibility){
 Unit x_unit = (Unit)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unit->canIssueCommandGrouped(command, (bool)checkCanUseTechPositionOnPositions, (bool)checkCanUseTechUnitOnUnits, (bool)checkCanTargetUnit, (bool)checkCanIssueCommandType, (bool)checkCommandibilityGrouped, (bool)checkCommandibility);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canCommand_1native(JNIEnv * env, jobject obj, jlong pointer){
@@ -4354,13 +4125,6 @@ Unit x_unit = (Unit)pointer;
 TilePosition target((int)env->GetIntField(p_target, FindCachedField(env, env->GetObjectClass(p_target), "x", "I")), (int)env->GetIntField(p_target, FindCachedField(env, env->GetObjectClass(p_target), "y", "I")));
 return x_unit->canPlaceCOP(target, (bool)checkCanIssueCommandType, (bool)checkCommandibility);
 }
-JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_getType_1native(JNIEnv * env, jobject obj, jlong pointer){
-UnitCommand x_unitCommand = (UnitCommand)pointer;
-jlong resptr = (jlong)x_unitCommand->getType();
-jclass retcls = FindCachedClass(env, "bwapi4/UnitCommandType");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/UnitCommandType;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
 JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getPosition_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unitset* x_unitset = (Unitset*)pointer;
 Position cresult = x_unitset->getPosition();
@@ -4414,41 +4178,9 @@ env->CallVoidMethod(result, addMethodID, elem);
 }
 return result;
 }
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getUnitsInRadius_1native(JNIEnv * env, jobject obj, jlong pointer, jint radius, jobject p_pred){
-Unitset* x_unitset = (Unitset*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-Unitset cresult = x_unitset->getUnitsInRadius(radius, pred);
-jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-jobject result = env->NewObject(listCls, listConsID);
-jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwapi4/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi4/Unit;");
-for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){const Unit elem_ptr = *it;
-jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
-env->CallVoidMethod(result, addMethodID, elem);
-}
-return result;
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getClosestUnit_1native__JLbwapi4_UnitFilter_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_pred){
-Unitset* x_unitset = (Unitset*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_unitset->getClosestUnit(pred);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getClosestUnit_1native__JLbwapi4_UnitFilter_2I(JNIEnv * env, jobject obj, jlong pointer, jobject p_pred, jint radius){
-Unitset* x_unitset = (Unitset*)pointer;
-UnitFilter pred = (UnitFilter)env->GetLongField(p_pred, FindCachedField(env, env->GetObjectClass(p_pred), "pointer", "J"));
-jlong resptr = (jlong)x_unitset->getClosestUnit(pred, radius);
-jclass retcls = FindCachedClass(env, "bwapi4/Unit");
-jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi4/Unit;");
-return env->CallStaticObjectMethod(retcls, mid, resptr);
-}
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unitset_issueCommand_1native(JNIEnv * env, jobject obj, jlong pointer, jobject p_command){
 Unitset* x_unitset = (Unitset*)pointer;
-UnitCommand command = (UnitCommand)env->GetLongField(p_command, FindCachedField(env, env->GetObjectClass(p_command), "pointer", "J"));
+UnitCommand command(convertUnitCommand(env, p_command ));
 return x_unitset->issueCommand(command);
 }
 JNIEXPORT jboolean JNICALL Java_bwapi4_Unitset_attack_1native__JLbwapi4_PositionOrUnit_2(JNIEnv * env, jobject obj, jlong pointer, jobject p_target){
@@ -6297,11 +6029,6 @@ println("Connecting to Broodwar...");
 				  {
 					  switch (it->getType()) {
 						  case EventType::MatchStart:
-							  BWTA::BWTA_Result::regions.clear();
-							  BWTA::BWTA_Result::baselocations.clear();
-							  BWTA::BWTA_Result::startlocations.clear();
-							  BWTA::BWTA_Result::chokepoints.clear();
-							  BWTA::BWTA_Result::unwalkablePolygons.clear();
 							  env->CallVoidMethod(moduleObj, matchStartCallback);
 						  break;
 						  case EventType::MatchEnd:

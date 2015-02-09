@@ -63,10 +63,6 @@ public class Region extends CenteredObject
         return getDistance_native(pointer, other);
     }
 
-    public List<Unit> getUnits(UnitFilter pred) {
-        return getUnits_native(pointer, pred);
-    }
-
 
     private static Map<Long, Region> instances = new HashMap<Long, Region>();
 
@@ -113,8 +109,6 @@ public class Region extends CenteredObject
     private native Region getClosestInaccessibleRegion_native(long pointer);
 
     private native int getDistance_native(long pointer, Region other);
-
-    private native List<Unit> getUnits_native(long pointer, UnitFilter pred);
 
 
 }

@@ -7,14 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_UnitCommand
- * Method:    getType_native
- * Signature: (J)Lbwapi4/UnitCommandType;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_getType_1native
-  (JNIEnv *, jobject, jlong);
-
 #ifdef __cplusplus
 }
 #endif

@@ -25,18 +25,6 @@ public class Unitset {
         return getLarva_native(pointer);
     }
 
-    public List<Unit> getUnitsInRadius(int radius, UnitFilter pred) {
-        return getUnitsInRadius_native(pointer, radius, pred);
-    }
-
-    public Unit getClosestUnit(UnitFilter pred) {
-        return getClosestUnit_native(pointer, pred);
-    }
-
-    public Unit getClosestUnit(UnitFilter pred, int radius) {
-        return getClosestUnit_native(pointer, pred, radius);
-    }
-
     public boolean issueCommand(UnitCommand command) {
         return issueCommand_native(pointer, command);
     }
@@ -265,12 +253,6 @@ public class Unitset {
     private native List<Unit> getInterceptors_native(long pointer);
 
     private native List<Unit> getLarva_native(long pointer);
-
-    private native List<Unit> getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
-
-    private native Unit getClosestUnit_native(long pointer, UnitFilter pred);
-
-    private native Unit getClosestUnit_native(long pointer, UnitFilter pred, int radius);
 
     private native boolean issueCommand_native(long pointer, UnitCommand command);
 

@@ -193,6 +193,14 @@ JNIEXPORT jint JNICALL Java_bwapi4_Unit_getLastCommandFrame_1native
 
 /*
  * Class:     bwapi4_Unit
+ * Method:    getLastCommand_native
+ * Signature: (J)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLastCommand_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Unit
  * Method:    getLastAttackingPlayer_native
  * Signature: (J)Lbwapi4/Player;
  */
@@ -598,38 +606,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getHatchery_1native
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLarva_1native
   (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getUnitsInRadius_native
- * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInRadius_1native
-  (JNIEnv *, jobject, jlong, jint, jobject);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getUnitsInWeaponRange_native
- * Signature: (JLbwapi4/WeaponType;Lbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInWeaponRange_1native
-  (JNIEnv *, jobject, jlong, jobject, jobject);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getClosestUnit_1native__JLbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getClosestUnit_1native__JLbwapi4_UnitFilter_2I
-  (JNIEnv *, jobject, jlong, jobject, jint);
 
 /*
  * Class:     bwapi4_Unit

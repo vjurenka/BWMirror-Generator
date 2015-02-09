@@ -682,134 +682,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_enableFlag_1native
 
 /*
  * Class:     bwapi4_Game
- * Method:    getUnitsOnTile_native
- * Signature: (JIILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JIILbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jint, jint, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getUnitsOnTile_native
- * Signature: (JLbwapi4/TilePosition;Lbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsOnTile_1native__JLbwapi4_TilePosition_2Lbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getUnitsInRectangle_native
- * Signature: (JIIIILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JIIIILbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jint, jint, jint, jint, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getUnitsInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/Position;Lbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRectangle_1native__JLbwapi4_Position_2Lbwapi4_Position_2Lbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject, jobject, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getUnitsInRadius_native
- * Signature: (JIIILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JIIILbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jint, jint, jint, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getUnitsInRadius_native
- * Signature: (JLbwapi4/Position;ILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getUnitsInRadius_1native__JLbwapi4_Position_2ILbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject, jint, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnit_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnit_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2I
-  (JNIEnv *, jobject, jlong, jobject, jobject, jint);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnitInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;III)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2III
-  (JNIEnv *, jobject, jlong, jobject, jobject, jint, jint, jint);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnitInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;II)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2II
-  (JNIEnv *, jobject, jlong, jobject, jobject, jint, jint);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnitInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2I
-  (JNIEnv *, jobject, jlong, jobject, jobject, jint);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnitInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getClosestUnitInRectangle_native
- * Signature: (JLbwapi4/Position;Lbwapi4/UnitFilter;IIII)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getClosestUnitInRectangle_1native__JLbwapi4_Position_2Lbwapi4_UnitFilter_2IIII
-  (JNIEnv *, jobject, jlong, jobject, jobject, jint, jint, jint, jint);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getBestUnit_native
- * Signature: (JLbwapi4/BestUnitFilter;Lbwapi4/UnitFilter;Lbwapi4/Position;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBestUnit_1native__JLbwapi4_BestUnitFilter_2Lbwapi4_UnitFilter_2Lbwapi4_Position_2
-  (JNIEnv *, jobject, jlong, jobject, jobject, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getBestUnit_native
- * Signature: (JLbwapi4/BestUnitFilter;Lbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBestUnit_1native__JLbwapi4_BestUnitFilter_2Lbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    getBestUnit_native
- * Signature: (JLbwapi4/BestUnitFilter;Lbwapi4/UnitFilter;Lbwapi4/Position;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Game_getBestUnit_1native__JLbwapi4_BestUnitFilter_2Lbwapi4_UnitFilter_2Lbwapi4_Position_2I
-  (JNIEnv *, jobject, jlong, jobject, jobject, jobject, jint);
-
-/*
- * Class:     bwapi4_Game
  * Method:    getLastError_native
  * Signature: (J)Lbwapi4/Error;
  */
@@ -894,6 +766,22 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Game_isWalkable_1native__JII
  * Signature: (JLbwapi4/WalkPosition;)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi4_Game_isWalkable_1native__JLbwapi4_WalkPosition_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    getGroundHeight_native
+ * Signature: (JII)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_Game_getGroundHeight_1native__JII
+  (JNIEnv *, jobject, jlong, jint, jint);
+
+/*
+ * Class:     bwapi4_Game
+ * Method:    getGroundHeight_native
+ * Signature: (JLbwapi4/TilePosition;)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_Game_getGroundHeight_1native__JLbwapi4_TilePosition_2
   (JNIEnv *, jobject, jlong, jobject);
 
 /*
@@ -2130,6 +2018,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Game_setVision_1native__JLbwapi4_Player_2
 
 /*
  * Class:     bwapi4_Game
+ * Method:    elapsedTime_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_Game_elapsedTime_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Game
  * Method:    setCommandOptimizationLevel_native
  * Signature: (JI)V
  */
@@ -3176,14 +3072,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Region_getClosestInaccessibleRegion_1nativ
 JNIEXPORT jint JNICALL Java_bwapi4_Region_getDistance_1native
   (JNIEnv *, jobject, jlong, jobject);
 
-/*
- * Class:     bwapi4_Region
- * Method:    getUnits_native
- * Signature: (JLbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Region_getUnits_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
 #ifdef __cplusplus
 }
 #endif
@@ -3202,14 +3090,6 @@ extern "C" {
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getCenter_1native
   (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Regionset
- * Method:    getUnits_native
- * Signature: (JLbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getUnits_1native
-  (JNIEnv *, jobject, jlong, jobject);
 
 #ifdef __cplusplus
 }
@@ -3469,6 +3349,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_hasPath_1native
  * Signature: (J)I
  */
 JNIEXPORT jint JNICALL Java_bwapi4_Unit_getLastCommandFrame_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Unit
+ * Method:    getLastCommand_native
+ * Signature: (J)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLastCommand_1native
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -3878,38 +3766,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getHatchery_1native
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getLarva_1native
   (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getUnitsInRadius_native
- * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInRadius_1native
-  (JNIEnv *, jobject, jlong, jint, jobject);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getUnitsInWeaponRange_native
- * Signature: (JLbwapi4/WeaponType;Lbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getUnitsInWeaponRange_1native
-  (JNIEnv *, jobject, jlong, jobject, jobject);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getClosestUnit_1native__JLbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_Unit
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unit_getClosestUnit_1native__JLbwapi4_UnitFilter_2I
-  (JNIEnv *, jobject, jlong, jobject, jint);
 
 /*
  * Class:     bwapi4_Unit
@@ -6954,14 +6810,6 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canPlaceCOP_1native__JLbwapi4_TilePo
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_UnitCommand
- * Method:    getType_native
- * Signature: (J)Lbwapi4/UnitCommandType;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_getType_1native
-  (JNIEnv *, jobject, jlong);
-
 #ifdef __cplusplus
 }
 #endif
@@ -7026,30 +6874,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getInterceptors_1native
  */
 JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getLarva_1native
   (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    getUnitsInRadius_native
- * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getUnitsInRadius_1native
-  (JNIEnv *, jobject, jlong, jint, jobject);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getClosestUnit_1native__JLbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getClosestUnit_1native__JLbwapi4_UnitFilter_2I
-  (JNIEnv *, jobject, jlong, jobject, jint);
 
 /*
  * Class:     bwapi4_Unitset

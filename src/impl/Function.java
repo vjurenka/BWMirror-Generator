@@ -20,6 +20,8 @@ public class Function implements Method {
 
     ArrayList<Param> args = new ArrayList<Param>();
 
+    boolean isStatic = false;
+
     @Override
     public List<Param> getParams() {
         return args;
@@ -95,5 +97,14 @@ public class Function implements Method {
 
     public void setJavadoc(String javadoc) {
         this.javadoc = javadoc;
+    }
+
+    @Override
+    public boolean isStatic() {
+        return isStatic;
+    }
+
+    public void setStatic(boolean isStatic) {
+        this.isStatic = isStatic;
     }
 }

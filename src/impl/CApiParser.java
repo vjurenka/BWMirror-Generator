@@ -1,6 +1,7 @@
 package impl;
 
 import c.*;
+import generator.CJavaPipeline;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,12 +42,13 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)(\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
-    //                    1     2             3         45       6        78     9   10                        11               12          13,14   15,16
-    String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?\\s*";
+    //                    1     2             3         4            56        7        89     10   11                       12                13           14,15   15,17
+    String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?(static\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s+([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?\\s*";
 
-    static final int F_REGEX_RETURN_TYPE = 7;
-    static final int F_REGEX_NAME = 12;
-    static final int F_REGEX_PARAMS = 13;
+    static final int F_REGEX_STATIC = 4;
+    static final int F_REGEX_RETURN_TYPE = 8;
+    static final int F_REGEX_NAME = 13;
+    static final int F_REGEX_PARAMS = 14;
 
     String ENUM_VALUE_REGEX = "^(\\s*)(\\w+)(\\s*=\\s*(0x)?([0-9A-Fa-f]+))?\\s*[\\,;]";
 
@@ -161,7 +163,7 @@ public class CApiParser {
         return LineState.SKIP;
     }
 
-    private static final boolean isSkip(String line) {
+    private static boolean isSkip(String line) {
         if (line.isEmpty()) {
             return true;
         }
@@ -244,7 +246,7 @@ public class CApiParser {
                 System.err.println("function skipped - GameData* return (" + function.name + ")");
                 return null;
             }
-            if (function.returnType.equals("UnitCommand")) {
+            if (CJavaPipeline.isBWAPI3() && function.returnType.equals("UnitCommand")) {
                 System.err.println("function skipped - UnitCommand return (" + function.name + ")");
                 return null;
             }
@@ -264,6 +266,10 @@ public class CApiParser {
             if(function.name.equals("setClientInfo")){
                 System.err.println("function skipped - BWAPI4 set client info return (" + function.name + ")");
                 return null;
+            }
+
+            if(matcher.group(F_REGEX_STATIC) != null){
+                function.setStatic(true);
             }
 
             if (matcher.group(F_REGEX_PARAMS) != null) {
@@ -388,6 +394,16 @@ public class CApiParser {
 
                         if (argType.equals("RectangleArray")) {
                             System.err.println("function skipped - RectangleArray param (" + function.name + ")");
+                            return null;
+                        }
+
+                        if (argType.equals("UnitFilter")) {
+                            System.err.println("function skipped - UnitFilter param (" + function.name + ")");
+                            return null;
+                        }
+
+                        if (argType.equals("BestUnitFilter")) {
+                            System.err.println("function skipped - BestUnitFilter param (" + function.name + ")");
                             return null;
                         }
 

@@ -16,4 +16,6 @@ public interface Method extends Field{
     public List<Param> getParams();
 
     public Method clone();
+
+    public boolean isStatic();
 }

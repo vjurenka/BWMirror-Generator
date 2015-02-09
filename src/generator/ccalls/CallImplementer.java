@@ -56,7 +56,7 @@ public class CallImplementer {
                 (CJavaPipeline.isBWAPI3() ? "#include <BWTA.h>\n" : "#include <thread>\n" + "#include <chrono>\n") +
                 "#include <jni.h>\n" +
                 "#include <cstring>\n" +
-                "#include \"../BWTA_Result.h\"" +
+                (CJavaPipeline.isBWAPI3() ? "#include \"../BWTA_Result.h\"" : "")+
                 "\n" +
                 "using namespace BWAPI;\n\n");
     }
@@ -82,7 +82,11 @@ public class CallImplementer {
 
                 if (javaContext.isCollection(param.third)) {
                     String genericType = Generic.extractGeneric(param.third);
-                    out.println("std::set<" + PointerTest.test(genericType) + "> " + param.second + SEMICOLON);
+                    if (CJavaPipeline.isBWAPI3()) {
+                        out.println("std::set<" + PointerTest.test(genericType) + "> " + param.second + SEMICOLON);
+                    } else {
+                        out.println(genericType + "set " + param.second + SEMICOLON);
+                    }
 
                     out.println("jclass colClass = env->GetObjectClass(" + paramName + ");");
                     out.println("jmethodID sizeMethodId = FindCachedMethod(env, colClass, \"size\", \"()I\");");
@@ -391,19 +395,54 @@ public class CallImplementer {
         this.bwtaMode = bwtaMode;
     }
 
-    public void notifyPackageStart(){
+    public void notifyPackageStart() {
         out.println("PositionOrUnit convertPositionOrUnit(JNIEnv * env, jobject obj){ \n" +
-                "\tjclass clz = FindCachedClass(env, \"PositionOrUnit\");\n" +
+                "\tjclass clz = FindCachedClass(env, \"" + javaContext.getPackageName() + "/PositionOrUnit\");\n" +
                 "\tjmethodID typeMethodId = FindCachedMethod(env, clz, \"isUnit\", \"()Z\");\n" +
                 "\tbool isUnit = (bool)env->CallBooleanMethod(obj, typeMethodId);\n" +
                 "\tif(isUnit){\n" +
                 "\t\tjobject unitObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getUnit\", \"()L" + javaContext.getPackageName() + "/Unit;\"));\n" +
-                "\t\tUnit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), \"unitObj\", \"J\"));\n" +
+                "\t\tUnit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), \"pointer\", \"J\"));\n" +
                 "\t\treturn PositionOrUnit(unit);\n" +
                 "\t}\n" +
                 "\tjobject posObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getPosition\", \"()L" + javaContext.getPackageName() + "/Position;\"));\n" +
                 "\t" + javaContext.copyJavaObjectToC("Position", "position", "posObj") + "\n" +
                 "\treturn PositionOrUnit(position);\n" +
+                "}\n\n");
+
+        out.println("UnitCommand convertUnitCommand(JNIEnv * env, jobject obj){" +
+                "\tjclass clz = FindCachedClass(env, \"" + javaContext.getPackageName() + "/UnitCommand\");\n" +
+
+                "\tjobject unitObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getUnit\", \"()L" + javaContext.getPackageName() + "/Unit;\"));\n" +
+                "\tUnit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), \"pointer\", \"J\"));\n" +
+
+                "\tjobject targetObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getTarget\", \"()L" + javaContext.getPackageName() + "/Unit;\"));\n" +
+                "\tUnit target = (Unit)env->GetLongField(targetObj, FindCachedField(env, env->GetObjectClass(targetObj), \"pointer\", \"J\"));\n" +
+
+                "\tjobject typeObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getType\", \"()L" + javaContext.getPackageName() + "/UnitCommandType;\"));\n" +
+                "\tUnitCommandType type = (UnitCommandType)env->GetIntField(typeObj, FindCachedField(env, env->GetObjectClass(typeObj), \"value\", \"I\"));\n" +
+
+                "\tint extra = (int)env->GetIntField(obj, FindCachedField(env, clz, \"extra\", \"I\"));\n" +
+
+                "\tjobject posObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getPosition\", \"()L" + javaContext.getPackageName() + "/Position;\"));\n" +
+                "\t" + javaContext.copyJavaObjectToC("Position", "position", "posObj") + "\n" +
+                "\treturn UnitCommand(unit, UnitCommandType(type), target, position.x, position.y, extra);\n" +
+                "}\n\n");
+
+        out.println("int resolveUnitCommandExtra(UnitCommand& command){\n" +
+                "\tif(command.getUnitType() != UnitTypes::None){" +
+                "\t\treturn command.getUnitType().getID();" +
+                "}\n" +
+                "\tif(command.getTechType() != TechTypes::None){" +
+                "\t\treturn command.getTechType().getID();" +
+                "}\n" +
+                "\tif(command.getUpgradeType() != UpgradeTypes::None){" +
+                "\t\treturn command.getUpgradeType().getID();" +
+                "}\n" +
+                "\tif(command.getSlot() != -1){" +
+                "\t\treturn command.extra;" +
+                "}\n" +
+                "\treturn command.isQueued();\n" +
                 "}\n\n");
     }
 }

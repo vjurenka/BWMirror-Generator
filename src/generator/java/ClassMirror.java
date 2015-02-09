@@ -129,7 +129,7 @@ public class ClassMirror extends Mirror {
         if(checkDefaults){
             handleDefaults(method);
         }
-        out.print(INTEND + "public" + SPACE + (cClass.isStatic() ? "static" + SPACE + "native" + SPACE : "") + context.toJavaType(method.getType()) + SPACE + method.getName() + "(");
+        out.print(INTEND + "public" + SPACE + (cClass.isStatic() || method.isStatic() ? "static" + SPACE + "native" + SPACE : "") + context.toJavaType(method.getType()) + SPACE + method.getName() + "(");
         boolean first = true;
         for (Param param : method.getParams()) {
             if (!first) {
@@ -139,7 +139,7 @@ public class ClassMirror extends Mirror {
             out.print(paramString(param));
         }
         out.print(")");
-        if (!cClass.isStatic()) {
+        if (!cClass.isStatic() && !method.isStatic()) {
             out.println(SPACE + "{");
             writeNativeCall(method);
             out.println(INTEND + "}");

@@ -13,10 +13,6 @@ public class Regionset {
         return getCenter_native(pointer);
     }
 
-    public List<Unit> getUnits(UnitFilter pred) {
-        return getUnits_native(pointer, pred);
-    }
-
 
     private static Map<Long, Regionset> instances = new HashMap<Long, Regionset>();
 
@@ -39,8 +35,6 @@ public class Regionset {
     private long pointer;
 
     private native Position getCenter_native(long pointer);
-
-    private native List<Unit> getUnits_native(long pointer, UnitFilter pred);
 
 
 }

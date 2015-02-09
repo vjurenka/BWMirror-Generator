@@ -41,30 +41,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getLarva_1native
 
 /*
  * Class:     bwapi4_Unitset
- * Method:    getUnitsInRadius_native
- * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getUnitsInRadius_1native
-  (JNIEnv *, jobject, jlong, jint, jobject);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getClosestUnit_1native__JLbwapi4_UnitFilter_2
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    getClosestUnit_native
- * Signature: (JLbwapi4/UnitFilter;I)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getClosestUnit_1native__JLbwapi4_UnitFilter_2I
-  (JNIEnv *, jobject, jlong, jobject, jint);
-
-/*
- * Class:     bwapi4_Unitset
  * Method:    issueCommand_native
  * Signature: (JLbwapi4/UnitCommand;)Z
  */

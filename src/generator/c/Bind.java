@@ -109,12 +109,14 @@ public class Bind {
                 "\t\t\t\tfor(std::list<Event>::const_iterator it = Broodwar->getEvents().begin(); it!=Broodwar->getEvents().end(); it++)\n" +
                 "\t\t\t\t  {\n" +
                 "\t\t\t\t\t  switch (it->getType()) {\n" +
+
                 "\t\t\t\t\t\t  case EventType::MatchStart:\n" +
+                        (    CJavaPipeline.isBWAPI3()?
                 "\t\t\t\t\t\t\t  BWTA::BWTA_Result::regions.clear();\n" +
                 "\t\t\t\t\t\t\t  BWTA::BWTA_Result::baselocations.clear();\n" +
                 "\t\t\t\t\t\t\t  BWTA::BWTA_Result::startlocations.clear();\n" +
                 "\t\t\t\t\t\t\t  BWTA::BWTA_Result::chokepoints.clear();\n" +
-                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::unwalkablePolygons.clear();\n" +
+                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::unwalkablePolygons.clear();\n" : "" )  +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, matchStartCallback);\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::MatchEnd:\n" +

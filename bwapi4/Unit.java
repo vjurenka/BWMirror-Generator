@@ -103,6 +103,10 @@ public class Unit extends PositionedObject
         return getLastCommandFrame_native(pointer);
     }
 
+    public UnitCommand getLastCommand() {
+        return getLastCommand_native(pointer);
+    }
+
     public Player getLastAttackingPlayer() {
         return getLastAttackingPlayer_native(pointer);
     }
@@ -305,22 +309,6 @@ public class Unit extends PositionedObject
 
     public List<Unit> getLarva() {
         return getLarva_native(pointer);
-    }
-
-    public List<Unit> getUnitsInRadius(int radius, UnitFilter pred) {
-        return getUnitsInRadius_native(pointer, radius, pred);
-    }
-
-    public List<Unit> getUnitsInWeaponRange(WeaponType weapon, UnitFilter pred) {
-        return getUnitsInWeaponRange_native(pointer, weapon, pred);
-    }
-
-    public Unit getClosestUnit(UnitFilter pred) {
-        return getClosestUnit_native(pointer, pred);
-    }
-
-    public Unit getClosestUnit(UnitFilter pred, int radius) {
-        return getClosestUnit_native(pointer, pred, radius);
     }
 
     public boolean hasNuke() {
@@ -1906,6 +1894,8 @@ public class Unit extends PositionedObject
 
     private native int getLastCommandFrame_native(long pointer);
 
+    private native UnitCommand getLastCommand_native(long pointer);
+
     private native Player getLastAttackingPlayer_native(long pointer);
 
     private native UnitType getInitialType_native(long pointer);
@@ -2007,14 +1997,6 @@ public class Unit extends PositionedObject
     private native Unit getHatchery_native(long pointer);
 
     private native List<Unit> getLarva_native(long pointer);
-
-    private native List<Unit> getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
-
-    private native List<Unit> getUnitsInWeaponRange_native(long pointer, WeaponType weapon, UnitFilter pred);
-
-    private native Unit getClosestUnit_native(long pointer, UnitFilter pred);
-
-    private native Unit getClosestUnit_native(long pointer, UnitFilter pred, int radius);
 
     private native boolean hasNuke_native(long pointer);
 

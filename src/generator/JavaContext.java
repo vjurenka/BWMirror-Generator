@@ -14,13 +14,13 @@ public class JavaContext {
 
     private HashMap<String, String> javaToCType = new HashMap<>();
 
-    private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "WalkPosition", "Color", "BWTA::RectangleArray<double>", "PositionOrUnit", "Point");
+    private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "WalkPosition", "Color", "BWTA::RectangleArray<double>", "PositionOrUnit", "Point", "UnitCommand");
 
     private List<String> constantTypes = Arrays.asList("UnitType", "TechType", "UpgradeType", "Race", "UnitCommand", "WeaponType", "Order", "GameType", "Error");
 
-    private List<String> enumTypes = Arrays.asList("MouseButton", "Key", "bwapi4.Text.Size.Enum", "bwapi4.CoordinateType.Enum");
+    private List<String> enumTypes = Arrays.asList("MouseButton", "Key", "bwapi4.Text.Size.Enum", "bwapi4.CoordinateType.Enum", "Text::Size::Enum", "CoordinateType::Enum");
 
-    private List<String> valueReturnTypes = Arrays.asList("UnitCommand", "Event");
+    private List<String> valueReturnTypes = Arrays.asList("Event");
 
     private List<String> bwtaClasses = Arrays.asList("Chokepoint", "Region", "RectangleArray", "Polygon", "BaseLocation");
 
@@ -40,7 +40,7 @@ public class JavaContext {
     }
 
     public String getPackageName(String javaRetType) {
-        if(javaRetType.equals("Position") || javaRetType.equals("TilePosition")){
+        if (javaRetType.equals("Position") || javaRetType.equals("TilePosition")) {
             return "bwapi";
         }
         return packageName;
@@ -104,16 +104,18 @@ public class JavaContext {
                         ");";
             case "PositionOrUnit":
                 return "(convertPositionOrUnit(env, " + rawName + " ));";
+            case "UnitCommand":
+                return "(convertUnitCommand(env, " + rawName + " ));";
         }
         return ";";
     }
 
     public String copyJavaObjectToC(String variableType, String variableName, String rawName) {
         String packageStrippedType = variableType;
-        if(packageStrippedType.startsWith("bwapi")){
+        if (packageStrippedType.startsWith("bwapi")) {
             packageStrippedType = packageStrippedType.substring(packageStrippedType.indexOf(".") + 1);
         }
-        packageStrippedType = packageStrippedType.replaceAll("\\.","::");
+        packageStrippedType = packageStrippedType.replaceAll("\\.", "::");
 
         return (packageStrippedType + " " + variableName) + copyFields(packageStrippedType, variableName, rawName);
     }
@@ -151,6 +153,8 @@ public class JavaContext {
                 return "III";
             case "Error":
                 return "I";
+            case "UnitCommand":
+                return "L" + packageName + "/Unit;L" + packageName + "/UnitCommandType;L" + packageName + "/Unit;III";
             default:
                 throw new UnsupportedOperationException();
         }
@@ -160,8 +164,8 @@ public class JavaContext {
         return implementCopyReturn(javaType, "cresult");
     }
 
-    public static String checkBWAPI3brackets(){
-        if(CJavaPipeline.isBWAPI3()){
+    public static String checkBWAPI3brackets() {
+        if (CJavaPipeline.isBWAPI3()) {
             return "()";
         }
         return "";
@@ -173,18 +177,26 @@ public class JavaContext {
             case "Position":
             case "WalkPosition":
             case "Point":
-                return ", "+fieldName+".x" + checkBWAPI3brackets() +
-                        ", "+fieldName+".y" + checkBWAPI3brackets() ;
+                return ", " + fieldName + ".x" + checkBWAPI3brackets() +
+                        ", " + fieldName + ".y" + checkBWAPI3brackets();
             case "Color":
-                return ", "+fieldName+".red()" +
-                        ", "+fieldName+".green()" +
-                        ", "+fieldName+".blue()";
+                return ", " + fieldName + ".red()" +
+                        ", " + fieldName + ".green()" +
+                        ", " + fieldName + ".blue()";
+            case "UnitCommand":
+                return
+                        ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), " +fieldName+ ".getUnit())" +
+                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), \"get\", \"(J)Lbwapi4/UnitCommandType;\"), "+fieldName+".getType())" +
+                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), "+fieldName+".getTarget())" +
+                                ", "+ fieldName +".getTargetPosition().x " +
+                                ", "+ fieldName +".getTargetPosition().y " +
+                                ", resolveUnitCommandExtra("+fieldName+")";
             default:
                 throw new UnsupportedOperationException();
         }
     }
 
-    public boolean isBWTA(String cls){
+    public boolean isBWTA(String cls) {
         return bwtaClasses.contains(cls);
     }
 }

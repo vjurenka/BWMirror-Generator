@@ -133,70 +133,6 @@ public class Game {
         enableFlag_native(pointer, flag);
     }
 
-    public List<Unit> getUnitsOnTile(int tileX, int tileY, UnitFilter pred) {
-        return getUnitsOnTile_native(pointer, tileX, tileY, pred);
-    }
-
-    public List<Unit> getUnitsOnTile(TilePosition tile, UnitFilter pred) {
-        return getUnitsOnTile_native(pointer, tile, pred);
-    }
-
-    public List<Unit> getUnitsInRectangle(int left, int top, int right, int bottom, UnitFilter pred) {
-        return getUnitsInRectangle_native(pointer, left, top, right, bottom, pred);
-    }
-
-    public List<Unit> getUnitsInRectangle(Position topLeft, Position bottomRight, UnitFilter pred) {
-        return getUnitsInRectangle_native(pointer, topLeft, bottomRight, pred);
-    }
-
-    public List<Unit> getUnitsInRadius(int x, int y, int radius, UnitFilter pred) {
-        return getUnitsInRadius_native(pointer, x, y, radius, pred);
-    }
-
-    public List<Unit> getUnitsInRadius(Position center, int radius, UnitFilter pred) {
-        return getUnitsInRadius_native(pointer, center, radius, pred);
-    }
-
-    public Unit getClosestUnit(Position center, UnitFilter pred) {
-        return getClosestUnit_native(pointer, center, pred);
-    }
-
-    public Unit getClosestUnit(Position center, UnitFilter pred, int radius) {
-        return getClosestUnit_native(pointer, center, pred, radius);
-    }
-
-    public Unit getClosestUnitInRectangle(Position center, UnitFilter pred, int left, int top, int right) {
-        return getClosestUnitInRectangle_native(pointer, center, pred, left, top, right);
-    }
-
-    public Unit getClosestUnitInRectangle(Position center, UnitFilter pred, int left, int top) {
-        return getClosestUnitInRectangle_native(pointer, center, pred, left, top);
-    }
-
-    public Unit getClosestUnitInRectangle(Position center, UnitFilter pred, int left) {
-        return getClosestUnitInRectangle_native(pointer, center, pred, left);
-    }
-
-    public Unit getClosestUnitInRectangle(Position center, UnitFilter pred) {
-        return getClosestUnitInRectangle_native(pointer, center, pred);
-    }
-
-    public Unit getClosestUnitInRectangle(Position center, UnitFilter pred, int left, int top, int right, int bottom) {
-        return getClosestUnitInRectangle_native(pointer, center, pred, left, top, right, bottom);
-    }
-
-    public Unit getBestUnit(BestUnitFilter best, UnitFilter pred, Position center) {
-        return getBestUnit_native(pointer, best, pred, center);
-    }
-
-    public Unit getBestUnit(BestUnitFilter best, UnitFilter pred) {
-        return getBestUnit_native(pointer, best, pred);
-    }
-
-    public Unit getBestUnit(BestUnitFilter best, UnitFilter pred, Position center, int radius) {
-        return getBestUnit_native(pointer, best, pred, center, radius);
-    }
-
     public Error getLastError() {
         return getLastError_native(pointer);
     }
@@ -239,6 +175,14 @@ public class Game {
 
     public boolean isWalkable(WalkPosition position) {
         return isWalkable_native(pointer, position);
+    }
+
+    public int getGroundHeight(int tileX, int tileY) {
+        return getGroundHeight_native(pointer, tileX, tileY);
+    }
+
+    public int getGroundHeight(TilePosition position) {
+        return getGroundHeight_native(pointer, position);
     }
 
     public boolean isBuildable(int tileX, int tileY) {
@@ -857,6 +801,10 @@ public class Game {
         return setVision_native(pointer, player, enabled);
     }
 
+    public int elapsedTime() {
+        return elapsedTime_native(pointer);
+    }
+
     public void setCommandOptimizationLevel(int level) {
         setCommandOptimizationLevel_native(pointer, level);
     }
@@ -1004,38 +952,6 @@ public class Game {
 
     private native void enableFlag_native(long pointer, int flag);
 
-    private native List<Unit> getUnitsOnTile_native(long pointer, int tileX, int tileY, UnitFilter pred);
-
-    private native List<Unit> getUnitsOnTile_native(long pointer, TilePosition tile, UnitFilter pred);
-
-    private native List<Unit> getUnitsInRectangle_native(long pointer, int left, int top, int right, int bottom, UnitFilter pred);
-
-    private native List<Unit> getUnitsInRectangle_native(long pointer, Position topLeft, Position bottomRight, UnitFilter pred);
-
-    private native List<Unit> getUnitsInRadius_native(long pointer, int x, int y, int radius, UnitFilter pred);
-
-    private native List<Unit> getUnitsInRadius_native(long pointer, Position center, int radius, UnitFilter pred);
-
-    private native Unit getClosestUnit_native(long pointer, Position center, UnitFilter pred);
-
-    private native Unit getClosestUnit_native(long pointer, Position center, UnitFilter pred, int radius);
-
-    private native Unit getClosestUnitInRectangle_native(long pointer, Position center, UnitFilter pred, int left, int top, int right);
-
-    private native Unit getClosestUnitInRectangle_native(long pointer, Position center, UnitFilter pred, int left, int top);
-
-    private native Unit getClosestUnitInRectangle_native(long pointer, Position center, UnitFilter pred, int left);
-
-    private native Unit getClosestUnitInRectangle_native(long pointer, Position center, UnitFilter pred);
-
-    private native Unit getClosestUnitInRectangle_native(long pointer, Position center, UnitFilter pred, int left, int top, int right, int bottom);
-
-    private native Unit getBestUnit_native(long pointer, BestUnitFilter best, UnitFilter pred, Position center);
-
-    private native Unit getBestUnit_native(long pointer, BestUnitFilter best, UnitFilter pred);
-
-    private native Unit getBestUnit_native(long pointer, BestUnitFilter best, UnitFilter pred, Position center, int radius);
-
     private native Error getLastError_native(long pointer);
 
     private native boolean setLastError_native(long pointer);
@@ -1057,6 +973,10 @@ public class Game {
     private native boolean isWalkable_native(long pointer, int walkX, int walkY);
 
     private native boolean isWalkable_native(long pointer, WalkPosition position);
+
+    private native int getGroundHeight_native(long pointer, int tileX, int tileY);
+
+    private native int getGroundHeight_native(long pointer, TilePosition position);
 
     private native boolean isBuildable_native(long pointer, int tileX, int tileY);
 
@@ -1365,6 +1285,8 @@ public class Game {
     private native boolean setVision_native(long pointer, Player player);
 
     private native boolean setVision_native(long pointer, Player player, boolean enabled);
+
+    private native int elapsedTime_native(long pointer);
 
     private native void setCommandOptimizationLevel_native(long pointer, int level);
 

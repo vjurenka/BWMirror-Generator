@@ -60,7 +60,7 @@ public class Mirror {
 
     static {
         String arch = System.getProperty("os.arch");
-        String dllNames[] = {"bwapi_bridge" + VERSION, "gmp-vc90-mt", "mpfr-vc90-mt"};
+        String dllNames[] = {"BWAPI4.dll", "gmp-vc90-mt", "mpfr-vc90-mt"};
         if(!arch.equals("x86")){
             throw new UnsupportedOperationException("BWMirror API supports only x86 architecture.");
         }

@@ -16,7 +16,7 @@ public class UnitCommand {
 
     private int extra;
 
-    public UnitCommand(Unit unit, UnitCommandType unitCommandType, Unit target, int x, int y, int extra) {
+    private UnitCommand(Unit unit, UnitCommandType unitCommandType, Unit target, int x, int y, int extra) {
         this.unit = unit;
         this.unitCommandType = unitCommandType;
         this.target = target;

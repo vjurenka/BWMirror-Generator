@@ -15,14 +15,6 @@ extern "C" {
 JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getCenter_1native
   (JNIEnv *, jobject, jlong);
 
-/*
- * Class:     bwapi4_Regionset
- * Method:    getUnits_native
- * Signature: (JLbwapi4/UnitFilter;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getUnits_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
 #ifdef __cplusplus
 }
 #endif

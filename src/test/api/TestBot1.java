@@ -1,9 +1,8 @@
 package test.api;
 
-import bwapi.*;
-import bwta.BWTA;
-import bwta.BaseLocation;
-import org.jsoup.Connection;
+import bwapi4.*;
+import bwapi4.Text.Size.*;
+import bwapi4.Text.Size.Enum;
 
 /**
  * User: PC
@@ -24,11 +23,11 @@ public class TestBot1 {
             @Override
             public void onStart() {
                 System.out.println("-------Analysing map-------");
-                BWTA.readMap();
-                BWTA.analyze();
+                //BWTA.readMap();
+                //BWTA.analyze();
                 System.out.println();
 
-                mirror.getGame().enableFlag(bwapi.Flag.Enum.UserInput.getValue());
+                mirror.getGame().enableFlag(bwapi4.Flag.Enum.UserInput.getValue());
             }
 
             @Override
@@ -38,14 +37,14 @@ public class TestBot1 {
 
                 game.drawBoxScreen(0, 0, 100,100,Color.Red,true);
 
-                game.setTextSize(10);
+                game.setTextSize(Enum.Small);
                 game.drawTextScreen(10, 10, "Playing as " + self.getName() + " - " + self.getRace());
 
                 StringBuilder units = new StringBuilder("My units:\n");
-
+                 /*
                 for(Player player : game.getPlayers()){
                     System.out.println(player.getName());
-                    for(Unit enemyUnit: player.getUnits()){
+                    for(Unit enemyUnit: player.()){
                         System.out.println(enemyUnit.getType());
                     }
                 }
@@ -75,7 +74,7 @@ public class TestBot1 {
                         }
                     }
                 }
-
+                                   */
 
 
                 //draw my units on screen
