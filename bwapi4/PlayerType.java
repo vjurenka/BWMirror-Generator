@@ -9,6 +9,18 @@ import java.util.List;
 
 public class PlayerType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
+    public boolean isLobbyType() {
+        return isLobbyType_native(pointer);
+    }
+
+    public boolean isGameType() {
+        return isGameType_native(pointer);
+    }
+
     public static PlayerType None;
 
     public static PlayerType Computer;
@@ -51,6 +63,12 @@ public class PlayerType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
+
+    private native boolean isLobbyType_native(long pointer);
+
+    private native boolean isGameType_native(long pointer);
 
 
 }

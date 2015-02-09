@@ -9,6 +9,66 @@ import java.util.List;
 
 public class UpgradeType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
+    public Race getRace() {
+        return getRace_native(pointer);
+    }
+
+    public int mineralPrice() {
+        return mineralPrice_native(pointer);
+    }
+
+    public int mineralPrice(int level) {
+        return mineralPrice_native(pointer, level);
+    }
+
+    public int mineralPriceFactor() {
+        return mineralPriceFactor_native(pointer);
+    }
+
+    public int gasPrice() {
+        return gasPrice_native(pointer);
+    }
+
+    public int gasPrice(int level) {
+        return gasPrice_native(pointer, level);
+    }
+
+    public int gasPriceFactor() {
+        return gasPriceFactor_native(pointer);
+    }
+
+    public int upgradeTime() {
+        return upgradeTime_native(pointer);
+    }
+
+    public int upgradeTime(int level) {
+        return upgradeTime_native(pointer, level);
+    }
+
+    public int upgradeTimeFactor() {
+        return upgradeTimeFactor_native(pointer);
+    }
+
+    public int maxRepeats() {
+        return maxRepeats_native(pointer);
+    }
+
+    public UnitType whatUpgrades() {
+        return whatUpgrades_native(pointer);
+    }
+
+    public UnitType whatsRequired() {
+        return whatsRequired_native(pointer);
+    }
+
+    public UnitType whatsRequired(int level) {
+        return whatsRequired_native(pointer, level);
+    }
+
     public static UpgradeType Terran_Infantry_Armor;
 
     public static UpgradeType Terran_Vehicle_Plating;
@@ -135,6 +195,36 @@ public class UpgradeType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
+
+    private native Race getRace_native(long pointer);
+
+    private native int mineralPrice_native(long pointer);
+
+    private native int mineralPrice_native(long pointer, int level);
+
+    private native int mineralPriceFactor_native(long pointer);
+
+    private native int gasPrice_native(long pointer);
+
+    private native int gasPrice_native(long pointer, int level);
+
+    private native int gasPriceFactor_native(long pointer);
+
+    private native int upgradeTime_native(long pointer);
+
+    private native int upgradeTime_native(long pointer, int level);
+
+    private native int upgradeTimeFactor_native(long pointer);
+
+    private native int maxRepeats_native(long pointer);
+
+    private native UnitType whatUpgrades_native(long pointer);
+
+    private native UnitType whatsRequired_native(long pointer);
+
+    private native UnitType whatsRequired_native(long pointer, int level);
 
 
 }

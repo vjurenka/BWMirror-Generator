@@ -9,6 +9,10 @@ import java.util.List;
 
 public class GameType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static GameType Melee;
 
     public static GameType Free_For_All;
@@ -59,6 +63,8 @@ public class GameType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

@@ -9,6 +9,10 @@ import java.util.List;
 
 public class UnitSizeType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static UnitSizeType Independent;
 
     public static UnitSizeType Small;
@@ -41,6 +45,8 @@ public class UnitSizeType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

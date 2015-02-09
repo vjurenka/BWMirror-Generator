@@ -7,6 +7,430 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    attack
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_attack__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    attack
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_attack__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    build
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TilePosition;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_build
+  (JNIEnv *, jclass, jobject, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    buildAddon
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_buildAddon
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    train
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_train
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    morph
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_morph
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    research
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TechType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_research
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    upgrade
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UpgradeType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_upgrade
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    setRallyPoint
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_setRallyPoint
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    move
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_move__Lbwapi4_Unit_2Lbwapi4_Position_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    move
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_move__Lbwapi4_Unit_2Lbwapi4_Position_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    patrol
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_patrol__Lbwapi4_Unit_2Lbwapi4_Position_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    patrol
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_patrol__Lbwapi4_Unit_2Lbwapi4_Position_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    holdPosition
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_holdPosition__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    holdPosition
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_holdPosition__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    stop
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_stop__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    stop
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_stop__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    follow
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_follow__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    follow
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_follow__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    gather
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_gather__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    gather
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_gather__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    returnCargo
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_returnCargo__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    returnCargo
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_returnCargo__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    repair
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_repair__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    repair
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_repair__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    burrow
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_burrow
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unburrow
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unburrow
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cloak
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cloak
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    decloak
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_decloak
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    siege
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_siege
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unsiege
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unsiege
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    lift
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_lift
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    land
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TilePosition;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_land
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    load
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_load__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    load
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_load__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unload
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unload
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2Lbwapi4_Position_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2Lbwapi4_Position_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    rightClick
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_rightClick__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    rightClick
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_rightClick__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    haltConstruction
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_haltConstruction
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelConstruction
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelConstruction
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelAddon
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelAddon
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelTrain
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelTrain__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelTrain
+ * Signature: (Lbwapi4/Unit;I)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelTrain__Lbwapi4_Unit_2I
+  (JNIEnv *, jclass, jobject, jint);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelMorph
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelMorph
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelResearch
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelResearch
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelUpgrade
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelUpgrade
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    useTech
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TechType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_useTech__Lbwapi4_Unit_2Lbwapi4_TechType_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    useTech
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TechType;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_useTech__Lbwapi4_Unit_2Lbwapi4_TechType_2Lbwapi4_PositionOrUnit_2
+  (JNIEnv *, jclass, jobject, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    placeCOP
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TilePosition;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_placeCOP
+  (JNIEnv *, jclass, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

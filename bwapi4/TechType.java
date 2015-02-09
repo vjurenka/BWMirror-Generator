@@ -9,6 +9,50 @@ import java.util.List;
 
 public class TechType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
+    public Race getRace() {
+        return getRace_native(pointer);
+    }
+
+    public int mineralPrice() {
+        return mineralPrice_native(pointer);
+    }
+
+    public int gasPrice() {
+        return gasPrice_native(pointer);
+    }
+
+    public int researchTime() {
+        return researchTime_native(pointer);
+    }
+
+    public int energyCost() {
+        return energyCost_native(pointer);
+    }
+
+    public UnitType whatResearches() {
+        return whatResearches_native(pointer);
+    }
+
+    public WeaponType getWeapon() {
+        return getWeapon_native(pointer);
+    }
+
+    public boolean targetsUnit() {
+        return targetsUnit_native(pointer);
+    }
+
+    public boolean targetsPosition() {
+        return targetsPosition_native(pointer);
+    }
+
+    public Order getOrder() {
+        return getOrder_native(pointer);
+    }
+
     public static TechType Stim_Packs;
 
     public static TechType Lockdown;
@@ -101,6 +145,28 @@ public class TechType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
+
+    private native Race getRace_native(long pointer);
+
+    private native int mineralPrice_native(long pointer);
+
+    private native int gasPrice_native(long pointer);
+
+    private native int researchTime_native(long pointer);
+
+    private native int energyCost_native(long pointer);
+
+    private native UnitType whatResearches_native(long pointer);
+
+    private native WeaponType getWeapon_native(long pointer);
+
+    private native boolean targetsUnit_native(long pointer);
+
+    private native boolean targetsPosition_native(long pointer);
+
+    private native Order getOrder_native(long pointer);
 
 
 }

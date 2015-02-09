@@ -50,7 +50,7 @@ public class CallImplementer {
 
     public void setOut(PrintStream out) {
         this.out = out;
-        out.print("#include \"../concat_header.h\"\n" +
+        out.print("#include \"../concat_header" + (CJavaPipeline.isBWAPI3() ? "" : "4")+ ".h\"\n" +
                 "#include <BWAPI.h>\n" +
                 "#include <BWAPI/Client.h>\n" +
                 (CJavaPipeline.isBWAPI3() ? "#include <BWTA.h>\n" : "#include <thread>\n" + "#include <chrono>\n") +
@@ -72,7 +72,7 @@ public class CallImplementer {
 
     private void implementAccessObjectsParams(List<Param> params) {
         for (Param param : params) {
-            if (javaContext.isPointer(param.first)) {
+            if (javaContext.isReference(param.first)) {
                 if (javaContext.isValueType(param.third)) {
                     out.println(javaContext.copyJavaObjectToC(param.third, param.second));
                     continue;
@@ -113,7 +113,7 @@ public class CallImplementer {
 
     private void implementMethodParams(List<Param> params) {
         for (Param param : params) {
-            if (javaContext.isPointer(param.first)) {
+            if (javaContext.isReference(param.first)) {
                 out.print("," + SPACE + javaContext.ptrCType() + SPACE + javaContext.ptrPrefix() + param.second);
             } else {
                 out.print("," + SPACE + param.first + SPACE + param.second);
@@ -419,14 +419,15 @@ public class CallImplementer {
                 "\tjobject targetObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getTarget\", \"()L" + javaContext.getPackageName() + "/Unit;\"));\n" +
                 "\tUnit target = (Unit)env->GetLongField(targetObj, FindCachedField(env, env->GetObjectClass(targetObj), \"pointer\", \"J\"));\n" +
 
-                "\tjobject typeObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getType\", \"()L" + javaContext.getPackageName() + "/UnitCommandType;\"));\n" +
-                "\tUnitCommandType type = (UnitCommandType)env->GetIntField(typeObj, FindCachedField(env, env->GetObjectClass(typeObj), \"value\", \"I\"));\n" +
+                "\tjobject typeObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getUnitCommandType\", \"()L" + javaContext.getPackageName() + "/UnitCommandType;\"));\n" +
+                "\tUnitCommandType type = *(UnitCommandType*)env->GetLongField(typeObj, FindCachedField(env, env->GetObjectClass(typeObj), \"pointer\", \"J\"));\n" +
 
                 "\tint extra = (int)env->GetIntField(obj, FindCachedField(env, clz, \"extra\", \"I\"));\n" +
 
-                "\tjobject posObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getPosition\", \"()L" + javaContext.getPackageName() + "/Position;\"));\n" +
-                "\t" + javaContext.copyJavaObjectToC("Position", "position", "posObj") + "\n" +
-                "\treturn UnitCommand(unit, UnitCommandType(type), target, position.x, position.y, extra);\n" +
+                "\tint x = (int)env->GetIntField(obj, FindCachedField(env, clz, \"x\", \"I\"));\n" +
+                "\tint y = (int)env->GetIntField(obj, FindCachedField(env, clz, \"y\", \"I\"));\n" +
+
+                "\treturn UnitCommand(unit, type, target, x, y, extra);\n" +
                 "}\n\n");
 
         out.println("int resolveUnitCommandExtra(UnitCommand& command){\n" +

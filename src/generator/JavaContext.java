@@ -16,7 +16,7 @@ public class JavaContext {
 
     private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "WalkPosition", "Color", "BWTA::RectangleArray<double>", "PositionOrUnit", "Point", "UnitCommand");
 
-    private List<String> constantTypes = Arrays.asList("UnitType", "TechType", "UpgradeType", "Race", "UnitCommand", "WeaponType", "Order", "GameType", "Error");
+    private List<String> constantTypes = Arrays.asList("UnitType", "TechType", "UpgradeType", "Race", "UnitCommand", "WeaponType", "Order", "GameType", "Error", "PlayerType", "UnitCommandType");
 
     private List<String> enumTypes = Arrays.asList("MouseButton", "Key", "bwapi4.Text.Size.Enum", "bwapi4.CoordinateType.Enum", "Text::Size::Enum", "CoordinateType::Enum");
 
@@ -26,6 +26,8 @@ public class JavaContext {
 
 
     private String packageName = "bwapi";
+
+
 
     public JavaContext() {
         javaToCType.put("long", "jlong");
@@ -40,7 +42,7 @@ public class JavaContext {
     }
 
     public String getPackageName(String javaRetType) {
-        if (javaRetType.equals("Position") || javaRetType.equals("TilePosition")) {
+        if (packageName.equals("bwta") && (javaRetType.equals("Position") || javaRetType.equals("TilePosition"))) {
             return "bwapi";
         }
         return packageName;
@@ -52,11 +54,11 @@ public class JavaContext {
 
     public String toCType(String javaType) {
         String result = javaToCType.get(javaType);
-        return result != null ? result : "PTR";
+        return result != null ? result : "REF";
     }
 
-    public boolean isPointer(String javaType) {
-        return javaType.equals("PTR");
+    public boolean isReference(String javaType) {
+        return javaType.equals("REF");
     }
 
     public boolean isValueType(String javaType) {
@@ -185,11 +187,11 @@ public class JavaContext {
                         ", " + fieldName + ".blue()";
             case "UnitCommand":
                 return
-                        ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), " +fieldName+ ".getUnit())" +
-                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), \"get\", \"(J)Lbwapi4/UnitCommandType;\"), "+fieldName+".getType())" +
-                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), "+fieldName+".getTarget())" +
-                                ", "+ fieldName +".getTargetPosition().x " +
-                                ", "+ fieldName +".getTargetPosition().y " +
+                        ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), " +fieldName+ ".getUnit())\n" +
+                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), \"get\", \"(J)Lbwapi4/UnitCommandType;\"), (jlong)tableUnitCommandType.find("+fieldName+".getType().getID())->second )\n" +
+                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), "+fieldName+".getTarget())\n" +
+                                ", "+ fieldName +".getTargetPosition().x \n" +
+                                ", "+ fieldName +".getTargetPosition().y \n" +
                                 ", resolveUnitCommandExtra("+fieldName+")";
             default:
                 throw new UnsupportedOperationException();

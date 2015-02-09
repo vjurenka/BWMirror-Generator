@@ -9,6 +9,10 @@ import java.util.List;
 
 public class UnitCommandType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static UnitCommandType Attack_Move;
 
     public static UnitCommandType Attack_Unit;
@@ -121,6 +125,8 @@ public class UnitCommandType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

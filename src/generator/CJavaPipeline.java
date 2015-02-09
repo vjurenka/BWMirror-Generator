@@ -215,7 +215,7 @@ public class CJavaPipeline {
          * Bind constants together and create initialisation function
          */
 
-        Bind bind = new Bind();
+        Bind bind = new Bind(javaContext);
         bind.setOut(out);
         bind.implementBind(allDecs);
 

@@ -9,6 +9,10 @@ import java.util.List;
 
 public class ExplosionType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static ExplosionType None;
 
     public static ExplosionType Normal;
@@ -79,6 +83,8 @@ public class ExplosionType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

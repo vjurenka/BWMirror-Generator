@@ -9,6 +9,10 @@ import java.util.List;
 
 public class Error {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static Error Unit_Does_Not_Exist;
 
     public static Error Unit_Not_Visible;
@@ -85,6 +89,8 @@ public class Error {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

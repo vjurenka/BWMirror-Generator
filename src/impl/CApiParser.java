@@ -42,8 +42,8 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)(\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
-    //                    1     2             3         4            56        7        89     10   11                       12                13           14,15   15,17
-    String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?(static\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s+([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?\\s*";
+    //                                         1     2             3         4            56        7        89     10   11                       12                 13           14,15   15,17
+    public static final String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?(static\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
 
     static final int F_REGEX_STATIC = 4;
     static final int F_REGEX_RETURN_TYPE = 8;
@@ -102,9 +102,7 @@ public class CApiParser {
                 currentNamespace = line;
             }
 
-            if (line.endsWith("Types")) {
-                return LineState.END;
-            }
+
             if (line.equals("Errors")) {
                 return LineState.END;
             }
@@ -114,10 +112,15 @@ public class CApiParser {
             if (line.equals("Orders")) {
                 return LineState.END;
             }
-            if (line.equals("Races")) {
-                return LineState.END;
-            }
 
+            if(CJavaPipeline.isBWAPI3()) {
+                if (line.endsWith("Types")) {
+                    return LineState.END;
+                }
+                if (line.equals("Races")) {
+                    return LineState.END;
+                }
+            }
             return LineState.SKIP;
         }
 
@@ -230,6 +233,9 @@ public class CApiParser {
             Function function = new Function();
             function.returnType = matcher.group(F_REGEX_RETURN_TYPE);
             function.name = matcher.group(F_REGEX_NAME);
+            if(function.name.startsWith("&")){
+                function.name = function.name.substring(1);
+            }
             if (function.returnType.equals("operator")) {
                 return null;
             }
@@ -265,6 +271,16 @@ public class CApiParser {
 
             if(function.name.equals("setClientInfo")){
                 System.err.println("function skipped - BWAPI4 set client info return (" + function.name + ")");
+                return null;
+            }
+
+            if(function.name.equals("maxUnitWidth")){
+                System.err.println("function skipped - BWAPI4 (" + function.name + ")");
+                return null;
+            }
+
+            if(function.name.equals("maxUnitHeight")){
+                System.err.println("function skipped - BWAPI4 (" + function.name + ")");
                 return null;
             }
 
@@ -482,6 +498,16 @@ public class CApiParser {
                         clazzName = clazzName.substring(0, clazzName.length() - "Interface".length());
                     }
                     Clazz clz = new Clazz(clazzName);
+
+                    if(!CJavaPipeline.isBWAPI3()){
+                        if(clazzName.endsWith("Type") || clazzName.equals("Error") || clazzName.equals("Race")){
+                            Function function = new Function();
+                            function.name = "toString";
+                            function.returnType = "string";
+                            clz.fields.add(function);
+                        }
+                    }
+
                     if (javadoc != null) {
                         clz.setJavadoc(javadoc);
                         javadoc = null;

@@ -185,6 +185,14 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_BulletType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_BulletType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -283,6 +291,14 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_DamageType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_DamageType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -305,6 +321,14 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_Error
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_Error_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -367,6 +391,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Event_isWinner_1native
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_ExplosionType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_ExplosionType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -2042,6 +2074,14 @@ JNIEXPORT jint JNICALL Java_bwapi4_Game_countdownTimer_1native
 
 /*
  * Class:     bwapi4_Game
+ * Method:    getAllRegions_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Game_getAllRegions_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Game
  * Method:    getRegionAt_native
  * Signature: (JII)Lbwapi4/Region;
  */
@@ -2163,6 +2203,14 @@ JNIEXPORT jint JNICALL Java_bwapi4_Game_getDamageTo_1native__JLbwapi4_UnitType_2
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_GameType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_GameType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -2310,6 +2358,14 @@ JNIEXPORT jint JNICALL Java_bwapi4_Player_getID_1native
  * Signature: (J)Ljava/lang/String;
  */
 JNIEXPORT jstring JNICALL Java_bwapi4_Player_getName_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Player
+ * Method:    getUnits_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Player_getUnits_1native
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -2830,6 +2886,30 @@ JNIEXPORT void JNICALL Java_bwapi4_Playerset_setAlliance_1native__JZZ
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_PlayerType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_PlayerType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_PlayerType
+ * Method:    isLobbyType_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_PlayerType_isLobbyType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_PlayerType
+ * Method:    isGameType_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_PlayerType_isGameType_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -2957,6 +3037,54 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_Race
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_Race_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getWorker_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getWorker_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getCenter_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getCenter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getRefinery_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getRefinery_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getTransport_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getTransport_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getSupplyProvider_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getSupplyProvider_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -3014,6 +3142,14 @@ JNIEXPORT jint JNICALL Java_bwapi4_Region_getDefensePriority_1native
  * Signature: (J)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi4_Region_isAccessible_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Region
+ * Method:    getNeighbors_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Region_getNeighbors_1native
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -3102,6 +3238,94 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Regionset_getCenter_1native
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_TechType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_TechType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    getRace_native
+ * Signature: (J)Lbwapi4/Race;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_TechType_getRace_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    mineralPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_TechType_mineralPrice_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    gasPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_TechType_gasPrice_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    researchTime_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_TechType_researchTime_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    energyCost_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_TechType_energyCost_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    whatResearches_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_TechType_whatResearches_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    getWeapon_native
+ * Signature: (J)Lbwapi4/WeaponType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_TechType_getWeapon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    targetsUnit_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_TechType_targetsUnit_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    targetsPosition_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_TechType_targetsPosition_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_TechType
+ * Method:    getOrder_native
+ * Signature: (J)Lbwapi4/Order;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_TechType_getOrder_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -6810,6 +7034,430 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Unit_canPlaceCOP_1native__JLbwapi4_TilePo
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    attack
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_attack__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    attack
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_attack__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    build
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TilePosition;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_build
+  (JNIEnv *, jclass, jobject, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    buildAddon
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_buildAddon
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    train
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_train
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    morph
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UnitType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_morph
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    research
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TechType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_research
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    upgrade
+ * Signature: (Lbwapi4/Unit;Lbwapi4/UpgradeType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_upgrade
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    setRallyPoint
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_setRallyPoint
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    move
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_move__Lbwapi4_Unit_2Lbwapi4_Position_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    move
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_move__Lbwapi4_Unit_2Lbwapi4_Position_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    patrol
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_patrol__Lbwapi4_Unit_2Lbwapi4_Position_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    patrol
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_patrol__Lbwapi4_Unit_2Lbwapi4_Position_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    holdPosition
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_holdPosition__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    holdPosition
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_holdPosition__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    stop
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_stop__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    stop
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_stop__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    follow
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_follow__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    follow
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_follow__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    gather
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_gather__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    gather
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_gather__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    returnCargo
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_returnCargo__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    returnCargo
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_returnCargo__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    repair
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_repair__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    repair
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_repair__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    burrow
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_burrow
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unburrow
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unburrow
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cloak
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cloak
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    decloak
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_decloak
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    siege
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_siege
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unsiege
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unsiege
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    lift
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_lift
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    land
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TilePosition;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_land
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    load
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_load__Lbwapi4_Unit_2Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    load
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_load__Lbwapi4_Unit_2Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unload
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unload
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2Z
+  (JNIEnv *, jclass, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2Lbwapi4_Position_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    unloadAll
+ * Signature: (Lbwapi4/Unit;Lbwapi4/Position;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_unloadAll__Lbwapi4_Unit_2Lbwapi4_Position_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    rightClick
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_rightClick__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    rightClick
+ * Signature: (Lbwapi4/Unit;Lbwapi4/PositionOrUnit;Z)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_rightClick__Lbwapi4_Unit_2Lbwapi4_PositionOrUnit_2Z
+  (JNIEnv *, jclass, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    haltConstruction
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_haltConstruction
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelConstruction
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelConstruction
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelAddon
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelAddon
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelTrain
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelTrain__Lbwapi4_Unit_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelTrain
+ * Signature: (Lbwapi4/Unit;I)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelTrain__Lbwapi4_Unit_2I
+  (JNIEnv *, jclass, jobject, jint);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelMorph
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelMorph
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelResearch
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelResearch
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    cancelUpgrade
+ * Signature: (Lbwapi4/Unit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_cancelUpgrade
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    useTech
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TechType;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_useTech__Lbwapi4_Unit_2Lbwapi4_TechType_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    useTech
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TechType;Lbwapi4/PositionOrUnit;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_useTech__Lbwapi4_Unit_2Lbwapi4_TechType_2Lbwapi4_PositionOrUnit_2
+  (JNIEnv *, jclass, jobject, jobject, jobject);
+
+/*
+ * Class:     bwapi4_UnitCommand
+ * Method:    placeCOP
+ * Signature: (Lbwapi4/Unit;Lbwapi4/TilePosition;)Lbwapi4/UnitCommand;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitCommand_placeCOP
+  (JNIEnv *, jclass, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif
@@ -6821,6 +7469,14 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UnitCommandType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_UnitCommandType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -7286,6 +7942,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Unitset_useTech_1native__JLbwapi4_TechTyp
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UnitSizeType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_UnitSizeType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -7297,6 +7961,590 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_UnitType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    getRace_native
+ * Signature: (J)Lbwapi4/Race;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_getRace_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    requiredTech_native
+ * Signature: (J)Lbwapi4/TechType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_requiredTech_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    cloakingTech_native
+ * Signature: (J)Lbwapi4/TechType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_cloakingTech_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    armorUpgrade_native
+ * Signature: (J)Lbwapi4/UpgradeType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_armorUpgrade_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    maxHitPoints_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_maxHitPoints_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    maxShields_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_maxShields_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    maxEnergy_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_maxEnergy_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    armor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_armor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    mineralPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_mineralPrice_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    gasPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_gasPrice_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    buildTime_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_buildTime_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    supplyRequired_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_supplyRequired_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    supplyProvided_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_supplyProvided_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    spaceRequired_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_spaceRequired_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    spaceProvided_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_spaceProvided_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    buildScore_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_buildScore_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    destroyScore_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_destroyScore_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    size_native
+ * Signature: (J)Lbwapi4/UnitSizeType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_size_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    tileWidth_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_tileWidth_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    tileHeight_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_tileHeight_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    tileSize_native
+ * Signature: (J)Lbwapi4/TilePosition;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_tileSize_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    dimensionLeft_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_dimensionLeft_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    dimensionUp_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_dimensionUp_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    dimensionRight_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_dimensionRight_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    dimensionDown_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_dimensionDown_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    width_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_width_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    height_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_height_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    seekRange_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_seekRange_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    sightRange_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_sightRange_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    groundWeapon_native
+ * Signature: (J)Lbwapi4/WeaponType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_groundWeapon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    maxGroundHits_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_maxGroundHits_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    airWeapon_native
+ * Signature: (J)Lbwapi4/WeaponType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UnitType_airWeapon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    maxAirHits_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_maxAirHits_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    topSpeed_native
+ * Signature: (J)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwapi4_UnitType_topSpeed_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    acceleration_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_acceleration_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    haltDistance_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_haltDistance_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    turnRadius_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UnitType_turnRadius_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    canProduce_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_canProduce_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    canAttack_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_canAttack_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    canMove_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_canMove_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isFlyer_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isFlyer_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    regeneratesHP_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_regeneratesHP_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isSpellcaster_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isSpellcaster_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    hasPermanentCloak_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_hasPermanentCloak_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isInvincible_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isInvincible_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isOrganic_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isOrganic_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isMechanical_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isMechanical_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isRobotic_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isRobotic_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isDetector_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isDetector_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isResourceContainer_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isResourceContainer_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isResourceDepot_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isResourceDepot_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isRefinery_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isRefinery_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isWorker_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isWorker_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    requiresPsi_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_requiresPsi_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    requiresCreep_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_requiresCreep_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isTwoUnitsInOneEgg_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isTwoUnitsInOneEgg_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isBurrowable_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isBurrowable_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isCloakable_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isCloakable_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isBuilding_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isBuilding_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isAddon_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isAddon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isFlyingBuilding_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isFlyingBuilding_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isNeutral_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isNeutral_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isHero_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isHero_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isPowerup_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isPowerup_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isBeacon_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isBeacon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isFlagBeacon_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isFlagBeacon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isSpecialBuilding_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isSpecialBuilding_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isSpell_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isSpell_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    producesLarva_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_producesLarva_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isMineralField_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isMineralField_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    isCritter_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_isCritter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UnitType
+ * Method:    canBuildAddon_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_UnitType_canBuildAddon_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -7308,6 +8556,126 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_UpgradeType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    getRace_native
+ * Signature: (J)Lbwapi4/Race;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_getRace_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    mineralPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_mineralPrice_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    mineralPrice_native
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_mineralPrice_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    mineralPriceFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_mineralPriceFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    gasPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_gasPrice_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    gasPrice_native
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_gasPrice_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    gasPriceFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_gasPriceFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    upgradeTime_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_upgradeTime_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    upgradeTime_native
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_upgradeTime_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    upgradeTimeFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_upgradeTimeFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    maxRepeats_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_maxRepeats_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    whatUpgrades_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_whatUpgrades_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    whatsRequired_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_whatsRequired_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    whatsRequired_native
+ * Signature: (JI)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_whatsRequired_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
 #ifdef __cplusplus
 }
 #endif
@@ -7443,6 +8811,198 @@ JNIEXPORT jdouble JNICALL Java_bwapi4_WalkPosition_getLength
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_WeaponType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    getTech_native
+ * Signature: (J)Lbwapi4/TechType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_WeaponType_getTech_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    whatUses_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_WeaponType_whatUses_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    damageAmount_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_damageAmount_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    damageBonus_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_damageBonus_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    damageCooldown_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_damageCooldown_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    damageFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_damageFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    upgradeType_native
+ * Signature: (J)Lbwapi4/UpgradeType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_WeaponType_upgradeType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    damageType_native
+ * Signature: (J)Lbwapi4/DamageType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_WeaponType_damageType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    explosionType_native
+ * Signature: (J)Lbwapi4/ExplosionType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_WeaponType_explosionType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    minRange_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_minRange_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    maxRange_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_maxRange_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    innerSplashRadius_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_innerSplashRadius_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    medianSplashRadius_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_medianSplashRadius_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    outerSplashRadius_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_WeaponType_outerSplashRadius_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsAir_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsAir_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsGround_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsGround_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsMechanical_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsMechanical_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsOrganic_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsOrganic_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsNonBuilding_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsNonBuilding_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsNonRobotic_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsNonRobotic_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsTerrain_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsTerrain_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsOrgOrMech_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsOrgOrMech_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_WeaponType
+ * Method:    targetsOwn_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi4_WeaponType_targetsOwn_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

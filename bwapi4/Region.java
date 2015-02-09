@@ -35,6 +35,10 @@ public class Region extends CenteredObject
         return isAccessible_native(pointer);
     }
 
+    public List<Region> getNeighbors() {
+        return getNeighbors_native(pointer);
+    }
+
     public int getBoundsLeft() {
         return getBoundsLeft_native(pointer);
     }
@@ -95,6 +99,8 @@ public class Region extends CenteredObject
     private native int getDefensePriority_native(long pointer);
 
     private native boolean isAccessible_native(long pointer);
+
+    private native List<Region> getNeighbors_native(long pointer);
 
     private native int getBoundsLeft_native(long pointer);
 

@@ -1,10 +1,113 @@
 package bwapi4;
 
-import bwapi.UnitCommandType;
-
-import java.lang.Override;
 
 public class UnitCommand {
+
+    public static native UnitCommand attack(Unit unit, PositionOrUnit target);
+
+    public static native UnitCommand attack(Unit unit, PositionOrUnit target, boolean shiftQueueCommand);
+
+    public static native UnitCommand build(Unit unit, TilePosition target, UnitType type);
+
+    public static native UnitCommand buildAddon(Unit unit, UnitType type);
+
+    public static native UnitCommand train(Unit unit, UnitType type);
+
+    public static native UnitCommand morph(Unit unit, UnitType type);
+
+    public static native UnitCommand research(Unit unit, TechType tech);
+
+    public static native UnitCommand upgrade(Unit unit, UpgradeType upgrade);
+
+    public static native UnitCommand setRallyPoint(Unit unit, PositionOrUnit target);
+
+    public static native UnitCommand move(Unit unit, Position target);
+
+    public static native UnitCommand move(Unit unit, Position target, boolean shiftQueueCommand);
+
+    public static native UnitCommand patrol(Unit unit, Position target);
+
+    public static native UnitCommand patrol(Unit unit, Position target, boolean shiftQueueCommand);
+
+    public static native UnitCommand holdPosition(Unit unit);
+
+    public static native UnitCommand holdPosition(Unit unit, boolean shiftQueueCommand);
+
+    public static native UnitCommand stop(Unit unit);
+
+    public static native UnitCommand stop(Unit unit, boolean shiftQueueCommand);
+
+    public static native UnitCommand follow(Unit unit, Unit target);
+
+    public static native UnitCommand follow(Unit unit, Unit target, boolean shiftQueueCommand);
+
+    public static native UnitCommand gather(Unit unit, Unit target);
+
+    public static native UnitCommand gather(Unit unit, Unit target, boolean shiftQueueCommand);
+
+    public static native UnitCommand returnCargo(Unit unit);
+
+    public static native UnitCommand returnCargo(Unit unit, boolean shiftQueueCommand);
+
+    public static native UnitCommand repair(Unit unit, Unit target);
+
+    public static native UnitCommand repair(Unit unit, Unit target, boolean shiftQueueCommand);
+
+    public static native UnitCommand burrow(Unit unit);
+
+    public static native UnitCommand unburrow(Unit unit);
+
+    public static native UnitCommand cloak(Unit unit);
+
+    public static native UnitCommand decloak(Unit unit);
+
+    public static native UnitCommand siege(Unit unit);
+
+    public static native UnitCommand unsiege(Unit unit);
+
+    public static native UnitCommand lift(Unit unit);
+
+    public static native UnitCommand land(Unit unit, TilePosition target);
+
+    public static native UnitCommand load(Unit unit, Unit target);
+
+    public static native UnitCommand load(Unit unit, Unit target, boolean shiftQueueCommand);
+
+    public static native UnitCommand unload(Unit unit, Unit target);
+
+    public static native UnitCommand unloadAll(Unit unit);
+
+    public static native UnitCommand unloadAll(Unit unit, boolean shiftQueueCommand);
+
+    public static native UnitCommand unloadAll(Unit unit, Position target);
+
+    public static native UnitCommand unloadAll(Unit unit, Position target, boolean shiftQueueCommand);
+
+    public static native UnitCommand rightClick(Unit unit, PositionOrUnit target);
+
+    public static native UnitCommand rightClick(Unit unit, PositionOrUnit target, boolean shiftQueueCommand);
+
+    public static native UnitCommand haltConstruction(Unit unit);
+
+    public static native UnitCommand cancelConstruction(Unit unit);
+
+    public static native UnitCommand cancelAddon(Unit unit);
+
+    public static native UnitCommand cancelTrain(Unit unit);
+
+    public static native UnitCommand cancelTrain(Unit unit, int slot);
+
+    public static native UnitCommand cancelMorph(Unit unit);
+
+    public static native UnitCommand cancelResearch(Unit unit);
+
+    public static native UnitCommand cancelUpgrade(Unit unit);
+
+    public static native UnitCommand useTech(Unit unit, TechType tech);
+
+    public static native UnitCommand useTech(Unit unit, TechType tech, PositionOrUnit target);
+
+    public static native UnitCommand placeCOP(Unit unit, TilePosition target);
 
     private Unit unit;
 
@@ -16,7 +119,7 @@ public class UnitCommand {
 
     private int extra;
 
-    public UnitCommand(Unit unit, UnitCommandType unitCommandType, Unit target, int x, int y, int extra) {
+    private UnitCommand(Unit unit, UnitCommandType unitCommandType, Unit target, int x, int y, int extra) {
         this.unit = unit;
         this.unitCommandType = unitCommandType;
         this.target = target;

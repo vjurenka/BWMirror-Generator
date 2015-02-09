@@ -7,6 +7,126 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_UpgradeType_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    getRace_native
+ * Signature: (J)Lbwapi4/Race;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_getRace_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    mineralPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_mineralPrice_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    mineralPrice_native
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_mineralPrice_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    mineralPriceFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_mineralPriceFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    gasPrice_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_gasPrice_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    gasPrice_native
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_gasPrice_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    gasPriceFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_gasPriceFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    upgradeTime_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_upgradeTime_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    upgradeTime_native
+ * Signature: (JI)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_upgradeTime_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    upgradeTimeFactor_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_upgradeTimeFactor_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    maxRepeats_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwapi4_UpgradeType_maxRepeats_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    whatUpgrades_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_whatUpgrades_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    whatsRequired_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_whatsRequired_1native__J
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_UpgradeType
+ * Method:    whatsRequired_native
+ * Signature: (JI)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_UpgradeType_whatsRequired_1native__JI
+  (JNIEnv *, jobject, jlong, jint);
+
 #ifdef __cplusplus
 }
 #endif

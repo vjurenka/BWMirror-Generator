@@ -57,6 +57,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi4_Region_isAccessible_1native
 
 /*
  * Class:     bwapi4_Region
+ * Method:    getNeighbors_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Region_getNeighbors_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Region
  * Method:    getBoundsLeft_native
  * Signature: (J)I
  */

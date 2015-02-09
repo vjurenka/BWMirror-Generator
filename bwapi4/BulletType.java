@@ -9,6 +9,10 @@ import java.util.List;
 
 public class BulletType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static BulletType Melee;
 
     public static BulletType Fusion_Cutter_Hit;
@@ -103,6 +107,8 @@ public class BulletType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

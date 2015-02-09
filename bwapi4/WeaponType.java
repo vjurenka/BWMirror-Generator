@@ -9,6 +9,102 @@ import java.util.List;
 
 public class WeaponType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
+    public TechType getTech() {
+        return getTech_native(pointer);
+    }
+
+    public UnitType whatUses() {
+        return whatUses_native(pointer);
+    }
+
+    public int damageAmount() {
+        return damageAmount_native(pointer);
+    }
+
+    public int damageBonus() {
+        return damageBonus_native(pointer);
+    }
+
+    public int damageCooldown() {
+        return damageCooldown_native(pointer);
+    }
+
+    public int damageFactor() {
+        return damageFactor_native(pointer);
+    }
+
+    public UpgradeType upgradeType() {
+        return upgradeType_native(pointer);
+    }
+
+    public DamageType damageType() {
+        return damageType_native(pointer);
+    }
+
+    public ExplosionType explosionType() {
+        return explosionType_native(pointer);
+    }
+
+    public int minRange() {
+        return minRange_native(pointer);
+    }
+
+    public int maxRange() {
+        return maxRange_native(pointer);
+    }
+
+    public int innerSplashRadius() {
+        return innerSplashRadius_native(pointer);
+    }
+
+    public int medianSplashRadius() {
+        return medianSplashRadius_native(pointer);
+    }
+
+    public int outerSplashRadius() {
+        return outerSplashRadius_native(pointer);
+    }
+
+    public boolean targetsAir() {
+        return targetsAir_native(pointer);
+    }
+
+    public boolean targetsGround() {
+        return targetsGround_native(pointer);
+    }
+
+    public boolean targetsMechanical() {
+        return targetsMechanical_native(pointer);
+    }
+
+    public boolean targetsOrganic() {
+        return targetsOrganic_native(pointer);
+    }
+
+    public boolean targetsNonBuilding() {
+        return targetsNonBuilding_native(pointer);
+    }
+
+    public boolean targetsNonRobotic() {
+        return targetsNonRobotic_native(pointer);
+    }
+
+    public boolean targetsTerrain() {
+        return targetsTerrain_native(pointer);
+    }
+
+    public boolean targetsOrgOrMech() {
+        return targetsOrgOrMech_native(pointer);
+    }
+
+    public boolean targetsOwn() {
+        return targetsOwn_native(pointer);
+    }
+
     public static WeaponType Gauss_Rifle;
 
     public static WeaponType Gauss_Rifle_Jim_Raynor;
@@ -233,6 +329,54 @@ public class WeaponType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
+
+    private native TechType getTech_native(long pointer);
+
+    private native UnitType whatUses_native(long pointer);
+
+    private native int damageAmount_native(long pointer);
+
+    private native int damageBonus_native(long pointer);
+
+    private native int damageCooldown_native(long pointer);
+
+    private native int damageFactor_native(long pointer);
+
+    private native UpgradeType upgradeType_native(long pointer);
+
+    private native DamageType damageType_native(long pointer);
+
+    private native ExplosionType explosionType_native(long pointer);
+
+    private native int minRange_native(long pointer);
+
+    private native int maxRange_native(long pointer);
+
+    private native int innerSplashRadius_native(long pointer);
+
+    private native int medianSplashRadius_native(long pointer);
+
+    private native int outerSplashRadius_native(long pointer);
+
+    private native boolean targetsAir_native(long pointer);
+
+    private native boolean targetsGround_native(long pointer);
+
+    private native boolean targetsMechanical_native(long pointer);
+
+    private native boolean targetsOrganic_native(long pointer);
+
+    private native boolean targetsNonBuilding_native(long pointer);
+
+    private native boolean targetsNonRobotic_native(long pointer);
+
+    private native boolean targetsTerrain_native(long pointer);
+
+    private native boolean targetsOrgOrMech_native(long pointer);
+
+    private native boolean targetsOwn_native(long pointer);
 
 
 }

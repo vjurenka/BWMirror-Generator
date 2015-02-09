@@ -17,6 +17,10 @@ public class Player {
         return getName_native(pointer);
     }
 
+    public List<Unit> getUnits() {
+        return getUnits_native(pointer);
+    }
+
     public Race getRace() {
         return getRace_native(pointer);
     }
@@ -273,6 +277,8 @@ public class Player {
     private native int getID_native(long pointer);
 
     private native String getName_native(long pointer);
+
+    private native List<Unit> getUnits_native(long pointer);
 
     private native Race getRace_native(long pointer);
 

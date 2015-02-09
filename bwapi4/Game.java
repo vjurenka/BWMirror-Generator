@@ -813,6 +813,10 @@ public class Game {
         return countdownTimer_native(pointer);
     }
 
+    public List<Region> getAllRegions() {
+        return getAllRegions_native(pointer);
+    }
+
     public Region getRegionAt(int x, int y) {
         return getRegionAt_native(pointer, x, y);
     }
@@ -1291,6 +1295,8 @@ public class Game {
     private native void setCommandOptimizationLevel_native(long pointer, int level);
 
     private native int countdownTimer_native(long pointer);
+
+    private native List<Region> getAllRegions_native(long pointer);
 
     private native Region getRegionAt_native(long pointer, int x, int y);
 

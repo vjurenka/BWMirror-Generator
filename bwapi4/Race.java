@@ -9,6 +9,30 @@ import java.util.List;
 
 public class Race {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
+    public UnitType getWorker() {
+        return getWorker_native(pointer);
+    }
+
+    public UnitType getCenter() {
+        return getCenter_native(pointer);
+    }
+
+    public UnitType getRefinery() {
+        return getRefinery_native(pointer);
+    }
+
+    public UnitType getTransport() {
+        return getTransport_native(pointer);
+    }
+
+    public UnitType getSupplyProvider() {
+        return getSupplyProvider_native(pointer);
+    }
+
     public static Race Zerg;
 
     public static Race Terran;
@@ -41,6 +65,18 @@ public class Race {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
+
+    private native UnitType getWorker_native(long pointer);
+
+    private native UnitType getCenter_native(long pointer);
+
+    private native UnitType getRefinery_native(long pointer);
+
+    private native UnitType getTransport_native(long pointer);
+
+    private native UnitType getSupplyProvider_native(long pointer);
 
 
 }

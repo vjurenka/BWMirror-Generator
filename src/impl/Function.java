@@ -33,6 +33,7 @@ public class Function implements Method {
         f.name = name;
         f.returnType = returnType;
         f.args.addAll(args);
+        f.isStatic = isStatic;
         return f;
     }
 

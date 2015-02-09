@@ -7,6 +7,54 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi4_Race
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi4_Race_toString_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getWorker_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getWorker_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getCenter_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getCenter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getRefinery_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getRefinery_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getTransport_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getTransport_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Race
+ * Method:    getSupplyProvider_native
+ * Signature: (J)Lbwapi4/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Race_getSupplyProvider_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

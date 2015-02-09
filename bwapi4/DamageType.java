@@ -9,6 +9,10 @@ import java.util.List;
 
 public class DamageType {
 
+    public String toString() {
+        return toString_native(pointer);
+    }
+
     public static DamageType Independent;
 
     public static DamageType Explosive;
@@ -43,6 +47,8 @@ public class DamageType {
     }
 
     private long pointer;
+
+    private native String toString_native(long pointer);
 
 
 }

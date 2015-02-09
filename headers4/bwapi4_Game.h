@@ -1617,6 +1617,14 @@ JNIEXPORT jint JNICALL Java_bwapi4_Game_countdownTimer_1native
 
 /*
  * Class:     bwapi4_Game
+ * Method:    getAllRegions_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Game_getAllRegions_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Game
  * Method:    getRegionAt_native
  * Signature: (JII)Lbwapi4/Region;
  */

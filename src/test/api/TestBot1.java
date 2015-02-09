@@ -1,7 +1,6 @@
 package test.api;
 
 import bwapi4.*;
-import bwapi4.Text.Size.*;
 import bwapi4.Text.Size.Enum;
 
 /**
@@ -35,17 +34,17 @@ public class TestBot1 {
                 Game game = mirror.getGame();
                 Player self = game.self();
 
-                game.drawBoxScreen(0, 0, 100,100,Color.Red,true);
+                game.drawBoxScreen(0, 0, 100, 100, Color.Red, true);
 
-                game.setTextSize(Enum.Small);
+                game.setTextSize(Enum.Large);
                 game.drawTextScreen(10, 10, "Playing as " + self.getName() + " - " + self.getRace());
 
                 StringBuilder units = new StringBuilder("My units:\n");
-                 /*
-                for(Player player : game.getPlayers()){
-                    System.out.println(player.getName());
-                    for(Unit enemyUnit: player.()){
-                        System.out.println(enemyUnit.getType());
+
+                for (Player player : game.getPlayers()) {
+                   // System.out.println(player.getName());
+                    for (Unit enemyUnit : player.getUnits()) {
+                        // System.out.println(enemyUnit.getType());
                     }
                 }
 
@@ -62,7 +61,7 @@ public class TestBot1 {
 
                         for (Unit neutralUnit : game.neutral().getUnits()) {
                             if (neutralUnit.getType().isMineralField()) {
-                                if (closestMineral == null || myUnit.getDistance(neutralUnit) < myUnit.getDistance(closestMineral)) {
+                                if (closestMineral == null || myUnit.distanceTo(neutralUnit) < myUnit.distanceTo(closestMineral)) {
                                     closestMineral = neutralUnit;
                                 }
                             }
@@ -70,15 +69,18 @@ public class TestBot1 {
 
 
                         if (closestMineral != null) {
-                            myUnit.gather(closestMineral, false);
+                            //myUnit.gather(closestMineral, false);
+                            //game.issueCommand(UnitCommand.gather(myUnit, closestMineral, false));
+                            UnitCommand uc = UnitCommand.gather(myUnit, closestMineral);
+                            myUnit.issueCommand(uc);
                         }
                     }
                 }
-                                   */
 
 
                 //draw my units on screen
-                game.drawTextScreen(10, 25, Utils.formatText("hello world", Utils.Blue));
+                //game.drawTextScreen(10, 25, Utils.formatText("hello world", Utils.Blue));
+                game.drawTextScreen(10, 25, Utils.formatText(units.toString(), Utils.Blue));
             }
         });
         /*

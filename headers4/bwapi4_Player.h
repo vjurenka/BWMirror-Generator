@@ -25,6 +25,14 @@ JNIEXPORT jstring JNICALL Java_bwapi4_Player_getName_1native
 
 /*
  * Class:     bwapi4_Player
+ * Method:    getUnits_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi4_Player_getUnits_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi4_Player
  * Method:    getRace_native
  * Signature: (J)Lbwapi4/Race;
  */
