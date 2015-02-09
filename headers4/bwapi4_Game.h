@@ -745,14 +745,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_printf_1native
 
 /*
  * Class:     bwapi4_Game
- * Method:    vPrintf_native
- * Signature: (JLjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vPrintf_1native
-  (JNIEnv *, jobject, jlong, jstring, jobjectArray);
-
-/*
- * Class:     bwapi4_Game
  * Method:    sendText_native
  * Signature: (JLjava/lang/String;)V
  */
@@ -761,27 +753,11 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_sendText_1native
 
 /*
  * Class:     bwapi4_Game
- * Method:    vSendText_native
- * Signature: (JLjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vSendText_1native
-  (JNIEnv *, jobject, jlong, jstring, jobjectArray);
-
-/*
- * Class:     bwapi4_Game
  * Method:    sendTextEx_native
  * Signature: (JZLjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_bwapi4_Game_sendTextEx_1native
   (JNIEnv *, jobject, jlong, jboolean, jstring);
-
-/*
- * Class:     bwapi4_Game
- * Method:    vSendTextEx_native
- * Signature: (JZLjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vSendTextEx_1native
-  (JNIEnv *, jobject, jlong, jboolean, jstring, jobjectArray);
 
 /*
  * Class:     bwapi4_Game
@@ -942,14 +918,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_setTextSize_1native__J
  */
 JNIEXPORT void JNICALL Java_bwapi4_Game_setTextSize_1native__JLbwapi4_Text_Size_Enum_2
   (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    vDrawText_native
- * Signature: (JLbwapi4/CoordinateType/Enum;IILjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vDrawText_1native
-  (JNIEnv *, jobject, jlong, jobject, jint, jint, jstring, jobjectArray);
 
 /*
  * Class:     bwapi4_Game

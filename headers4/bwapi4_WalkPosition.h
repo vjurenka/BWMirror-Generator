@@ -47,14 +47,6 @@ JNIEXPORT jint JNICALL Java_bwapi4_WalkPosition_getApproxDistance
 JNIEXPORT jdouble JNICALL Java_bwapi4_WalkPosition_getLength
   (JNIEnv *, jobject);
 
-/*
- * Class:     bwapi4_WalkPosition
- * Method:    hasPath
- * Signature: (Lbwapi4/WalkPosition;)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_WalkPosition_hasPath
-  (JNIEnv *, jobject, jobject);
-
 #ifdef __cplusplus
 }
 #endif

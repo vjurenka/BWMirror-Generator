@@ -5,6 +5,7 @@ import c.CDeclaration;
 import c.DeclarationType;
 import c.Field;
 import generator.CJavaPipeline;
+import generator.JavaContext;
 import impl.ClassVariable;
 
 import java.io.PrintStream;
@@ -21,6 +22,7 @@ public class Bind {
 
     private PrintStream out;
 
+
     public void setOut(PrintStream out) {
         this.out = out;
     }
@@ -31,12 +33,34 @@ public class Bind {
         out.println("\t\tprintln(\"BWAPI ready.\");");
     }
 
-    private String broodwarPtrSuffix() {
-        if (!CJavaPipeline.isBWAPI3()) {
-            return "ptr";
+
+    private void implementConnectionRoutine() {
+        if (CJavaPipeline.isBWAPI3()) {
+            out.println("            if (Broodwar != NULL) {\n" +
+                    "\t\t\t\tprintln(\"Waiting...\");\n" +
+                    "                while (!Broodwar->isInGame()) {\n" +
+                    "                    BWAPIClient.update();\n" +
+                    "\t\t\t\t\tif (Broodwar == NULL) {\n" +
+                    "                            println(\"Match ended.\");\n" +
+                    "                            return;\n" +
+                    "                    }\n" +
+                    "                }\n" +
+                    "            }\n" +
+                    "\n");
+        } else {
+            out.println("\t\t\t\tprintln(\"Waiting...\");" +
+                    "while ( !Broodwar->isInGame() )\n" +
+                    "    {\n" +
+                    "      BWAPI::BWAPIClient.update();\n" +
+                    "      if (!BWAPI::BWAPIClient.isConnected())\n" +
+                    "      {\n" +
+                    "        println(\"Reconnecting...\");\n" +
+                    "        reconnect();\n" +
+                    "      }\n" +
+                    "    }");
         }
-        return "";
     }
+
 
     private void implementGameStart() {
         out.println("println(\"Connecting to Broodwar...\");\n" +
@@ -51,7 +75,7 @@ public class Bind {
                 "\t\tjobject moduleObj = env->GetObjectField(obj, env->GetFieldID(cls, \"module\", \"Lbwapi/AIModule;\"));\n" +
                 "\t\tjclass moduleCls = env->GetObjectClass(moduleObj);\n" +
                 "\t\tenv->SetObjectField(obj, env->GetFieldID(cls, \"game\", \"Lbwapi/Game;\"), " +
-                "env->CallStaticObjectMethod(gamecls, env->GetStaticMethodID(gamecls, \"get\", \"(J)Lbwapi/Game;\"), (long)Broodwar" + broodwarPtrSuffix() + "));\n" +
+                "env->CallStaticObjectMethod(gamecls, env->GetStaticMethodID(gamecls, \"get\", \"(J)Lbwapi/Game;\"), (long)" + (CJavaPipeline.isBWAPI3() ? "" : "&") + "Broodwar));\n" +
                 "\n" +
                 "\t\tjmethodID updateMethodID = env->GetMethodID(env->GetObjectClass(obj), \"update\", \"()V\");");
 
@@ -74,24 +98,13 @@ public class Bind {
                 "\t\tjmethodID unitCompleteCallback = env->GetMethodID(moduleCls, \"onUnitComplete\", \"(Lbwapi/Unit;)V\");\n" +
                 "\t\tjmethodID playerDroppedCallback = env->GetMethodID(moduleCls, \"onPlayerDropped\", \"(Lbwapi/Player;)V\");");
 
-        out.println(
-                "\t\twhile (true) {\n" +
-                        "            if (Broodwar" + broodwarPtrSuffix() + " != NULL) {\n" +
-                        "\t\t\t\tprintln(\"Waiting...\");\n" +
-                        "                while (!Broodwar" + broodwarPtrSuffix() + "->isInGame()) {\n" +
-                        "                    BWAPIClient.update();\n" +
-                        "\t\t\t\t\tif (Broodwar" + broodwarPtrSuffix() + " == NULL) {\n" +
-                        "                            println(\"Match ended.\");\n" +
-                        "                            return;\n" +
-                        "                    }\n" +
-                        "                }\n" +
-                        "            }\n" +
-                        "\n" +
-                        "\t\t\tprintln(\"Game ready!!!\");\n" +
-                        "\n" +
-                        "\t\t\twhile (Broodwar->isInGame()) {\n" +
-                        "\t\t\t\t\n" +
-                        "\t\t\t\tenv->CallVoidMethod(obj, updateMethodID);\n");
+        out.println("\t\twhile (true) {\n");
+        implementConnectionRoutine();
+        out.println("\t\t\tprintln(\"Game ready!!!\");\n" +
+                "\n" +
+                "\t\t\twhile (Broodwar->isInGame()) {\n" +
+                "\t\t\t\t\n" +
+                "\t\t\t\tenv->CallVoidMethod(obj, updateMethodID);\n");
         out.println("\n" +
                 "\t\t\t\tfor(std::list<Event>::const_iterator it = Broodwar->getEvents().begin(); it!=Broodwar->getEvents().end(); it++)\n" +
                 "\t\t\t\t  {\n" +
@@ -166,35 +179,51 @@ public class Bind {
                         "\t\t\t\t\t\tprintln(\"Reconnecting...\");\n" +
                         "\t\t\t\t\t\treconnect();\n" +
                         "\t\t\t\t}\n" +
+                        (CJavaPipeline.isBWAPI3() ? "" : "println(\"Match ended.\");") +
                         "\t\t\t}\n" +
                         "\t\t}");
     }
 
     private void implementHelpers() {
-        out.println("void reconnect()\n" +
-                "{\n" +
-                "\twhile (!BWAPIClient.connect()) {\n" +
-                "            Sleep(1000);\n" +
-                "    }\n" +
-                "}\n" +
-                "\n" +
-                "\n" +
-                "\n" +
+        if (CJavaPipeline.isBWAPI3()) {
+            out.println("void reconnect()\n" +
+                    "{\n" +
+                    "\twhile (!BWAPIClient.connect()) {\n" +
+                    "            Sleep(1000);\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "\n");
+        } else {
+            out.println("void reconnect()\n" +
+                    "{\n" +
+                    "\twhile (!BWAPIClient.connect()) {\n" +
+                    "            std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 });\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "\n");
+        }
+
+        out.println(
                 "void flushPrint(const char * text){\n" +
-                "\tprintf(text);\n" +
-                "\tfflush(stdout); \n" +
-                "}\n" +
-                "\n" +
-                "void println(const char * text){\n" +
-                "\tprintf(text);\n" +
-                "\tflushPrint(\"\\n\");\n" +
-                "}\n");
+                        "\tprintf(text);\n" +
+                        "\tfflush(stdout); \n" +
+                        "}\n" +
+                        "\n" +
+                        "void println(const char * text){\n" +
+                        "\tprintf(text);\n" +
+                        "\tflushPrint(\"\\n\");\n" +
+                        "}\n");
+
     }
 
     private void implementMirrorInit(List<CDeclaration> declarationList) {
         implementHelpers();
         out.println("JNIEXPORT void JNICALL Java_bwapi_Mirror_startGame(JNIEnv * env, jobject obj){");
-        implementBWAPIInit();
+        if (CJavaPipeline.isBWAPI3()) {
+            implementBWAPIInit();
+        }
         implementVariablesBind(declarationList);
         implementGameStart();
         out.println("}");
@@ -246,7 +275,7 @@ public class Bind {
                         "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"Lbwapi/" + classVariable.getType() + ";\"), " +
                         "env->CallStaticObjectMethod(cls, getId, (jlong)&" + cValue + ")" +
                         ");");
-        if (cClass.getName().equals("Position") || cClass.getName().equals("TilePosition")) {
+        if (cClass.getName().equals("Position") || cClass.getName().equals("TilePosition") || cClass.getName().equals("WalkPosition") || cClass.getName().equals("Point")) {
             return;
         }
         out.println("table" + cClass.getName() + ".insert(std::pair<int, const " + cClass.getName() + "*>(" + cValue + ".getID(), &" + cValue + "));");

@@ -33,7 +33,7 @@ public class TypeTable {
     }
 
     private void checkTypeTable(CClass cClass) {
-        if(cClass.getName().equals("Position") || cClass.getName().equals("TilePosition")){
+        if(cClass.getName().equals("Position") || cClass.getName().equals("TilePosition") || cClass.getName().equals("WalkPosition") || cClass.getName().equals("Point")){
             return;
         }
         for (Field field : cClass.getFields()) {

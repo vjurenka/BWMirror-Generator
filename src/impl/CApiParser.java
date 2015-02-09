@@ -261,6 +261,11 @@ public class CApiParser {
                 }
             }
 
+            if(function.name.equals("setClientInfo")){
+                System.err.println("function skipped - BWAPI4 set client info return (" + function.name + ")");
+                return null;
+            }
+
             if (matcher.group(F_REGEX_PARAMS) != null) {
                 String paramsString = matcher.group(F_REGEX_PARAMS);
                 String paramStrings[] = paramsString.split("\\,");
@@ -325,7 +330,12 @@ public class CApiParser {
                         }
                         //
                         if (argType.equals("va_list")) {
+                            if(function.name.startsWith("v")){
+                                System.err.println("BWAPI4 va_list function skipped : " + function.name);
+                                return null;
+                            }
                             argType = "Object ...";
+                            continue;
                         }
 
 
@@ -380,6 +390,7 @@ public class CApiParser {
                             System.err.println("function skipped - RectangleArray param (" + function.name + ")");
                             return null;
                         }
+
 
                         if (arg.length > 2 && arg[2].equals("=")) {
                             function.args.add(new Param(argType, argName, arg[3]));

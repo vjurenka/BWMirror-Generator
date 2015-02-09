@@ -39,8 +39,8 @@ public class CJavaPipeline {
      * Classes from BWAPI 4 that don't need mirroring
      * Not used in mirroring BWAPI 3
      */
-    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Vectorset", "ConstVectorset", "VSetIterator",
-            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl", "SetContainer", "InterfaceEvent"));
+    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Vectorset", "ConstVectorset", "VSetIterator", "GameWrapper",
+            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl", "SetContainer", "InterfaceEvent", "PositionOrUnit", "Point"));
 
 
     private static final HashMap<String, String> superClasses = new HashMap<>();
@@ -186,6 +186,8 @@ public class CJavaPipeline {
         for (PackageProcessOptions pkg : packages) {
             callImplementer.setBwtaMode(pkg.packageName.equals("bwta"));
             javaContext.setPackageName(pkg.packageName);
+
+            callImplementer.notifyPackageStart();
 
             for (File file : new File(pkg.packageName).listFiles(new FilenameFilter() {
                 @Override

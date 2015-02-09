@@ -25,18 +25,6 @@ public class Unitset {
         return getLarva_native(pointer);
     }
 
-    public void setClientInfo(int clientInfo) {
-        setClientInfo_native(pointer, clientInfo);
-    }
-
-    public void setClientInfo() {
-        setClientInfo_native(pointer);
-    }
-
-    public void setClientInfo(int clientInfo, int index) {
-        setClientInfo_native(pointer, clientInfo, index);
-    }
-
     public List<Unit> getUnitsInRadius(int radius, UnitFilter pred) {
         return getUnitsInRadius_native(pointer, radius, pred);
     }
@@ -277,12 +265,6 @@ public class Unitset {
     private native List<Unit> getInterceptors_native(long pointer);
 
     private native List<Unit> getLarva_native(long pointer);
-
-    private native void setClientInfo_native(long pointer, int clientInfo);
-
-    private native void setClientInfo_native(long pointer);
-
-    private native void setClientInfo_native(long pointer, int clientInfo, int index);
 
     private native List<Unit> getUnitsInRadius_native(long pointer, int radius, UnitFilter pred);
 

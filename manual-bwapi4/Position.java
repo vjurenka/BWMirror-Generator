@@ -30,8 +30,6 @@ public class Position extends AbstractPoint<Position>{
 
     public native double getLength();
 
-    public native boolean hasPath(Position position);
-
     public int getX() {
         return x;
     }

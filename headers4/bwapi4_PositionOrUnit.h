@@ -7,38 +7,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    isUnit_native
- * Signature: (J)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_PositionOrUnit_isUnit_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    getUnit_native
- * Signature: (J)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_PositionOrUnit_getUnit_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    isPosition_native
- * Signature: (J)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_PositionOrUnit_isPosition_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    getPosition_native
- * Signature: (J)Lbwapi4/Position;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_PositionOrUnit_getPosition_1native
-  (JNIEnv *, jobject, jlong);
-
 #ifdef __cplusplus
 }
 #endif

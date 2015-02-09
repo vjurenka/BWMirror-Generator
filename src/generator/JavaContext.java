@@ -14,11 +14,11 @@ public class JavaContext {
 
     private HashMap<String, String> javaToCType = new HashMap<>();
 
-    private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "Color", "BWTA::RectangleArray<double>");
+    private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "WalkPosition", "Color", "BWTA::RectangleArray<double>", "PositionOrUnit", "Point");
 
     private List<String> constantTypes = Arrays.asList("UnitType", "TechType", "UpgradeType", "Race", "UnitCommand", "WeaponType", "Order", "GameType", "Error");
 
-    private List<String> enumTypes = Arrays.asList("MouseButton", "Key");
+    private List<String> enumTypes = Arrays.asList("MouseButton", "Key", "bwapi4.Text.Size.Enum", "bwapi4.CoordinateType.Enum");
 
     private List<String> valueReturnTypes = Arrays.asList("UnitCommand", "Event");
 
@@ -85,7 +85,9 @@ public class JavaContext {
         }
         switch (variableType) {
             case "Position":
+            case "WalkPosition":
             case "TilePosition":
+            case "Point":
                 return "(" +
                         "(int)env->GetIntField(" + rawName + ", FindCachedField(env, env->GetObjectClass(" + rawName + "), \"x\", \"I\")), " +
                         "(int)env->GetIntField(" + rawName + ", FindCachedField(env, env->GetObjectClass(" + rawName + "), \"y\", \"I\"))" +
@@ -100,12 +102,20 @@ public class JavaContext {
                         "(int)env->GetIntField(" + rawName + ", FindCachedField(env, env->GetObjectClass(" + rawName + "), \"g\", \"I\")), " +
                         "(int)env->GetIntField(" + rawName + ", FindCachedField(env, env->GetObjectClass(" + rawName + "), \"b\", \"I\"))" +
                         ");";
+            case "PositionOrUnit":
+                return "(convertPositionOrUnit(env, " + rawName + " ));";
         }
         return ";";
     }
 
     public String copyJavaObjectToC(String variableType, String variableName, String rawName) {
-        return (variableType + " " + variableName) + copyFields(variableType, variableName, rawName);
+        String packageStrippedType = variableType;
+        if(packageStrippedType.startsWith("bwapi")){
+            packageStrippedType = packageStrippedType.substring(packageStrippedType.indexOf(".") + 1);
+        }
+        packageStrippedType = packageStrippedType.replaceAll("\\.","::");
+
+        return (packageStrippedType + " " + variableName) + copyFields(packageStrippedType, variableName, rawName);
     }
 
     public String copyJavaObjectToC(String variableType, String variableName) {
@@ -133,14 +143,16 @@ public class JavaContext {
     public String copyConstructor(String javaType) {
         switch (javaType) {
             case "TilePosition":
+            case "WalkPosition":
             case "Position":
+            case "Point":
                 return "II";
             case "Color":
                 return "III";
             case "Error":
                 return "I";
             default:
-                return "";
+                throw new UnsupportedOperationException();
         }
     }
 
@@ -158,9 +170,9 @@ public class JavaContext {
     public String implementCopyReturn(String javaType, String fieldName) {
         switch (javaType) {
             case "TilePosition":
-                return ", "+fieldName+".x" + checkBWAPI3brackets() +
-                        ", "+fieldName+".y" + checkBWAPI3brackets() ;
             case "Position":
+            case "WalkPosition":
+            case "Point":
                 return ", "+fieldName+".x" + checkBWAPI3brackets() +
                         ", "+fieldName+".y" + checkBWAPI3brackets() ;
             case "Color":

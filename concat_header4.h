@@ -18,142 +18,6 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_AIModule
- * Method:    onStart_native
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onStart_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onEnd_native
- * Signature: (JZ)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onEnd_1native
-  (JNIEnv *, jobject, jlong, jboolean);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onFrame_native
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onFrame_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onSendText_native
- * Signature: (JLjava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onSendText_1native
-  (JNIEnv *, jobject, jlong, jstring);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onReceiveText_native
- * Signature: (JLbwapi4/Player;Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onReceiveText_1native
-  (JNIEnv *, jobject, jlong, jobject, jstring);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onPlayerLeft_native
- * Signature: (JLbwapi4/Player;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onPlayerLeft_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onNukeDetect_native
- * Signature: (JLbwapi4/Position;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onNukeDetect_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitDiscover_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitDiscover_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitEvade_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitEvade_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitShow_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitShow_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitHide_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitHide_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitCreate_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitCreate_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitDestroy_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitDestroy_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitMorph_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitMorph_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitRenegade_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitRenegade_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onSaveGame_native
- * Signature: (JLjava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onSaveGame_1native
-  (JNIEnv *, jobject, jlong, jstring);
-
-/*
- * Class:     bwapi4_AIModule
- * Method:    onUnitComplete_native
- * Signature: (JLbwapi4/Unit;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_AIModule_onUnitComplete_1native
-  (JNIEnv *, jobject, jlong, jobject);
-
 #ifdef __cplusplus
 }
 #endif
@@ -325,6 +189,17 @@ extern "C" {
 }
 #endif
 #endif
+/* Header for class bwapi4_BWEventListener */
+
+#ifndef _Included_bwapi4_BWEventListener
+#define _Included_bwapi4_BWEventListener
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef __cplusplus
+}
+#endif
+#endif
 /* Header for class bwapi4_CenteredObject */
 
 #ifndef _Included_bwapi4_CenteredObject
@@ -386,30 +261,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Client_update_1native
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_Color
- * Method:    red_native
- * Signature: (J)I
- */
-JNIEXPORT jint JNICALL Java_bwapi4_Color_red_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Color
- * Method:    green_native
- * Signature: (J)I
- */
-JNIEXPORT jint JNICALL Java_bwapi4_Color_green_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Color
- * Method:    blue_native
- * Signature: (J)I
- */
-JNIEXPORT jint JNICALL Java_bwapi4_Color_blue_1native
-  (JNIEnv *, jobject, jlong);
-
 #ifdef __cplusplus
 }
 #endif
@@ -429,6 +280,17 @@ extern "C" {
 
 #ifndef _Included_bwapi4_DamageType
 #define _Included_bwapi4_DamageType
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwapi4_DefaultBWListener */
+
+#ifndef _Included_bwapi4_DefaultBWListener
+#define _Included_bwapi4_DefaultBWListener
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -1308,14 +1170,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_printf_1native
 
 /*
  * Class:     bwapi4_Game
- * Method:    vPrintf_native
- * Signature: (JLjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vPrintf_1native
-  (JNIEnv *, jobject, jlong, jstring, jobjectArray);
-
-/*
- * Class:     bwapi4_Game
  * Method:    sendText_native
  * Signature: (JLjava/lang/String;)V
  */
@@ -1324,27 +1178,11 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_sendText_1native
 
 /*
  * Class:     bwapi4_Game
- * Method:    vSendText_native
- * Signature: (JLjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vSendText_1native
-  (JNIEnv *, jobject, jlong, jstring, jobjectArray);
-
-/*
- * Class:     bwapi4_Game
  * Method:    sendTextEx_native
  * Signature: (JZLjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_bwapi4_Game_sendTextEx_1native
   (JNIEnv *, jobject, jlong, jboolean, jstring);
-
-/*
- * Class:     bwapi4_Game
- * Method:    vSendTextEx_native
- * Signature: (JZLjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vSendTextEx_1native
-  (JNIEnv *, jobject, jlong, jboolean, jstring, jobjectArray);
 
 /*
  * Class:     bwapi4_Game
@@ -1505,14 +1343,6 @@ JNIEXPORT void JNICALL Java_bwapi4_Game_setTextSize_1native__J
  */
 JNIEXPORT void JNICALL Java_bwapi4_Game_setTextSize_1native__JLbwapi4_Text_Size_Enum_2
   (JNIEnv *, jobject, jlong, jobject);
-
-/*
- * Class:     bwapi4_Game
- * Method:    vDrawText_native
- * Signature: (JLbwapi4/CoordinateType/Enum;IILjava/lang/String;[Ljava/lang/Object;)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Game_vDrawText_1native
-  (JNIEnv *, jobject, jlong, jobject, jint, jint, jstring, jobjectArray);
 
 /*
  * Class:     bwapi4_Game
@@ -2498,6 +2328,49 @@ extern "C" {
 }
 #endif
 #endif
+/* Header for class bwapi4_Mirror_FrameCallback */
+
+#ifndef _Included_bwapi4_Mirror_FrameCallback
+#define _Included_bwapi4_Mirror_FrameCallback
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwapi4_Mirror_JarResources */
+
+#ifndef _Included_bwapi4_Mirror_JarResources
+#define _Included_bwapi4_Mirror_JarResources
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwapi4_Mirror */
+
+#ifndef _Included_bwapi4_Mirror
+#define _Included_bwapi4_Mirror
+#ifdef __cplusplus
+extern "C" {
+#endif
+#undef bwapi4_Mirror_EXTRACT_JAR
+#define bwapi4_Mirror_EXTRACT_JAR 1L
+/*
+ * Class:     bwapi4_Mirror
+ * Method:    startGame
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwapi4_Mirror_startGame
+  (JNIEnv *, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
 /* Header for class bwapi4_MouseButton */
 
 #ifndef _Included_bwapi4_MouseButton
@@ -3074,19 +2947,35 @@ extern "C" {
 #endif
 /*
  * Class:     bwapi4_Point
- * Method:    isValid_native
- * Signature: (J)Z
+ * Method:    isValid
+ * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_bwapi4_Point_isValid_1native
-  (JNIEnv *, jobject, jlong);
+JNIEXPORT jboolean JNICALL Java_bwapi4_Point_isValid
+  (JNIEnv *, jobject);
 
 /*
  * Class:     bwapi4_Point
- * Method:    getLength_native
- * Signature: (J)D
+ * Method:    makeValid
+ * Signature: ()Lbwapi4/Point;
  */
-JNIEXPORT jdouble JNICALL Java_bwapi4_Point_getLength_1native
-  (JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_bwapi4_Point_makeValid
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     bwapi4_Point
+ * Method:    getDistance
+ * Signature: (Lbwapi4/Point;)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwapi4_Point_getDistance
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     bwapi4_Point
+ * Method:    getLength
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_bwapi4_Point_getLength
+  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }
@@ -3139,14 +3028,6 @@ JNIEXPORT jint JNICALL Java_bwapi4_Position_getApproxDistance
 JNIEXPORT jdouble JNICALL Java_bwapi4_Position_getLength
   (JNIEnv *, jobject);
 
-/*
- * Class:     bwapi4_Position
- * Method:    hasPath
- * Signature: (Lbwapi4/Position;)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_Position_hasPath
-  (JNIEnv *, jobject, jobject);
-
 #ifdef __cplusplus
 }
 #endif
@@ -3169,38 +3050,6 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    isUnit_native
- * Signature: (J)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_PositionOrUnit_isUnit_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    getUnit_native
- * Signature: (J)Lbwapi4/Unit;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_PositionOrUnit_getUnit_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    isPosition_native
- * Signature: (J)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_PositionOrUnit_isPosition_1native
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_PositionOrUnit
- * Method:    getPosition_native
- * Signature: (J)Lbwapi4/Position;
- */
-JNIEXPORT jobject JNICALL Java_bwapi4_PositionOrUnit_getPosition_1native
-  (JNIEnv *, jobject, jlong);
-
 #ifdef __cplusplus
 }
 #endif
@@ -3384,14 +3233,6 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
-/*
- * Class:     bwapi4_TilePosition
- * Method:    hasPath
- * Signature: (Lbwapi4/TilePosition;)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_TilePosition_hasPath
-  (JNIEnv *, jobject, jobject);
-
 /*
  * Class:     bwapi4_TilePosition
  * Method:    isValid
@@ -7188,30 +7029,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getLarva_1native
 
 /*
  * Class:     bwapi4_Unitset
- * Method:    setClientInfo_native
- * Signature: (JI)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Unitset_setClientInfo_1native__JI
-  (JNIEnv *, jobject, jlong, jint);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    setClientInfo_native
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Unitset_setClientInfo_1native__J
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    setClientInfo_native
- * Signature: (JII)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Unitset_setClientInfo_1native__JII
-  (JNIEnv *, jobject, jlong, jint, jint);
-
-/*
- * Class:     bwapi4_Unitset
  * Method:    getUnitsInRadius_native
  * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
  */
@@ -7671,6 +7488,79 @@ extern "C" {
 }
 #endif
 #endif
+/* Header for class bwapi4_Utils */
+
+#ifndef _Included_bwapi4_Utils
+#define _Included_bwapi4_Utils
+#ifdef __cplusplus
+extern "C" {
+#endif
+#undef bwapi4_Utils_Previous
+#define bwapi4_Utils_Previous 1L
+#undef bwapi4_Utils_Cyan
+#define bwapi4_Utils_Cyan 2L
+#undef bwapi4_Utils_Yellow
+#define bwapi4_Utils_Yellow 3L
+#undef bwapi4_Utils_White
+#define bwapi4_Utils_White 4L
+#undef bwapi4_Utils_Grey
+#define bwapi4_Utils_Grey 5L
+#undef bwapi4_Utils_Red
+#define bwapi4_Utils_Red 6L
+#undef bwapi4_Utils_Green
+#define bwapi4_Utils_Green 7L
+#undef bwapi4_Utils_Red_P1
+#define bwapi4_Utils_Red_P1 8L
+#undef bwapi4_Utils_Tab
+#define bwapi4_Utils_Tab 9L
+#undef bwapi4_Utils_Newline
+#define bwapi4_Utils_Newline 10L
+#undef bwapi4_Utils_Invisible_no_override
+#define bwapi4_Utils_Invisible_no_override 11L
+#undef bwapi4_Utils_Remove_beyond
+#define bwapi4_Utils_Remove_beyond 12L
+#undef bwapi4_Utils_Clear_formatting
+#define bwapi4_Utils_Clear_formatting 13L
+#undef bwapi4_Utils_Blue
+#define bwapi4_Utils_Blue 14L
+#undef bwapi4_Utils_Teal
+#define bwapi4_Utils_Teal 15L
+#undef bwapi4_Utils_Purple
+#define bwapi4_Utils_Purple 16L
+#undef bwapi4_Utils_Orange
+#define bwapi4_Utils_Orange 17L
+#undef bwapi4_Utils_Right_Align
+#define bwapi4_Utils_Right_Align 18L
+#undef bwapi4_Utils_Center_Align
+#define bwapi4_Utils_Center_Align 19L
+#undef bwapi4_Utils_Invisible
+#define bwapi4_Utils_Invisible 20L
+#undef bwapi4_Utils_Brown
+#define bwapi4_Utils_Brown 21L
+#undef bwapi4_Utils_White_p7
+#define bwapi4_Utils_White_p7 22L
+#undef bwapi4_Utils_Yellow_p8
+#define bwapi4_Utils_Yellow_p8 23L
+#undef bwapi4_Utils_Green_p9
+#define bwapi4_Utils_Green_p9 24L
+#undef bwapi4_Utils_Brighter_Yellow
+#define bwapi4_Utils_Brighter_Yellow 25L
+#undef bwapi4_Utils_Cyan_default
+#define bwapi4_Utils_Cyan_default 26L
+#undef bwapi4_Utils_Pinkish
+#define bwapi4_Utils_Pinkish 27L
+#undef bwapi4_Utils_Dark_Cyan
+#define bwapi4_Utils_Dark_Cyan 28L
+#undef bwapi4_Utils_Greygreen
+#define bwapi4_Utils_Greygreen 29L
+#undef bwapi4_Utils_Bluegrey
+#define bwapi4_Utils_Bluegrey 30L
+#undef bwapi4_Utils_Turquoise
+#define bwapi4_Utils_Turquoise 31L
+#ifdef __cplusplus
+}
+#endif
+#endif
 /* Header for class bwapi4_WalkPosition */
 
 #ifndef _Included_bwapi4_WalkPosition
@@ -7717,14 +7607,6 @@ JNIEXPORT jint JNICALL Java_bwapi4_WalkPosition_getApproxDistance
  */
 JNIEXPORT jdouble JNICALL Java_bwapi4_WalkPosition_getLength
   (JNIEnv *, jobject);
-
-/*
- * Class:     bwapi4_WalkPosition
- * Method:    hasPath
- * Signature: (Lbwapi4/WalkPosition;)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_WalkPosition_hasPath
-  (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
 }

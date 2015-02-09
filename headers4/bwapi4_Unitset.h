@@ -41,30 +41,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_Unitset_getLarva_1native
 
 /*
  * Class:     bwapi4_Unitset
- * Method:    setClientInfo_native
- * Signature: (JI)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Unitset_setClientInfo_1native__JI
-  (JNIEnv *, jobject, jlong, jint);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    setClientInfo_native
- * Signature: (J)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Unitset_setClientInfo_1native__J
-  (JNIEnv *, jobject, jlong);
-
-/*
- * Class:     bwapi4_Unitset
- * Method:    setClientInfo_native
- * Signature: (JII)V
- */
-JNIEXPORT void JNICALL Java_bwapi4_Unitset_setClientInfo_1native__JII
-  (JNIEnv *, jobject, jlong, jint, jint);
-
-/*
- * Class:     bwapi4_Unitset
  * Method:    getUnitsInRadius_native
  * Signature: (JILbwapi4/UnitFilter;)Ljava/util/List;
  */

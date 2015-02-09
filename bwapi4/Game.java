@@ -377,24 +377,12 @@ public class Game {
         printf_native(pointer, cstr_format);
     }
 
-    public void vPrintf(String cstr_format, Object ... args) {
-        vPrintf_native(pointer, cstr_format, args);
-    }
-
     public void sendText(String cstr_format) {
         sendText_native(pointer, cstr_format);
     }
 
-    public void vSendText(String cstr_format, Object ... args) {
-        vSendText_native(pointer, cstr_format, args);
-    }
-
     public void sendTextEx(boolean toAllies, String cstr_format) {
         sendTextEx_native(pointer, toAllies, cstr_format);
-    }
-
-    public void vSendTextEx(boolean toAllies, String cstr_format, Object ... args) {
-        vSendTextEx_native(pointer, toAllies, cstr_format, args);
     }
 
     public boolean isInGame() {
@@ -475,10 +463,6 @@ public class Game {
 
     public void setTextSize(bwapi4.Text.Size.Enum size) {
         setTextSize_native(pointer, size);
-    }
-
-    public void vDrawText(bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format, Object ... arg) {
-        vDrawText_native(pointer, ctype, x, y, cstr_format, arg);
     }
 
     public void drawText(bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format) {
@@ -1142,15 +1126,9 @@ public class Game {
 
     private native void printf_native(long pointer, String cstr_format);
 
-    private native void vPrintf_native(long pointer, String cstr_format, Object ... args);
-
     private native void sendText_native(long pointer, String cstr_format);
 
-    private native void vSendText_native(long pointer, String cstr_format, Object ... args);
-
     private native void sendTextEx_native(long pointer, boolean toAllies, String cstr_format);
-
-    private native void vSendTextEx_native(long pointer, boolean toAllies, String cstr_format, Object ... args);
 
     private native boolean isInGame_native(long pointer);
 
@@ -1191,8 +1169,6 @@ public class Game {
     private native void setTextSize_native(long pointer);
 
     private native void setTextSize_native(long pointer, bwapi4.Text.Size.Enum size);
-
-    private native void vDrawText_native(long pointer, bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format, Object ... arg);
 
     private native void drawText_native(long pointer, bwapi4.CoordinateType.Enum ctype, int x, int y, String cstr_format);
 

@@ -9,19 +9,35 @@ extern "C" {
 #endif
 /*
  * Class:     bwapi4_Point
- * Method:    isValid_native
- * Signature: (J)Z
+ * Method:    isValid
+ * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_bwapi4_Point_isValid_1native
-  (JNIEnv *, jobject, jlong);
+JNIEXPORT jboolean JNICALL Java_bwapi4_Point_isValid
+  (JNIEnv *, jobject);
 
 /*
  * Class:     bwapi4_Point
- * Method:    getLength_native
- * Signature: (J)D
+ * Method:    makeValid
+ * Signature: ()Lbwapi4/Point;
  */
-JNIEXPORT jdouble JNICALL Java_bwapi4_Point_getLength_1native
-  (JNIEnv *, jobject, jlong);
+JNIEXPORT jobject JNICALL Java_bwapi4_Point_makeValid
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     bwapi4_Point
+ * Method:    getDistance
+ * Signature: (Lbwapi4/Point;)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwapi4_Point_getDistance
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     bwapi4_Point
+ * Method:    getLength
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_bwapi4_Point_getLength
+  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

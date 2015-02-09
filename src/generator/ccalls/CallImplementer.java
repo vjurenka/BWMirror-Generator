@@ -53,7 +53,7 @@ public class CallImplementer {
         out.print("#include \"../concat_header.h\"\n" +
                 "#include <BWAPI.h>\n" +
                 "#include <BWAPI/Client.h>\n" +
-                (CJavaPipeline.isBWAPI3() ? "#include <BWTA.h>\n" : "") +
+                (CJavaPipeline.isBWAPI3() ? "#include <BWTA.h>\n" : "#include <thread>\n" + "#include <chrono>\n") +
                 "#include <jni.h>\n" +
                 "#include <cstring>\n" +
                 "#include \"../BWTA_Result.h\"" +
@@ -389,5 +389,21 @@ public class CallImplementer {
 
     public void setBwtaMode(boolean bwtaMode) {
         this.bwtaMode = bwtaMode;
+    }
+
+    public void notifyPackageStart(){
+        out.println("PositionOrUnit convertPositionOrUnit(JNIEnv * env, jobject obj){ \n" +
+                "\tjclass clz = FindCachedClass(env, \"PositionOrUnit\");\n" +
+                "\tjmethodID typeMethodId = FindCachedMethod(env, clz, \"isUnit\", \"()Z\");\n" +
+                "\tbool isUnit = (bool)env->CallBooleanMethod(obj, typeMethodId);\n" +
+                "\tif(isUnit){\n" +
+                "\t\tjobject unitObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getUnit\", \"()L" + javaContext.getPackageName() + "/Unit;\"));\n" +
+                "\t\tUnit unit = (Unit)env->GetLongField(unitObj, FindCachedField(env, env->GetObjectClass(unitObj), \"unitObj\", \"J\"));\n" +
+                "\t\treturn PositionOrUnit(unit);\n" +
+                "\t}\n" +
+                "\tjobject posObj = env->CallObjectMethod(obj, FindCachedMethod(env, clz, \"getPosition\", \"()L" + javaContext.getPackageName() + "/Position;\"));\n" +
+                "\t" + javaContext.copyJavaObjectToC("Position", "position", "posObj") + "\n" +
+                "\treturn PositionOrUnit(position);\n" +
+                "}\n\n");
     }
 }

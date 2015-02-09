@@ -9,7 +9,7 @@ import java.util.Map;
  * These are called build tiles because buildability data is available at this resolution, and correspond to the tiles seen in game.
  * For example, a Command Center occupies an area of 4x3 build tiles.
  */
-public class TilePosition {
+public class TilePosition  extends AbstractPoint<TilePosition>{
     private int x, y;
 
     public TilePosition(int x, int y) {
@@ -20,8 +20,6 @@ public class TilePosition {
     public String toString() {
         return "[" + x + ", " + y + "]";
     }
-
-    public native boolean hasPath(TilePosition position);
 
     public native boolean isValid();
 
@@ -81,5 +79,9 @@ public class TilePosition {
         int result = x;
         result = 31 * result + y;
         return result;
+    }
+
+    public TilePosition getPoint(){
+        return this;
     }
 }

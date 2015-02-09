@@ -4,7 +4,7 @@ import java.lang.Override;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WalkPosition {
+public class WalkPosition extends AbstractPoint<WalkPosition>{
 
     private int x, y;
 
@@ -26,8 +26,6 @@ public class WalkPosition {
     public native int getApproxDistance(WalkPosition position);
 
     public native double getLength();
-
-    public native boolean hasPath(WalkPosition position);
 
     public int getX() {
         return x;
@@ -80,4 +78,8 @@ public class WalkPosition {
     }
 
     private long pointer;
+
+    public WalkPosition getPoint(){
+        return this;
+    }
 }

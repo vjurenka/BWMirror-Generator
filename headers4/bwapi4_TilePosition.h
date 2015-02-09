@@ -9,14 +9,6 @@ extern "C" {
 #endif
 /*
  * Class:     bwapi4_TilePosition
- * Method:    hasPath
- * Signature: (Lbwapi4/TilePosition;)Z
- */
-JNIEXPORT jboolean JNICALL Java_bwapi4_TilePosition_hasPath
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     bwapi4_TilePosition
  * Method:    isValid
  * Signature: ()Z
  */
