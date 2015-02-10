@@ -18,7 +18,7 @@ public class HeaderMaker {
         } catch (Exception e) {
             e.printStackTrace();
         }              */
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         for (String javaRootDir : javaRoot) {
             for (File f : new File(clpath, javaRootDir).listFiles(new FilenameFilter() {
                 @Override

@@ -105,7 +105,7 @@ public class CJavaPipeline {
             }
             //run the generator to create .java source files
             context.setPackage(pkg.packageName);
-            generator.run(new File("."));
+            generator.run(new File(processingOptions.getProperty(GENERATE_TO_DIR)));
 
             //store declarations for later (for binding constants)
             allDecs.addAll(cClasses);
@@ -118,7 +118,7 @@ public class CJavaPipeline {
             if (pkg.manualCopyClassesDir != null) {
                 try {
                     for (File file : pkg.manualCopyClassesDir.listFiles()) {
-                        Files.copy(file.getAbsoluteFile().toPath(), new File(pkg.packageName + "/" + file.getName()).getAbsoluteFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(file.getAbsoluteFile().toPath(), new File(processingOptions.get(GENERATE_TO_DIR) + "/" + pkg.packageName + "/" + file.getName()).getAbsoluteFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -134,7 +134,7 @@ public class CJavaPipeline {
         MyJavaCompiler compiler = new MyJavaCompiler();
 
         for (PackageProcessOptions pkg : packages) {
-            compiler.run(new File(pkg.packageName), javaOut);
+            compiler.run(new File(processingOptions.get(GENERATE_TO_DIR) + "/"  + pkg.packageName), javaOut);
         }
 
         /**
@@ -189,7 +189,7 @@ public class CJavaPipeline {
 
             callImplementer.notifyPackageStart();
 
-            for (File file : new File(pkg.packageName).listFiles(new FilenameFilter() {
+            for (File file : new File(processingOptions.getProperty(GENERATE_TO_DIR) +"/" + pkg.packageName).listFiles(new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name) {
                     //we skip mirror.java as it has a native function which we implement manually
@@ -241,6 +241,7 @@ public class CJavaPipeline {
             props.put(HEADERS_DIR_PROPERTY, "headers");
             props.put(HEADER_FILE_PROPERTY, "concat_header.h");
             props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c/impl.cpp");
+            props.put(GENERATE_TO_DIR, ".");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         }
@@ -250,15 +251,17 @@ public class CJavaPipeline {
             ignoredClasses.add("Position");
 
             PackageProcessOptions bwapiOptions = new PackageProcessOptions();
-            bwapiOptions.packageName = "bwapi4";
+            bwapiOptions.packageName = "bwapi";
             bwapiOptions.cHeadersDir = new File("bwapi4-includes");
             bwapiOptions.manualCopyClassesDir = new File("manual-bwapi4");
+
 
             Properties props = new Properties();
             props.put(COMPILE_DIR_PROPERTY, "compiled4");
             props.put(HEADERS_DIR_PROPERTY, "headers4");
             props.put(HEADER_FILE_PROPERTY, "concat_header4.h");
             props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c4/impl.cpp");
+            props.put(GENERATE_TO_DIR, "generated");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions}, props);
         }
@@ -269,6 +272,7 @@ public class CJavaPipeline {
     private static final String HEADERS_DIR_PROPERTY = "headers_dir";
     private static final String C_IMPLEMENTATION_FILE_PROPERTY = "impl_file";
     private static final String HEADER_FILE_PROPERTY = "header_file";
+    private static final String GENERATE_TO_DIR = "generate_to_dir";
 
     public static boolean isBWAPI3(){
         return BWAPI_VERSION == BWAPI_V3;

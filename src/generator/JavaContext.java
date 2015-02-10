@@ -18,7 +18,7 @@ public class JavaContext {
 
     private List<String> constantTypes = Arrays.asList("UnitType", "TechType", "UpgradeType", "Race", "UnitCommand", "WeaponType", "Order", "GameType", "Error", "PlayerType", "UnitCommandType");
 
-    private List<String> enumTypes = Arrays.asList("MouseButton", "Key", "bwapi4.Text.Size.Enum", "bwapi4.CoordinateType.Enum", "Text::Size::Enum", "CoordinateType::Enum");
+    private List<String> enumTypes = Arrays.asList("MouseButton", "Key", "bwapi.Text.Size.Enum", "bwapi.CoordinateType.Enum", "Text::Size::Enum", "CoordinateType::Enum");
 
     private List<String> valueReturnTypes = Arrays.asList("Event");
 
@@ -26,7 +26,6 @@ public class JavaContext {
 
 
     private String packageName = "bwapi";
-
 
 
     public JavaContext() {
@@ -187,12 +186,12 @@ public class JavaContext {
                         ", " + fieldName + ".blue()";
             case "UnitCommand":
                 return
-                        ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), " +fieldName+ ".getUnit())\n" +
-                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), \"get\", \"(J)Lbwapi4/UnitCommandType;\"), (jlong)tableUnitCommandType.find("+fieldName+".getType().getID())->second )\n" +
-                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)Lbwapi4/Unit;\"), "+fieldName+".getTarget())\n" +
-                                ", "+ fieldName +".getTargetPosition().x \n" +
-                                ", "+ fieldName +".getTargetPosition().y \n" +
-                                ", resolveUnitCommandExtra("+fieldName+")";
+                        ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)L" + packageName + "/Unit;\"), " + fieldName + ".getUnit())\n" +
+                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/UnitCommandType\"), \"get\", \"(J)L" + packageName + "/UnitCommandType;\"), (jlong)tableUnitCommandType.find(" + fieldName + ".getType().getID())->second )\n" +
+                                ", env->CallStaticObjectMethod(FindCachedClass(env, \"" + packageName + "/Unit\"), FindCachedMethodStatic(env, FindCachedClass(env, \"" + packageName + "/Unit\"), \"get\", \"(J)L" + packageName + "/Unit;\"), " + fieldName + ".getTarget())\n" +
+                                ", " + fieldName + ".getTargetPosition().x \n" +
+                                ", " + fieldName + ".getTargetPosition().y \n" +
+                                ", resolveUnitCommandExtra(" + fieldName + ")";
             default:
                 throw new UnsupportedOperationException();
         }

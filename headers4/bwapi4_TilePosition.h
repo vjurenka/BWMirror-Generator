@@ -25,14 +25,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_TilePosition_makeValid
 
 /*
  * Class:     bwapi4_TilePosition
- * Method:    getDistance
- * Signature: (Lbwapi4/TilePosition;)D
- */
-JNIEXPORT jdouble JNICALL Java_bwapi4_TilePosition_getDistance
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     bwapi4_TilePosition
  * Method:    getLength
  * Signature: ()D
  */

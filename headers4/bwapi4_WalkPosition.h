@@ -25,14 +25,6 @@ JNIEXPORT jobject JNICALL Java_bwapi4_WalkPosition_makeValid
 
 /*
  * Class:     bwapi4_WalkPosition
- * Method:    getDistance
- * Signature: (Lbwapi4/WalkPosition;)D
- */
-JNIEXPORT jdouble JNICALL Java_bwapi4_WalkPosition_getDistance
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     bwapi4_WalkPosition
  * Method:    getApproxDistance
  * Signature: (Lbwapi4/WalkPosition;)I
  */

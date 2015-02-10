@@ -1,7 +1,7 @@
 package test.api;
 
-import bwapi4.*;
-import bwapi4.Text.Size.Enum;
+import bwapi.*;
+import bwapi.Text.Size.Enum;
 
 /**
  * User: PC
@@ -26,7 +26,7 @@ public class TestBot1 {
                 //BWTA.analyze();
                 System.out.println();
 
-                mirror.getGame().enableFlag(bwapi4.Flag.Enum.UserInput.getValue());
+                mirror.getGame().enableFlag(bwapi.Flag.Enum.UserInput.getValue());
             }
 
             @Override
@@ -61,7 +61,7 @@ public class TestBot1 {
 
                         for (Unit neutralUnit : game.neutral().getUnits()) {
                             if (neutralUnit.getType().isMineralField()) {
-                                if (closestMineral == null || myUnit.distanceTo(neutralUnit) < myUnit.distanceTo(closestMineral)) {
+                                if (closestMineral == null || myUnit.getDistance(neutralUnit) < myUnit.getDistance(closestMineral)) {
                                     closestMineral = neutralUnit;
                                 }
                             }
