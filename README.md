@@ -1,4 +1,4 @@
-BWMirror API
+﻿BWMirror API
 =========
 
 BWMirror API allows you to treat native BWAPI C/C++ objects as if they were Java objects.
