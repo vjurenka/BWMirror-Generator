@@ -219,4 +219,7 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 *.log
-
+*.lib
+*.exp
+x86/**
+out/**
