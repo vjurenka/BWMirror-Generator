@@ -47,13 +47,16 @@ public class CallImplementer {
 
     private static final String VARIABLE_PREFIX = "x_";
 
+    private boolean customFunctionsWritten = false;
+
 
     public void setOut(PrintStream out) {
         this.out = out;
         out.print("#include \"../concat_header" + (CJavaPipeline.isBWAPI3() ? "" : "4")+ ".h\"\n" +
                 "#include <BWAPI.h>\n" +
                 "#include <BWAPI/Client.h>\n" +
-                (CJavaPipeline.isBWAPI3() ? "#include <BWTA.h>\n" : "#include <thread>\n" + "#include <chrono>\n") +
+                "#include <BWTA.h>\n" +
+                (CJavaPipeline.isBWAPI3() ? "" : "#include <thread>\n" + "#include <chrono>\n") +
                 "#include <jni.h>\n" +
                 "#include <cstring>\n" +
                 (CJavaPipeline.isBWAPI3() ? "#include \"../BWTA_Result.h\"" : "")+
@@ -169,7 +172,7 @@ public class CallImplementer {
 
     private String wrapInCCollection(String genericType) {
         String buffer = "";
-        boolean isBWAPI4Collection = !CJavaPipeline.isBWAPI3();
+        boolean isBWAPI4Collection = !CJavaPipeline.isBWAPI3() && !genericType.startsWith("BWTA::");
         if (!isBWAPI4Collection) {
             buffer += "std::set<";
         }
@@ -396,6 +399,10 @@ public class CallImplementer {
     }
 
     public void notifyPackageStart() {
+        if(customFunctionsWritten){
+            return;
+        }
+        customFunctionsWritten = true;
         out.println("PositionOrUnit convertPositionOrUnit(JNIEnv * env, jobject obj){ \n" +
                 "\tjclass clz = FindCachedClass(env, \"" + javaContext.getPackageName() + "/PositionOrUnit\");\n" +
                 "\tjmethodID typeMethodId = FindCachedMethod(env, clz, \"isUnit\", \"()Z\");\n" +

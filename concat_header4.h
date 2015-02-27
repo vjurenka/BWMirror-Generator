@@ -8894,3 +8894,498 @@ JNIEXPORT jboolean JNICALL Java_bwapi_WeaponType_targetsOwn_1native
 }
 #endif
 #endif
+/* Header for class bwta_BaseLocation */
+
+#ifndef _Included_bwta_BaseLocation
+#define _Included_bwta_BaseLocation
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getPosition_native
+ * Signature: (J)Lbwapi/Position;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BaseLocation_getPosition_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getTilePosition_native
+ * Signature: (J)Lbwapi/TilePosition;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BaseLocation_getTilePosition_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getRegion_native
+ * Signature: (J)Lbwta/Region;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BaseLocation_getRegion_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    minerals_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwta_BaseLocation_minerals_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    gas_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwta_BaseLocation_gas_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getMinerals_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BaseLocation_getMinerals_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getStaticMinerals_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BaseLocation_getStaticMinerals_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getGeysers_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BaseLocation_getGeysers_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getGroundDistance_native
+ * Signature: (JLbwta/BaseLocation;)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwta_BaseLocation_getGroundDistance_1native
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    getAirDistance_native
+ * Signature: (JLbwta/BaseLocation;)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwta_BaseLocation_getAirDistance_1native
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    isIsland_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_BaseLocation_isIsland_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    isMineralOnly_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_BaseLocation_isMineralOnly_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_BaseLocation
+ * Method:    isStartLocation_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_BaseLocation_isStartLocation_1native
+  (JNIEnv *, jobject, jlong);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwta_BWTA */
+
+#ifndef _Included_bwta_BWTA
+#define _Included_bwta_BWTA
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     bwta_BWTA
+ * Method:    readMap
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwta_BWTA_readMap
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    analyze
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwta_BWTA_analyze
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    computeDistanceTransform
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwta_BWTA_computeDistanceTransform
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    balanceAnalysis
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwta_BWTA_balanceAnalysis
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getMaxDistanceTransform
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_bwta_BWTA_getMaxDistanceTransform
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getRegions
+ * Signature: ()Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegions
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getChokepoints
+ * Signature: ()Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getChokepoints
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getBaseLocations
+ * Signature: ()Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getBaseLocations
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getStartLocations
+ * Signature: ()Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getStartLocations
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getUnwalkablePolygons
+ * Signature: ()Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getUnwalkablePolygons
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getStartLocation
+ * Signature: (Lbwapi/Player;)Lbwta/BaseLocation;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getStartLocation
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getRegion
+ * Signature: (II)Lbwta/Region;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegion__II
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getRegion
+ * Signature: (Lbwapi/TilePosition;)Lbwta/Region;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegion__Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getRegion
+ * Signature: (Lbwapi/Position;)Lbwta/Region;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getRegion__Lbwapi_Position_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestChokepoint
+ * Signature: (II)Lbwta/Chokepoint;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestChokepoint__II
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestChokepoint
+ * Signature: (Lbwapi/TilePosition;)Lbwta/Chokepoint;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestChokepoint__Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestChokepoint
+ * Signature: (Lbwapi/Position;)Lbwta/Chokepoint;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestChokepoint__Lbwapi_Position_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestBaseLocation
+ * Signature: (II)Lbwta/BaseLocation;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestBaseLocation__II
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestBaseLocation
+ * Signature: (Lbwapi/TilePosition;)Lbwta/BaseLocation;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestBaseLocation__Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestBaseLocation
+ * Signature: (Lbwapi/Position;)Lbwta/BaseLocation;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestBaseLocation__Lbwapi_Position_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestUnwalkablePolygon
+ * Signature: (II)Lbwta/Polygon;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestUnwalkablePolygon__II
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestUnwalkablePolygon
+ * Signature: (Lbwapi/TilePosition;)Lbwta/Polygon;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestUnwalkablePolygon__Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestUnwalkablePosition
+ * Signature: (Lbwapi/Position;)Lbwapi/Position;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestUnwalkablePosition
+  (JNIEnv *, jclass, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    isConnected
+ * Signature: (IIII)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_BWTA_isConnected__IIII
+  (JNIEnv *, jclass, jint, jint, jint, jint);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    isConnected
+ * Signature: (Lbwapi/TilePosition;Lbwapi/TilePosition;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_BWTA_isConnected__Lbwapi_TilePosition_2Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getGroundDistance
+ * Signature: (Lbwapi/TilePosition;Lbwapi/TilePosition;)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwta_BWTA_getGroundDistance
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    buildChokeNodes
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwta_BWTA_buildChokeNodes
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getGroundDistance2
+ * Signature: (Lbwapi/TilePosition;Lbwapi/TilePosition;)I
+ */
+JNIEXPORT jint JNICALL Java_bwta_BWTA_getGroundDistance2
+  (JNIEnv *, jclass, jobject, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwta_Chokepoint */
+
+#ifndef _Included_bwta_Chokepoint
+#define _Included_bwta_Chokepoint
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     bwta_Chokepoint
+ * Method:    getCenter_native
+ * Signature: (J)Lbwapi/Position;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getCenter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Chokepoint
+ * Method:    getWidth_native
+ * Signature: (J)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwta_Chokepoint_getWidth_1native
+  (JNIEnv *, jobject, jlong);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwta_Polygon */
+
+#ifndef _Included_bwta_Polygon
+#define _Included_bwta_Polygon
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     bwta_Polygon
+ * Method:    getArea_native
+ * Signature: (J)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwta_Polygon_getArea_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    getPerimeter_native
+ * Signature: (J)D
+ */
+JNIEXPORT jdouble JNICALL Java_bwta_Polygon_getPerimeter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    getCenter_native
+ * Signature: (J)Lbwapi/Position;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getCenter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    isInside_native
+ * Signature: (JLbwapi/Position;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_Polygon_isInside_1native
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    getNearestPoint_native
+ * Signature: (JLbwapi/Position;)Lbwapi/Position;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getNearestPoint_1native
+  (JNIEnv *, jobject, jlong, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class bwta_Region */
+
+#ifndef _Included_bwta_Region
+#define _Included_bwta_Region
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * Class:     bwta_Region
+ * Method:    getPolygon_native
+ * Signature: (J)Lbwta/Polygon;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Region_getPolygon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Region
+ * Method:    getCenter_native
+ * Signature: (J)Lbwapi/Position;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Region_getCenter_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Region
+ * Method:    getChokepoints_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Region_getChokepoints_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Region
+ * Method:    getBaseLocations_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Region_getBaseLocations_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Region
+ * Method:    isReachable_native
+ * Signature: (JLbwta/Region;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwta_Region_isReachable_1native
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwta_Region
+ * Method:    getReachableRegions_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Region_getReachableRegions_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Region
+ * Method:    getMaxDistance_native
+ * Signature: (J)I
+ */
+JNIEXPORT jint JNICALL Java_bwta_Region_getMaxDistance_1native
+  (JNIEnv *, jobject, jlong);
+
+#ifdef __cplusplus
+}
+#endif
+#endif

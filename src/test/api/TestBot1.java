@@ -2,6 +2,9 @@ package test.api;
 
 import bwapi.*;
 import bwapi.Text.Size.Enum;
+import bwta.BWTA;
+
+import java.io.File;
 
 /**
  * User: PC
@@ -10,6 +13,7 @@ import bwapi.Text.Size.Enum;
  */
 
 public class TestBot1 {
+
 
     public void run() {
         final Mirror mirror = new Mirror();
@@ -22,8 +26,8 @@ public class TestBot1 {
             @Override
             public void onStart() {
                 System.out.println("-------Analysing map-------");
-                //BWTA.readMap();
-                //BWTA.analyze();
+                BWTA.readMap();
+                BWTA.analyze();
                 System.out.println();
 
                 mirror.getGame().enableFlag(bwapi.Flag.Enum.UserInput.getValue());
