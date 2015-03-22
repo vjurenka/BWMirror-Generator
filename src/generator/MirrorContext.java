@@ -48,9 +48,38 @@ public class MirrorContext {
         return cType.startsWith("set<");
     }
 
+    private boolean isMap(String cType) {
+        return cType.startsWith("map<");
+    }
+
+    private boolean isPair(String cType) {
+        return cType.startsWith("pair<");
+    }
+
     private boolean isBWAPI4Collection(String cType) {
         return cType.endsWith("set");
     }
+
+    private String convertPrimitive(String cType) {
+        if (cType.equals("int")) {
+            return "Integer";
+        }
+        if (cType.equals("bool")) {
+            return "Boolean";
+        }
+        if (cType.equals("double")) {
+            return "Double";
+        }
+
+        return cType;
+    }
+
+    private String extractPair(String cType) {
+        cType = cType.substring(cType.indexOf("<") + 1, cType.lastIndexOf(">")).trim();
+        String[] types = cType.split(",");
+        return convertPrimitive(toJavaType(types[0].trim())) + ", " + convertPrimitive(toJavaType(types[1].trim()));
+    }
+
 
     private String extractCollectionGeneric(String cType) {
         cType = cType.substring(cType.indexOf("<") + 1, cType.lastIndexOf(">")).trim();
@@ -75,18 +104,27 @@ public class MirrorContext {
         if (isBWAPI4Collection(cType)) {
             return "List<" + extractBWAPI4CollectionGeneric(cType) + ">";
         }
+        if (isMap(cType)) {
+            return "Map<" + extractPair(cType) + ">";
+        }
+        if (isPair(cType)) {
+            return "Pair<" + extractPair(cType) + ">";
+        }
         String result = cToJavaTypes.get(cType);
+        if (result == null) {
+            result = cType;
+        }
         int ddIndex;
-        if (result != null && (ddIndex = result.lastIndexOf(':')) != -1) {
+        if ((ddIndex = result.lastIndexOf(':')) != -1) {
             result = result.substring(ddIndex + 1);
         }
-        if (cType.endsWith("*")) {
-            return cType.substring(0, cType.length() - 1);
+        if (result.endsWith("*")) {
+            return result.substring(0, result.length() - 1);
         }
         /*if (CJavaPipeline.BWAPI_VERSION == CJavaPipeline.BWAPI_V4 && cType.contains("bwapi.")) {
             cType = cType.replace("bwapi.", "bwapi4.");
         } */
-        return result != null ? result : cType;
+        return result;
     }
 
     public List<String> getAdditionalImports() {

@@ -25,6 +25,22 @@ JNIEXPORT jobject JNICALL Java_bwapi_UnitType_getRace_1native
 
 /*
  * Class:     bwapi_UnitType
+ * Method:    whatBuilds_native
+ * Signature: (J)Lbwapi/Pair;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_whatBuilds_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    requiredUnits_native
+ * Signature: (J)Ljava/util/Map;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_requiredUnits_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
  * Method:    requiredTech_native
  * Signature: (J)Lbwapi/TechType;
  */
@@ -37,6 +53,22 @@ JNIEXPORT jobject JNICALL Java_bwapi_UnitType_requiredTech_1native
  * Signature: (J)Lbwapi/TechType;
  */
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_cloakingTech_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    abilities_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_abilities_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    upgrades_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_upgrades_1native
   (JNIEnv *, jobject, jlong);
 
 /*

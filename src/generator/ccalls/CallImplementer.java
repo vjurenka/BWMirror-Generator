@@ -52,14 +52,14 @@ public class CallImplementer {
 
     public void setOut(PrintStream out) {
         this.out = out;
-        out.print("#include \"../concat_header" + (CJavaPipeline.isBWAPI3() ? "" : "4")+ ".h\"\n" +
+        out.print("#include \"../concat_header" + (CJavaPipeline.isBWAPI3() ? "" : "4") + ".h\"\n" +
                 "#include <BWAPI.h>\n" +
                 "#include <BWAPI/Client.h>\n" +
                 "#include <BWTA.h>\n" +
                 (CJavaPipeline.isBWAPI3() ? "" : "#include <thread>\n" + "#include <chrono>\n") +
                 "#include <jni.h>\n" +
                 "#include <cstring>\n" +
-                (CJavaPipeline.isBWAPI3() ? "#include \"../BWTA_Result.h\"" : "")+
+                (CJavaPipeline.isBWAPI3() ? "#include \"../BWTA_Result.h\"" : "") +
                 "\n" +
                 "using namespace BWAPI;\n\n");
     }
@@ -85,21 +85,35 @@ public class CallImplementer {
 
                 if (javaContext.isCollection(param.third)) {
                     String genericType = Generic.extractGeneric(param.third);
-                    if (CJavaPipeline.isBWAPI3()) {
+                    if (CJavaPipeline.isBWAPI3() || javaContext.isValueType(genericType)) {
                         out.println("std::set<" + PointerTest.test(genericType) + "> " + param.second + SEMICOLON);
                     } else {
                         out.println(genericType + "set " + param.second + SEMICOLON);
                     }
 
+
                     out.println("jclass colClass = env->GetObjectClass(" + paramName + ");");
                     out.println("jmethodID sizeMethodId = FindCachedMethod(env, colClass, \"size\", \"()I\");");
                     out.println("jmethodID getMethodId = FindCachedMethod(env, colClass, \"get\", \"(I)Ljava/lang/Object;\");");
+
                     out.println("int size = (int)env->CallIntMethod(" + paramName + ", sizeMethodId);");
                     out.println("for( int i = 0; i < size; i++ ) {");
-                    out.println("jobject jobj  = env->CallObjectMethod(" + paramName + ",getMethodId);");
+
+                    if (!javaContext.isValueType(genericType)) {
+                        out.println("jobject jobj  = env->CallObjectMethod(" + paramName + ",getMethodId);");
+                    } else{
+                        out.println("jobject p_cObj  = env->CallObjectMethod(" + paramName + ",getMethodId);");
+                        out.println(javaContext.copyJavaObjectToC(genericType, "cObj"));
+                    }
+
                     out.print(param.second + ".insert(");
-                    out.print("(" + PointerTest.test(genericType) + ")");
-                    out.print("env->GetLongField(jobj, FindCachedField(env, env->GetObjectClass(jobj), \"pointer\", \"J\"))");
+                    if (!javaContext.isValueType(genericType)) {
+                        out.print("(" + PointerTest.test(genericType) + ")");
+                        out.print("env->GetLongField(jobj, FindCachedField(env, env->GetObjectClass(jobj), \"pointer\", \"J\"))");
+                    }
+                    else{
+                        out.print("cObj");
+                    }
                     out.println(");");
                     out.println("}");
                     continue;
@@ -170,6 +184,8 @@ public class CallImplementer {
         out.println("}");
     }
 
+
+
     private String wrapInCCollection(String genericType) {
         String buffer = "";
         boolean isBWAPI4Collection = !CJavaPipeline.isBWAPI3() && !genericType.startsWith("BWTA::");
@@ -184,7 +200,123 @@ public class CallImplementer {
         } else {
             buffer += "set";
         }
+
+        if(buffer.equals("set") && !CJavaPipeline.isBWAPI3()){
+            return "SetContainer<" + genericType + ">";
+        }
+
         return buffer;
+    }
+
+    private String wrapInCMap(String cKey, String cValue) {
+        String buffer = "std::map<";
+        buffer += javaContext.javaObjectToPrimitive(cKey);
+        buffer += ", ";
+        buffer += javaContext.javaObjectToPrimitive(cValue);
+        buffer += ">";
+        return buffer;
+    }
+
+
+    private void implementMapReturn(String cKey, String cValue) {
+        String javaKeyType = cKey;
+        if (cKey.contains("::")) {
+            javaKeyType = cKey.substring(cKey.lastIndexOf(":") + 1);
+        }
+
+        String javaValueType = cValue;
+        if (cValue.contains("::")) {
+            javaValueType = cValue.substring(cValue.lastIndexOf(":") + 1);
+        }
+
+        if (javaContext.isPrimitive(javaKeyType)) {
+            cKey = javaContext.javaObjectToPrimitive(javaKeyType);
+        }
+        if (javaContext.isPrimitive(javaValueType)) {
+            cValue = javaContext.javaObjectToPrimitive(javaValueType);
+        }
+
+
+        //get all the method ids and create na empty arraylist
+        out.println("jclass listCls = FindCachedClass(env, \"java/util/HashMap\");\n" +
+                "jmethodID listConsID = FindCachedMethod(env, listCls, \"<init>\", \"()V\");\n" +
+                "jobject result = env->NewObject(listCls, listConsID);");
+
+        out.println("jmethodID addMethodID = FindCachedMethod(env, listCls, \"put\", \"(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;\");");
+
+
+        //Key static part
+        String keyPackageName = javaContext.getPackageName();
+        if (javaContext.isPrimitive(javaKeyType)) {
+            keyPackageName = "java/lang";
+        }
+
+        out.println("jclass keyElemClass = FindCachedClass(env, \"" + keyPackageName + "/" + javaKeyType + "\");");
+        if (!javaContext.isValueType(javaKeyType)) {
+            out.println("jmethodID keyGetMethodID = FindCachedMethodStatic(env, keyElemClass, \"get\", \"(J)L" + keyPackageName + "/" + javaKeyType + ";\");");
+        } else {
+            out.println("jmethodID keyElemConsID = FindCachedMethod(env, keyElemClass, \"<init>\", \"(" + javaContext.copyConstructor(cKey) + ")V\");");
+        }
+
+        //Value static part
+        String valuePackageName = javaContext.getPackageName();
+        if (javaContext.isPrimitive(javaValueType)) {
+            valuePackageName = "java/lang";
+        }
+
+        out.println("jclass valueElemClass = FindCachedClass(env, \"" + valuePackageName + "/" + javaValueType + "\");");
+        if (!javaContext.isValueType(javaValueType)) {
+            out.println("jmethodID valueGetMethodID = FindCachedMethodStatic(env, valueElemClass, \"get\", \"(J)L" + valuePackageName + "/" + javaValueType + ";\");");
+        } else {
+            out.println("jmethodID valueElemConsID = FindCachedMethod(env, valueElemClass, \"<init>\", \"(" + javaContext.copyConstructor(cValue) + ")V\");");
+        }
+
+
+        //the for loop
+        out.println("for(" + wrapInCMap(cKey, cValue) + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
+
+        //key dynamic part
+        out.print("const " + cKey);
+        if (!javaContext.isValueType(javaKeyType)) {
+            out.print(PointerTest.test(cKey, false));
+        }
+        out.print(" key_elem_ptr = ");
+        if (javaContext.isConstantTye(javaKeyType) && !javaContext.isPrimitive(javaKeyType)) {
+            out.println("table" + cKey + ".find((it->first).getID())->second;");
+        } else {
+            out.println("(it->first);");
+        }
+
+        if (!javaContext.isValueType(javaKeyType)) {
+            out.println("jobject keyElem = env->CallStaticObjectMethod(keyElemClass, keyGetMethodID, (long)key_elem_ptr) ;");
+        } else {
+            out.println("jobject keyElem = env->NewObject(keyElemClass, keyElemConsID" + javaContext.implementCopyReturn(cKey, "key_elem_ptr") + ")" + SEMICOLON);
+        }
+
+
+        //value dynamic part
+        out.print("const " + cValue);
+        if (!javaContext.isValueType(javaValueType)) {
+            out.print(PointerTest.test(cValue, false));
+        }
+        out.print(" value_elem_ptr = ");
+        if (javaContext.isConstantTye(javaValueType) && !javaContext.isPrimitive(javaValueType)) {
+            out.println("table" + cValue + ".find((it->second).getID())->second;");
+        } else {
+            out.println("(it->second);");
+        }
+
+        if (!javaContext.isValueType(javaValueType)) {
+            out.println("jobject valueElem = env->CallStaticObjectMethod(valueElemClass, valueGetMethodID, (long)value_elem_ptr) ;");
+        } else {
+            out.println("jobject valueElem = env->NewObject(valueElemClass, valueElemConsID" + javaContext.implementCopyReturn(cValue, "value_elem_ptr") + ")" + SEMICOLON);
+        }
+
+        out.println("env->CallVoidMethod(result, addMethodID, keyElem, valueElem);");
+        out.println("}");
+        //for loop ends here
+
+        out.println("return result;");
     }
 
     /**
@@ -214,7 +346,7 @@ public class CallImplementer {
 
 
         //the for loop
-        out.print("for(" + wrapInCCollection(genericType) + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
+        out.println("for(" + wrapInCCollection(genericType) + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
         out.print("const " + genericType);
         if (!javaContext.isValueType(genericType)) {
             out.print(PointerTest.test(genericType, false));
@@ -238,6 +370,100 @@ public class CallImplementer {
 
     }
 
+    private void implementPairReturn(String javaPairType){
+        String [] pair = Generic.extractPair(javaPairType);
+
+        String cFirst = pair[0];
+        String cSecond = pair[1];
+
+        String javaFirstType = cFirst;
+        String javaSecondType = cSecond;
+
+        String javaKeyType = cFirst;
+        if (cFirst.contains("::")) {
+            javaKeyType = cFirst.substring(cFirst.lastIndexOf(":") + 1);
+        }
+
+        String javaValueType = cSecond;
+        if (cSecond.contains("::")) {
+            javaValueType = cSecond.substring(cSecond.lastIndexOf(":") + 1);
+        }
+
+        if (javaContext.isPrimitive(javaKeyType)) {
+            cFirst = javaContext.javaObjectToPrimitive(javaKeyType);
+        }
+        if (javaContext.isPrimitive(javaValueType)) {
+            cSecond = javaContext.javaObjectToPrimitive(javaValueType);
+        }
+
+        //First static part
+        String firstPackageName = javaContext.getPackageName();
+        if (javaContext.isPrimitive(javaFirstType)) {
+            firstPackageName = "java/lang";
+        }
+
+        out.println("jclass firstElemClass = FindCachedClass(env, \"" + firstPackageName + "/" + javaFirstType + "\");");
+        if (!javaContext.isValueType(javaFirstType)) {
+            out.println("jmethodID firstGetMethodID = FindCachedMethodStatic(env, firstElemClass, \"get\", \"(J)L" + firstPackageName + "/" + javaFirstType + ";\");");
+        } else {
+            out.println("jmethodID firstElemConsID = FindCachedMethod(env, firstElemClass, \"<init>\", \"(" + javaContext.copyConstructor(cFirst) + ")V\");");
+        }
+
+        //Second static part
+        String secondPackageName = javaContext.getPackageName();
+        if (javaContext.isPrimitive(javaSecondType)) {
+            secondPackageName = "java/lang";
+        }
+
+        out.println("jclass secondElemClass = FindCachedClass(env, \"" + secondPackageName + "/" + javaSecondType + "\");");
+        if (!javaContext.isValueType(javaSecondType)) {
+            out.println("jmethodID secondGetMethodID = FindCachedMethodStatic(env, secondElemClass, \"get\", \"(J)L" + secondPackageName + "/" + javaSecondType + ";\");");
+        } else {
+            out.println("jmethodID secondElemConsID = FindCachedMethod(env, secondElemClass, \"<init>\", \"(" + javaContext.copyConstructor(cSecond) + ")V\");");
+        }
+
+
+          //first dynamic part
+        out.print("const " + cFirst);
+        if (!javaContext.isValueType(javaFirstType)) {
+            out.print(PointerTest.test(cFirst, false));
+        }
+        out.print(" first_elem_ptr = ");
+        if (javaContext.isConstantTye(javaFirstType) && !javaContext.isPrimitive(javaFirstType)) {
+            out.println("table" + cFirst + ".find((cresult.first).getID())->second;");
+        } else {
+            out.println("cresult.first;");
+        }
+
+        if (!javaContext.isValueType(javaFirstType)) {
+            out.println("jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (long)first_elem_ptr) ;");
+        } else {
+            out.println("jobject first = env->NewObject(firstElemClass, firstElemConsID" + javaContext.implementCopyReturn(cFirst, "first_elem_ptr") + ")" + SEMICOLON);
+        }
+
+
+        //second dynamic part
+        out.print("const " + cSecond);
+        if (!javaContext.isValueType(javaSecondType)) {
+            out.print(PointerTest.test(cSecond, false));
+        }
+        out.print(" second_elem_ptr = ");
+        if (javaContext.isConstantTye(javaSecondType) && !javaContext.isPrimitive(javaSecondType)) {
+            out.println("table" + cSecond + ".find((cresult.second).getID())->second;");
+        } else {
+            out.println("cresult.second;");
+        }
+
+        if (!javaContext.isValueType(javaSecondType)) {
+            out.println("jobject second = env->CallStaticObjectMethod(secondElemClass, secondGetMethodID, (long)second_elem_ptr) ;");
+        } else {
+            out.println("jobject second = env->NewObject(secondElemClass, secondElemConsID" + javaContext.implementCopyReturn(cSecond, "second_elem_ptr") + ")" + SEMICOLON);
+        }
+        
+                //for loop ends here
+    }
+    
+    
     private void implementMethodReturn(String objName, String javaMethodName, List<Param> params, String cReturnType, String javaRetType, String javaPackageName, String clsName, boolean isStatic) {
 
         String objectAccessor = VARIABLE_PREFIX + objName + (javaContext.isValueType(clsName) ? "." : "->");
@@ -246,7 +472,7 @@ public class CallImplementer {
         }
 
         //case 1 - method returns a collection type, this requires a LOT of work, so get the std::set and proceed in implementCollectionReturn
-        if (javaRetType.startsWith("List<")) {
+        if (javaContext.isCollection(javaRetType)) {
             String genericType = convertToBWTA(Generic.extractGeneric(javaRetType));
             out.print(wrapInCCollection(genericType) + " cresult = " + objectAccessor + javaMethodName + "(");
             implementRealParams(params);
@@ -254,15 +480,38 @@ public class CallImplementer {
             implementCollectionReturn(genericType);
             return;
         }
-        //case 2 method returns a java object
+
+        //case 2 - method returns a mape, this requires a LOT of work, so get the std::map and proceed in implementCollectionReturn
+        if (javaContext.isMap(javaRetType)) {
+            String pairData[] = Generic.extractPair(javaRetType);
+            String key = pairData[0];
+            String value = pairData[1];
+            out.print(wrapInCMap(key, value) + " cresult = " + objectAccessor + javaMethodName + "(");
+            implementRealParams(params);
+            out.println(")" + SEMICOLON);
+            implementMapReturn(key, value);
+            return;
+        }
+
+
+        //case 4 method returns a java object
         if (cReturnType.equals("jobject")) {
             //we may need to create a new java object in case this a value type (we can't use the instance map)
+            String fullReturnType = javaRetType;
+            String cRetType = javaContext.toCPair(javaRetType);
+            javaRetType = Generic.stripGeneric(javaRetType);
+
             if (javaContext.isValueType(javaRetType)) {
                 //first make the normal c++ call
-                out.print(javaRetType + " cresult = " + objectAccessor + javaMethodName + "(");
+                out.print(cRetType + " cresult = " + objectAccessor + javaMethodName + "(");
                 implementRealParams(params);
                 out.print(")");
                 out.println(SEMICOLON);
+                //handle pairs
+                if(javaRetType.equals("Pair")){
+                    implementPairReturn(fullReturnType);
+                }
+
                 out.println("jclass retcls = FindCachedClass(env, \"" + javaContext.getPackageName(javaRetType) + "/" + javaRetType + "\");");
 
                 //now create a new object and return it
@@ -399,7 +648,7 @@ public class CallImplementer {
     }
 
     public void notifyPackageStart() {
-        if(customFunctionsWritten){
+        if (customFunctionsWritten) {
             return;
         }
         customFunctionsWritten = true;

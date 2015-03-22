@@ -3,6 +3,7 @@ package test.api;
 import bwapi.*;
 import bwapi.Text.Size.Enum;
 import bwta.BWTA;
+import util.Pair;
 
 import java.io.File;
 
@@ -37,6 +38,7 @@ public class TestBot1 {
             public void onFrame() {
                 Game game = mirror.getGame();
                 Player self = game.self();
+                UnitType.Protoss_Archon.whatBuilds();
 
                 game.drawBoxScreen(0, 0, 100, 100, Color.Red, true);
 

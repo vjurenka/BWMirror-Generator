@@ -42,13 +42,13 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)(\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
-    //                                         1     2             3         4            56        7        89     10   11                       12                 13           14,15   15,17
-    public static final String FUNC_REGEX = "^(\\s*)(virtual)?\\s(const\\s)?(static\\s)?((BWAPI::)|(std)::)?((set<(\\s*(BWAPI::)?\\w+\\*?\\s*)>)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
+    //                    1     2             3         4           56         7        891011     12    13    14             15   16                     17                     18                19            20
+    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*\\w+\\s*)?>)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
 
     static final int F_REGEX_STATIC = 4;
     static final int F_REGEX_RETURN_TYPE = 8;
-    static final int F_REGEX_NAME = 13;
-    static final int F_REGEX_PARAMS = 14;
+    static final int F_REGEX_NAME = 19;
+    static final int F_REGEX_PARAMS = 20;
 
     String ENUM_VALUE_REGEX = "^(\\s*)(\\w+)(\\s*=\\s*(0x)?([0-9A-Fa-f]+))?\\s*[\\,;]";
 
@@ -246,6 +246,10 @@ public class CApiParser {
 
             if (function.returnType.equals("Type")) {
                 function.returnType = "double";
+            }
+
+            if (function.returnType.startsWith("SetContainer")) {
+                function.returnType = "set" + function.returnType.substring("SetContainer".length());
             }
 
             if (function.returnType.equals("GameData*")) {

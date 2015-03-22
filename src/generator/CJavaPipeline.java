@@ -258,7 +258,7 @@ public class CJavaPipeline {
             PackageProcessOptions bwtaOptions = new PackageProcessOptions();
             bwtaOptions.packageName = "bwta";
             bwtaOptions.cHeadersDir = new File("bwta2-c");
-            bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player", "bwapi.Unit");
+            bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player", "bwapi.Unit", "bwapi.Pair");
             bwtaOptions.globalClassName = "BWTA";
 
             Properties props = new Properties();

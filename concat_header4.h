@@ -2291,6 +2291,17 @@ extern "C" {
 }
 #endif
 #endif
+/* Header for class bwapi_Pair */
+
+#ifndef _Included_bwapi_Pair
+#define _Included_bwapi_Pair
+#ifdef __cplusplus
+extern "C" {
+#endif
+#ifdef __cplusplus
+}
+#endif
+#endif
 /* Header for class bwapi_Player */
 
 #ifndef _Included_bwapi_Player
@@ -7874,6 +7885,22 @@ JNIEXPORT jobject JNICALL Java_bwapi_UnitType_getRace_1native
 
 /*
  * Class:     bwapi_UnitType
+ * Method:    whatBuilds_native
+ * Signature: (J)Lbwapi/Pair;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_whatBuilds_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    requiredUnits_native
+ * Signature: (J)Ljava/util/Map;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_requiredUnits_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
  * Method:    requiredTech_native
  * Signature: (J)Lbwapi/TechType;
  */
@@ -7886,6 +7913,22 @@ JNIEXPORT jobject JNICALL Java_bwapi_UnitType_requiredTech_1native
  * Signature: (J)Lbwapi/TechType;
  */
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_cloakingTech_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    abilities_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_abilities_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    upgrades_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_upgrades_1native
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -9222,6 +9265,22 @@ JNIEXPORT jboolean JNICALL Java_bwta_BWTA_isConnected__Lbwapi_TilePosition_2Lbwa
  * Signature: (Lbwapi/TilePosition;Lbwapi/TilePosition;)D
  */
 JNIEXPORT jdouble JNICALL Java_bwta_BWTA_getGroundDistance
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getNearestTilePosition
+ * Signature: (Lbwapi/TilePosition;Ljava/util/List;)Lbwapi/Pair;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getNearestTilePosition
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getGroundDistances
+ * Signature: (Lbwapi/TilePosition;Ljava/util/List;)Ljava/util/Map;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getGroundDistances
   (JNIEnv *, jclass, jobject, jobject);
 
 /*

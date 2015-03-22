@@ -1,5 +1,7 @@
 package generator;
 
+import util.Generic;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +16,7 @@ public class JavaContext {
 
     private HashMap<String, String> javaToCType = new HashMap<>();
 
-    private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "WalkPosition", "Color", "BWTA::RectangleArray<double>", "PositionOrUnit", "Point", "UnitCommand");
+    private List<String> valueTypes = Arrays.asList("Position", "TilePosition", "WalkPosition", "Color", "BWTA::RectangleArray<double>", "PositionOrUnit", "Point", "UnitCommand", "Integer", "Long", "Double", "Boolean", "int", "void", "double", "long", "Pair");
 
     private List<String> constantTypes = Arrays.asList("UnitType", "TechType", "UpgradeType", "Race", "UnitCommand", "WeaponType", "Order", "GameType", "Error", "PlayerType", "UnitCommandType");
 
@@ -54,6 +56,14 @@ public class JavaContext {
     public String toCType(String javaType) {
         String result = javaToCType.get(javaType);
         return result != null ? result : "REF";
+    }
+
+    public String toCPair(String javaType) {
+        if (javaType.startsWith("Pair")) {
+            String[] pair = Generic.extractPair(javaType);
+            return "std::pair<" + javaObjectToPrimitive(pair[0]) + ", " + javaObjectToPrimitive(pair[1]) + ">";
+        }
+        return javaType;
     }
 
     public boolean isReference(String javaType) {
@@ -143,8 +153,20 @@ public class JavaContext {
         return javaType.startsWith("List");
     }
 
+    public boolean isPair(String javaType) {
+        return javaType.startsWith("Pair");
+    }
+
+    public boolean isMap(String javaType) {
+        return javaType.startsWith("Map");
+    }
+
     public String copyConstructor(String javaType) {
         switch (javaType) {
+            case "int":
+                return "I";
+            case "double":
+                return "D";
             case "TilePosition":
             case "WalkPosition":
             case "Position":
@@ -156,6 +178,8 @@ public class JavaContext {
                 return "I";
             case "UnitCommand":
                 return "L" + packageName + "/Unit;L" + packageName + "/UnitCommandType;L" + packageName + "/Unit;III";
+            case "Pair":
+                return "Ljava/lang/Object;Ljava/lang/Object;";
             default:
                 throw new UnsupportedOperationException();
         }
@@ -174,6 +198,16 @@ public class JavaContext {
 
     public String implementCopyReturn(String javaType, String fieldName) {
         switch (javaType) {
+            case "int":
+                return ", " + fieldName;
+            case "double":
+                return "," + fieldName;
+
+            case "bool":
+                return "," + fieldName;
+            case "Pair":
+                return ", first, second";
+
             case "TilePosition":
             case "Position":
             case "WalkPosition":
@@ -199,5 +233,23 @@ public class JavaContext {
 
     public boolean isBWTA(String cls) {
         return bwtaClasses.contains(cls);
+    }
+
+
+    public boolean isPrimitive(String javaType) {
+        return javaType.equals("Integer") || javaType.equals("Boolean") || javaType.equals("Double");
+    }
+
+    public String javaObjectToPrimitive(String cType) {
+        switch (cType) {
+            case "Integer":
+                return "int";
+            case "Double":
+                return "double";
+            case "Boolean":
+                return "bool";
+            default:
+                return cType;
+        }
     }
 }
