@@ -3588,6 +3588,11 @@ JNIEXPORT jdouble JNICALL Java_bwta_Polygon_getArea_1native(JNIEnv * env, jobjec
 BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
 return x_polygon->getArea();
 }
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getPositions(JNIEnv * env, jclass jclz){
+    jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+    jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+    jobject result = env->NewObject(listCls, listConsID);
+}
 JNIEXPORT jdouble JNICALL Java_bwta_Polygon_getPerimeter_1native(JNIEnv * env, jobject obj, jlong pointer){
 BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
 return x_polygon->getPerimeter();
