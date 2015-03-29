@@ -3698,7 +3698,7 @@ void reconnect()
 
 void flushPrint(const char * text){
 	printf(text);
-	fflush(stdout); 
+	fflush(stdout);
 }
 
 void println(const char * text){
@@ -5293,7 +5293,7 @@ println("Connecting to Broodwar...");
 			println("Game ready!!!");
 
 			while (Broodwar->isInGame()) {
-				
+
 				env->CallVoidMethod(obj, updateMethodID);
 
 
