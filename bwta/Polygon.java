@@ -33,7 +33,7 @@ public class Polygon {
     }
 
     public List<Position> getPositions(){
-        return getPositions_native();
+        return getPositions_native(pointer);
     }
 
     private static Map<Long, Polygon> instances = new HashMap<Long, Polygon>();
@@ -66,5 +66,5 @@ public class Polygon {
 
     private native Position getNearestPoint_native(long pointer, Position p);
 
-    private native List<Position> getPositions_native();
+    private native List<Position> getPositions_native(long pointer);
 }

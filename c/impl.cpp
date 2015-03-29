@@ -3588,11 +3588,6 @@ JNIEXPORT jdouble JNICALL Java_bwta_Polygon_getArea_1native(JNIEnv * env, jobjec
 BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
 return x_polygon->getArea();
 }
-JNIEXPORT jobject JNICALL Java_bwta_BWTA_getPositions(JNIEnv * env, jclass jclz){
-    jclass listCls = FindCachedClass(env, "java/util/ArrayList");
-    jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
-    jobject result = env->NewObject(listCls, listConsID);
-}
 JNIEXPORT jdouble JNICALL Java_bwta_Polygon_getPerimeter_1native(JNIEnv * env, jobject obj, jlong pointer){
 BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
 return x_polygon->getPerimeter();
@@ -3617,6 +3612,21 @@ Position cresult = x_polygon->getNearestPoint(p);
 jclass retcls = FindCachedClass(env, "bwapi/Position");
 jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(II)V");
 jobject result = env->NewObject(retcls, retConsID, cresult.x(), cresult.y());
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getPositions_1native(JNIEnv * env, jobject obj, jlong pointer){
+BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/Position");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Position;");
+for(BWTA::Polygon::const_iterator it = x_polygon.begin(); it != x_polygon.end(); it++ ){
+const BWTA::Position* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
 return result;
 }
 JNIEXPORT jobject JNICALL Java_bwta_Region_getPolygon_1native(JNIEnv * env, jobject obj, jlong pointer){
