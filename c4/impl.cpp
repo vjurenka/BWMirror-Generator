@@ -66,7 +66,7 @@ jfieldID FindCachedField(JNIEnv * env, jclass clz, string name, string signature
 
 using namespace BWAPI;
 
-PositionOrUnit convertPositionOrUnit(JNIEnv * env, jobject obj){ 
+PositionOrUnit convertPositionOrUnit(JNIEnv * env, jobject obj){
 	jclass clz = FindCachedClass(env, "bwapi/PositionOrUnit");
 	jmethodID typeMethodId = FindCachedMethod(env, clz, "isUnit", "()Z");
 	bool isUnit = (bool)env->CallBooleanMethod(obj, typeMethodId);
@@ -2285,8 +2285,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4325,8 +4325,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4339,8 +4339,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4354,8 +4354,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4368,8 +4368,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4382,8 +4382,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4396,8 +4396,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4410,8 +4410,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4424,8 +4424,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4438,8 +4438,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4452,8 +4452,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4466,8 +4466,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4480,8 +4480,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4494,8 +4494,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4507,8 +4507,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4520,8 +4520,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4533,8 +4533,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4546,8 +4546,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4560,8 +4560,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4574,8 +4574,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4588,8 +4588,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4602,8 +4602,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4615,8 +4615,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4628,8 +4628,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4642,8 +4642,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4656,8 +4656,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4669,8 +4669,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4682,8 +4682,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4695,8 +4695,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4708,8 +4708,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4721,8 +4721,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4734,8 +4734,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4747,8 +4747,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4761,8 +4761,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4775,8 +4775,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4789,8 +4789,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4803,8 +4803,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4816,8 +4816,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4829,8 +4829,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4843,8 +4843,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4857,8 +4857,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4871,8 +4871,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4885,8 +4885,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4898,8 +4898,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4911,8 +4911,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4924,8 +4924,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4937,8 +4937,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4950,8 +4950,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4963,8 +4963,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4976,8 +4976,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -4989,8 +4989,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -5003,8 +5003,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -5018,8 +5018,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -5032,8 +5032,8 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Lbwapi/Unit;Lbwa
 jobject result = env->NewObject(retcls, retConsID, env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getUnit())
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/UnitCommandType"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/UnitCommandType"), "get", "(J)Lbwapi/UnitCommandType;"), (jlong)tableUnitCommandType.find(cresult.getType().getID())->second )
 , env->CallStaticObjectMethod(FindCachedClass(env, "bwapi/Unit"), FindCachedMethodStatic(env, FindCachedClass(env, "bwapi/Unit"), "get", "(J)Lbwapi/Unit;"), cresult.getTarget())
-, cresult.getTargetPosition().x 
-, cresult.getTargetPosition().y 
+, cresult.getTargetPosition().x
+, cresult.getTargetPosition().y
 , resolveUnitCommandExtra(cresult));
 return result;
 }
@@ -6317,6 +6317,21 @@ jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(II)V");
 jobject result = env->NewObject(retcls, retConsID, cresult.x, cresult.y);
 return result;
 }
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getPositions_1native(JNIEnv * env, jobject obj, jlong pointer){
+BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/Position");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Position;");
+for(BWTA::Polygon::const_iterator it = x_polygon.begin(); it != x_polygon.end(); it++ ){
+const BWTA::Position* elem_ptr = *it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
 JNIEXPORT jobject JNICALL Java_bwta_Region_getPolygon_1native(JNIEnv * env, jobject obj, jlong pointer){
 BWTA::Region* x_region = (BWTA::Region*)pointer;
 jlong resptr = (jlong)&x_region->getPolygon();
@@ -6400,7 +6415,7 @@ void reconnect()
 
 void flushPrint(const char * text){
 	printf(text);
-	fflush(stdout); 
+	fflush(stdout);
 }
 
 void println(const char * text){
@@ -7978,7 +7993,7 @@ while ( !Broodwar->isInGame() )
 			println("Game ready!!!");
 
 			while (Broodwar->isInGame()) {
-				
+
 				env->CallVoidMethod(obj, updateMethodID);
 
 
