@@ -3,6 +3,8 @@ package test.api;
 import bwapi.*;
 import bwapi.Text.Size.Enum;
 import bwta.BWTA;
+import bwta.BaseLocation;
+import bwta.Chokepoint;
 import util.Pair;
 
 import java.io.File;
@@ -46,6 +48,15 @@ public class TestBot1 {
                 game.drawTextScreen(10, 10, "Playing as " + self.getName() + " - " + self.getRace());
 
                 StringBuilder units = new StringBuilder("My units:\n");
+
+                for(BaseLocation baseLocation : BWTA.getBaseLocations()){
+                    //System.out.println(baseLocation.getPosition());
+                    //System.out.println(baseLocation.getTilePosition());
+                }
+
+                for(Chokepoint chokepoint : BWTA.getChokepoints()){
+                    //System.out.println(chokepoint.getCenter());
+                }
 
                 for (Player player : game.getPlayers()) {
                    // System.out.println(player.getName());

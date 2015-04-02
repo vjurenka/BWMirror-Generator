@@ -9093,6 +9093,14 @@ JNIEXPORT void JNICALL Java_bwta_BWTA_balanceAnalysis
 
 /*
  * Class:     bwta_BWTA
+ * Method:    cleanMemory
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_bwta_BWTA_cleanMemory
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     bwta_BWTA
  * Method:    getMaxDistanceTransform
  * Signature: ()I
  */

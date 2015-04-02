@@ -43,7 +43,7 @@ public class JavaContext {
     }
 
     public String getPackageName(String javaRetType) {
-        if (packageName.equals("bwta") && (javaRetType.equals("Position") || javaRetType.equals("TilePosition"))) {
+        if (packageName.equals("bwta") && (javaRetType.equals("Position")  || javaRetType.equals("Unit") || javaRetType.equals("TilePosition"))) {
             return "bwapi";
         }
         return packageName;

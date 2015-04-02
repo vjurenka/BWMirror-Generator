@@ -5957,8 +5957,8 @@ jclass listCls = FindCachedClass(env, "java/util/ArrayList");
 jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
 jobject result = env->NewObject(listCls, listConsID);
 jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwta/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Unit;");
+jclass elemClass = FindCachedClass(env, "bwapi/Unit");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi/Unit;");
 for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
 const Unit elem_ptr = *it;
 jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
@@ -5973,8 +5973,8 @@ jclass listCls = FindCachedClass(env, "java/util/ArrayList");
 jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
 jobject result = env->NewObject(listCls, listConsID);
 jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwta/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Unit;");
+jclass elemClass = FindCachedClass(env, "bwapi/Unit");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi/Unit;");
 for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
 const Unit elem_ptr = *it;
 jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
@@ -5989,8 +5989,8 @@ jclass listCls = FindCachedClass(env, "java/util/ArrayList");
 jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
 jobject result = env->NewObject(listCls, listConsID);
 jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
-jclass elemClass = FindCachedClass(env, "bwta/Unit");
-jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Unit;");
+jclass elemClass = FindCachedClass(env, "bwapi/Unit");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwapi/Unit;");
 for(Unitset::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
 const Unit elem_ptr = *it;
 jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
@@ -6031,6 +6031,9 @@ BWTA::computeDistanceTransform();
 }
 JNIEXPORT void JNICALL Java_bwta_BWTA_balanceAnalysis(JNIEnv * env, jclass jclz){
 BWTA::balanceAnalysis();
+}
+JNIEXPORT void JNICALL Java_bwta_BWTA_cleanMemory(JNIEnv * env, jclass jclz){
+BWTA::cleanMemory();
 }
 JNIEXPORT jint JNICALL Java_bwta_BWTA_getMaxDistanceTransform(JNIEnv * env, jclass jclz){
 return BWTA::getMaxDistanceTransform();
@@ -6224,7 +6227,7 @@ TilePosition cObj((int)env->GetIntField(p_cObj, FindCachedField(env, env->GetObj
 targets.insert(cObj);
 }
 std::pair<TilePosition, double> cresult = BWTA::getNearestTilePosition(start, targets);
-jclass firstElemClass = FindCachedClass(env, "bwta/TilePosition");
+jclass firstElemClass = FindCachedClass(env, "bwapi/TilePosition");
 jmethodID firstElemConsID = FindCachedMethod(env, firstElemClass, "<init>", "(II)V");
 jclass secondElemClass = FindCachedClass(env, "java/lang/Double");
 jmethodID secondElemConsID = FindCachedMethod(env, secondElemClass, "<init>", "(D)V");
@@ -6254,7 +6257,7 @@ jclass listCls = FindCachedClass(env, "java/util/HashMap");
 jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
 jobject result = env->NewObject(listCls, listConsID);
 jmethodID addMethodID = FindCachedMethod(env, listCls, "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
-jclass keyElemClass = FindCachedClass(env, "bwta/TilePosition");
+jclass keyElemClass = FindCachedClass(env, "bwapi/TilePosition");
 jmethodID keyElemConsID = FindCachedMethod(env, keyElemClass, "<init>", "(II)V");
 jclass valueElemClass = FindCachedClass(env, "java/lang/Double");
 jmethodID valueElemConsID = FindCachedMethod(env, valueElemClass, "<init>", "(D)V");

@@ -22,6 +22,8 @@ public class BWTA {
 
     public static native void balanceAnalysis();
 
+    public static native void cleanMemory();
+
     public static native int getMaxDistanceTransform();
 
     public static native List<Region> getRegions();

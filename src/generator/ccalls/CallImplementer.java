@@ -246,7 +246,7 @@ public class CallImplementer {
 
 
         //Key static part
-        String keyPackageName = javaContext.getPackageName();
+        String keyPackageName = javaContext.getPackageName(javaKeyType);
         if (javaContext.isPrimitive(javaKeyType)) {
             keyPackageName = "java/lang";
         }
@@ -259,7 +259,7 @@ public class CallImplementer {
         }
 
         //Value static part
-        String valuePackageName = javaContext.getPackageName();
+        String valuePackageName = javaContext.getPackageName(javaValueType);
         if (javaContext.isPrimitive(javaValueType)) {
             valuePackageName = "java/lang";
         }
@@ -337,9 +337,9 @@ public class CallImplementer {
                 "jobject result = env->NewObject(listCls, listConsID);");
 
         out.println("jmethodID addMethodID = FindCachedMethod(env, listCls, \"add\", \"(Ljava/lang/Object;)Z\");");
-        out.println("jclass elemClass = FindCachedClass(env, \"" + javaContext.getPackageName() + "/" + classGenericType + "\");");
+        out.println("jclass elemClass = FindCachedClass(env, \"" + javaContext.getPackageName(classGenericType) + "/" + classGenericType + "\");");
         if (!javaContext.isValueType(genericType)) {
-            out.println("jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, \"get\", \"(J)L" + javaContext.getPackageName() + "/" + classGenericType + ";\");");
+            out.println("jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, \"get\", \"(J)L" + javaContext.getPackageName(classGenericType) + "/" + classGenericType + ";\");");
         } else {
             out.println("jmethodID elemConsID = FindCachedMethod(env, elemClass, \"<init>\", \"(" + javaContext.copyConstructor(genericType) + ")V\");");
         }
@@ -397,7 +397,7 @@ public class CallImplementer {
         }
 
         //First static part
-        String firstPackageName = javaContext.getPackageName();
+        String firstPackageName = javaContext.getPackageName(javaFirstType);
         if (javaContext.isPrimitive(javaFirstType)) {
             firstPackageName = "java/lang";
         }
@@ -410,7 +410,7 @@ public class CallImplementer {
         }
 
         //Second static part
-        String secondPackageName = javaContext.getPackageName();
+        String secondPackageName = javaContext.getPackageName(javaSecondType);
         if (javaContext.isPrimitive(javaSecondType)) {
             secondPackageName = "java/lang";
         }

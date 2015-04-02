@@ -17,7 +17,9 @@ namespace BWTA
        RectangleArray(unsigned int width = 1, unsigned int height = 1, Type* data = NULL);
        /** Copy constructor */
        RectangleArray(const RectangleArray<Type>& rectangleArray);
-       /** Destorys the array and deletes all content of array. */
+	   /** Assignment operator */
+	   const RectangleArray& operator=(const RectangleArray<Type>& rectangleArray);
+       /** Destroys the array and deletes all content of array. */
        ~RectangleArray(void);
        /**
         * Gets the width of the array.
@@ -47,7 +49,6 @@ namespace BWTA
         */
        void setItem(unsigned int x, unsigned int y, Type *item);
        void resize(unsigned int width, unsigned int height);
-       void printToFile(FILE* f);
        void saveToFile(const std::string& fileName);
        /** Sets all fields of the array to the specified value */
        void setTo(const Type& value);
@@ -109,7 +110,7 @@ namespace BWTA
     for (unsigned int position = 0;i < width; i ++,position += height)
       columns[i] = &this->data[position];
   }
-  //---------------------------------------------- CONSTRUCTOR -----------------------------------------------
+  //-------------------------------------------- COPY CONSTRUCTOR --------------------------------------------
   template <class Type>
   RectangleArray<Type>::RectangleArray(const RectangleArray<Type>& rectangleArray)
   :owner(true)
@@ -123,6 +124,22 @@ namespace BWTA
     for (unsigned int position = 0;i < width; i ++,position += height)
       columns[i] = &data[position];
     memcpy(this->data, rectangleArray.data, sizeof(Type)*this->getWidth()*this->getHeight());
+  }
+  //------------------------------------------ ASSIGNMENT OPERATOR -------------------------------------------
+  template <class Type>
+  const RectangleArray<Type>& RectangleArray<Type>::operator=(const RectangleArray<Type>& rectangleArray)
+  {
+	  this->setWidth(rectangleArray.getWidth());
+	  this->setHeight(rectangleArray.getHeight());
+	  this->owner = true;
+	  this->data = new Type[this->getWidth()*this->getHeight()];
+	  columns = new Type*[this->getWidth()];
+
+	  unsigned int i = 0;
+	  for (unsigned int position = 0; i < width; i++, position += height)
+		  columns[i] = &data[position];
+	  memcpy(this->data, rectangleArray.data, sizeof(Type)*this->getWidth()*this->getHeight());
+	  return *this;
   }
   //----------------------------------------------- DESTRUCTOR -----------------------------------------------
   template <class Type>
@@ -211,29 +228,21 @@ namespace BWTA
     for (unsigned int position = 0;i < this->width; i ++,position += this->height)
       columns[i] = &data[position];
   }
-  //--------------------------------------------- PRINT TO FILE ----------------------------------------------
-  template <class Type>
-  void RectangleArray<Type>::printToFile(FILE* f)
-  {
-    for (unsigned int y = 0; y < this->getHeight(); y++)
-    {
-      for (unsigned int x = 0; x < this->getWidth(); x++)
-      {
-        char ch = this->getColumn(x)[y];
-        fprintf_s(f, "%c", ch);
-      }
-      fprintf_s(f, "\n");
-    }
-  }
   //---------------------------------------------- SAVE TO FILE ----------------------------------------------
   template <class Type>
   void RectangleArray<Type>::saveToFile(const std::string& fileName)
   {
-    FILE* f = fopen(fileName.c_str(), "wt");
-    if (!f)
-      exit(1);
-    this->printToFile(f);
-    fclose(f);
+	  std::ofstream outputFile(fileName);
+	  if (!outputFile)
+		  exit(1);
+
+	  for (unsigned int y = 0; y < this->getHeight(); ++y) {
+		  for (unsigned int x = 0; x < this->getWidth(); ++x) {
+			  outputFile << this->getColumn(x)[y];
+		  }
+		  outputFile << std::endl;
+	  }
+	  outputFile.close();
   }
   //------------------------------------------------- SET TO -------------------------------------------------
   template <class Type>
