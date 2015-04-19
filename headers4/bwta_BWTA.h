@@ -241,6 +241,22 @@ JNIEXPORT jobject JNICALL Java_bwta_BWTA_getGroundDistances
 
 /*
  * Class:     bwta_BWTA
+ * Method:    getShortestPath
+ * Signature: (Lbwapi/TilePosition;Lbwapi/TilePosition;)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getShortestPath__Lbwapi_TilePosition_2Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getShortestPath
+ * Signature: (Lbwapi/TilePosition;Ljava/util/List;)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getShortestPath__Lbwapi_TilePosition_2Ljava_util_List_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
  * Method:    buildChokeNodes
  * Signature: ()V
  */

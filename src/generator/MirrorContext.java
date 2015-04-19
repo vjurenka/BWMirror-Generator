@@ -45,7 +45,7 @@ public class MirrorContext {
     }
 
     private boolean isCollection(String cType) {
-        return cType.startsWith("set<");
+        return cType.startsWith("set<") || cType.startsWith("vector<");
     }
 
     private boolean isMap(String cType) {

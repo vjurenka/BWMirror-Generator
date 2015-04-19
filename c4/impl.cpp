@@ -1610,6 +1610,10 @@ JNIEXPORT jstring JNICALL Java_bwapi_GameType_toString_1native(JNIEnv * env, job
 GameType* x_gameType = (GameType*)pointer;
 return env->NewStringUTF(x_gameType->toString().c_str());
 }
+JNIEXPORT jstring JNICALL Java_bwapi_Order_toString_1native(JNIEnv * env, jobject obj, jlong pointer){
+Order* x_order = (Order*)pointer;
+return env->NewStringUTF(x_order->toString().c_str());
+}
 JNIEXPORT jint JNICALL Java_bwapi_Player_getID_1native(JNIEnv * env, jobject obj, jlong pointer){
 Player x_player = (Player)pointer;
 return x_player->getID();
@@ -6270,6 +6274,49 @@ env->CallVoidMethod(result, addMethodID, keyElem, valueElem);
 }
 return result;
 }
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getShortestPath__Lbwapi_TilePosition_2Lbwapi_TilePosition_2(JNIEnv * env, jclass jclz, jobject p_start, jobject p_end){
+TilePosition start((int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "x", "I")), (int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "y", "I")));
+TilePosition end((int)env->GetIntField(p_end, FindCachedField(env, env->GetObjectClass(p_end), "x", "I")), (int)env->GetIntField(p_end, FindCachedField(env, env->GetObjectClass(p_end), "y", "I")));
+std::vector<TilePosition> cresult = BWTA::getShortestPath(start, end);
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwapi/TilePosition");
+jmethodID elemConsID = FindCachedMethod(env, elemClass, "<init>", "(II)V");
+for(std::vector<TilePosition>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const TilePosition elem_ptr = *it;
+jobject elem = env->NewObject(elemClass, elemConsID, elem_ptr.x, elem_ptr.y);
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getShortestPath__Lbwapi_TilePosition_2Ljava_util_List_2(JNIEnv * env, jclass jclz, jobject p_start, jobject p_targets){
+TilePosition start((int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "x", "I")), (int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "y", "I")));
+std::set<TilePosition> targets;
+jclass colClass = env->GetObjectClass(p_targets);
+jmethodID sizeMethodId = FindCachedMethod(env, colClass, "size", "()I");
+jmethodID getMethodId = FindCachedMethod(env, colClass, "get", "(I)Ljava/lang/Object;");
+int size = (int)env->CallIntMethod(p_targets, sizeMethodId);
+for( int i = 0; i < size; i++ ) {
+jobject p_cObj  = env->CallObjectMethod(p_targets,getMethodId);
+TilePosition cObj((int)env->GetIntField(p_cObj, FindCachedField(env, env->GetObjectClass(p_cObj), "x", "I")), (int)env->GetIntField(p_cObj, FindCachedField(env, env->GetObjectClass(p_cObj), "y", "I")));
+targets.insert(cObj);
+}
+std::vector<TilePosition> cresult = BWTA::getShortestPath(start, targets);
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwapi/TilePosition");
+jmethodID elemConsID = FindCachedMethod(env, elemClass, "<init>", "(II)V");
+for(std::vector<TilePosition>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const TilePosition elem_ptr = *it;
+jobject elem = env->NewObject(elemClass, elemConsID, elem_ptr.x, elem_ptr.y);
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
 JNIEXPORT void JNICALL Java_bwta_BWTA_buildChokeNodes(JNIEnv * env, jclass jclz){
 BWTA::buildChokeNodes();
 }
@@ -6318,6 +6365,38 @@ Position cresult = x_polygon->getNearestPoint(p);
 jclass retcls = FindCachedClass(env, "bwapi/Position");
 jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(II)V");
 jobject result = env->NewObject(retcls, retConsID, cresult.x, cresult.y);
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getHoles_1native(JNIEnv * env, jobject obj, jlong pointer){
+BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
+std::vector<BWTA::Polygon> cresult = x_polygon->getHoles();
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwta/Polygon");
+jmethodID getMethodID = FindCachedMethodStatic(env, elemClass, "get", "(J)Lbwta/Polygon;");
+for(std::vector<BWTA::Polygon>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const BWTA::Polygon* elem_ptr = &*it;
+jobject elem = env->CallStaticObjectMethod(elemClass, getMethodID, (long)elem_ptr) ;
+env->CallVoidMethod(result, addMethodID, elem);
+}
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getPoints_1native(JNIEnv * env, jobject obj, jlong pointer){
+BWTA::Polygon* x_polygon = (BWTA::Polygon*)pointer;
+std::vector<Position> cresult = *x_polygon;
+jclass listCls = FindCachedClass(env, "java/util/ArrayList");
+jmethodID listConsID = FindCachedMethod(env, listCls, "<init>", "()V");
+jobject result = env->NewObject(listCls, listConsID);
+jmethodID addMethodID = FindCachedMethod(env, listCls, "add", "(Ljava/lang/Object;)Z");
+jclass elemClass = FindCachedClass(env, "bwapi/Position");
+jmethodID elemConsID = FindCachedMethod(env, elemClass, "<init>", "(II)V");
+for(std::vector<Position>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
+const Position elem_ptr = *it;
+jobject elem = env->NewObject(elemClass, elemConsID, elem_ptr.x, elem_ptr.y);
+env->CallVoidMethod(result, addMethodID, elem);
+}
 return result;
 }
 JNIEXPORT jobject JNICALL Java_bwta_Region_getPolygon_1native(JNIEnv * env, jobject obj, jlong pointer){

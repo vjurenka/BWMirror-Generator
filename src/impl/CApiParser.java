@@ -43,12 +43,12 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //                    1     2             3         4           56         7        891011     12    13    14             15   16                     17                     18                19            20
-    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*\\w+\\s*)?>)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
+    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(vector)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*\\w+\\s*)?>)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
 
     static final int F_REGEX_STATIC = 4;
     static final int F_REGEX_RETURN_TYPE = 8;
-    static final int F_REGEX_NAME = 19;
-    static final int F_REGEX_PARAMS = 20;
+    static final int F_REGEX_NAME = 20;
+    static final int F_REGEX_PARAMS = 21;
 
     String ENUM_VALUE_REGEX = "^(\\s*)(\\w+)(\\s*=\\s*(0x)?([0-9A-Fa-f]+))?\\s*[\\,;]";
 
@@ -504,7 +504,7 @@ public class CApiParser {
                     Clazz clz = new Clazz(clazzName);
 
                     if(!CJavaPipeline.isBWAPI3()){
-                        if(clazzName.endsWith("Type") || clazzName.equals("Error") || clazzName.equals("Race")){
+                        if(clazzName.endsWith("Type") || clazzName.equals("Error") || clazzName.equals("Race") || clazzName.equals("Order")){
                             Function function = new Function();
                             function.name = "toString";
                             function.returnType = "string";

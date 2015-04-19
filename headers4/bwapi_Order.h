@@ -7,6 +7,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi_Order
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi_Order_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

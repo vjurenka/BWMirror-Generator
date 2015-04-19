@@ -1,5 +1,7 @@
 package generator;
 
+import api.DefaultEventListener;
+import api.GeneratorEventListener;
 import c.CClass;
 import c.CDeclaration;
 import c.CEnum;
@@ -11,6 +13,7 @@ import generator.c.TypeTable;
 import generator.ccalls.CallImplementer;
 import impl.CApiParser;
 import impl.Clazz;
+import inject.GetPolygonPointsInjector;
 import util.FileUtils;
 
 import java.io.*;
@@ -44,11 +47,17 @@ public class CJavaPipeline {
 
     private static final HashMap<String, String> superClasses = new HashMap<>();
 
+    private GeneratorEventListener listener = new DefaultEventListener();
+
     static {
         superClasses.put("Unit", "PositionedObject");
         superClasses.put("Region", "CenteredObject");
         superClasses.put("Chokepoint", "CenteredObject");
         superClasses.put("BaseLocation", "PositionedObject");
+    }
+
+    public CJavaPipeline() {
+        listener = new GetPolygonPointsInjector();
     }
 
     public void run(PackageProcessOptions[] packages, Properties processingOptions) {
@@ -96,6 +105,9 @@ public class CJavaPipeline {
                 if (ignoredClasses.contains(cDeclaration.getName())) {
                     continue;
                 }
+
+                listener.onCDeclarationRead(pkg, cDeclaration);
+
                 if (cDeclaration.getDeclType().equals(DeclarationType.CLASS)) {
                     generator.addClass((CClass) cDeclaration);
                 } else if (cDeclaration.getDeclType().equals(DeclarationType.ENUM)) {

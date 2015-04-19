@@ -2287,6 +2287,14 @@ extern "C" {
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     bwapi_Order
+ * Method:    toString_native
+ * Signature: (J)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_bwapi_Order_toString_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif
@@ -9293,6 +9301,22 @@ JNIEXPORT jobject JNICALL Java_bwta_BWTA_getGroundDistances
 
 /*
  * Class:     bwta_BWTA
+ * Method:    getShortestPath
+ * Signature: (Lbwapi/TilePosition;Lbwapi/TilePosition;)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getShortestPath__Lbwapi_TilePosition_2Lbwapi_TilePosition_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
+ * Method:    getShortestPath
+ * Signature: (Lbwapi/TilePosition;Ljava/util/List;)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_BWTA_getShortestPath__Lbwapi_TilePosition_2Ljava_util_List_2
+  (JNIEnv *, jclass, jobject, jobject);
+
+/*
+ * Class:     bwta_BWTA
  * Method:    buildChokeNodes
  * Signature: ()V
  */
@@ -9384,6 +9408,22 @@ JNIEXPORT jboolean JNICALL Java_bwta_Polygon_isInside_1native
  */
 JNIEXPORT jobject JNICALL Java_bwta_Polygon_getNearestPoint_1native
   (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    getHoles_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getHoles_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    getPoints_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getPoints_1native
+  (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
 }

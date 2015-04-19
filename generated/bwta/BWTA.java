@@ -72,6 +72,10 @@ public class BWTA {
 
     public static native Map<TilePosition, Double> getGroundDistances(TilePosition start, List<TilePosition> targets);
 
+    public static native List<TilePosition> getShortestPath(TilePosition start, TilePosition end);
+
+    public static native List<TilePosition> getShortestPath(TilePosition start, List<TilePosition> targets);
+
     public static native void buildChokeNodes();
 
     public static native int getGroundDistance2(TilePosition start, TilePosition end);

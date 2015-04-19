@@ -101,7 +101,7 @@ public class CallImplementer {
 
                     if (!javaContext.isValueType(genericType)) {
                         out.println("jobject jobj  = env->CallObjectMethod(" + paramName + ",getMethodId);");
-                    } else{
+                    } else {
                         out.println("jobject p_cObj  = env->CallObjectMethod(" + paramName + ",getMethodId);");
                         out.println(javaContext.copyJavaObjectToC(genericType, "cObj"));
                     }
@@ -110,8 +110,7 @@ public class CallImplementer {
                     if (!javaContext.isValueType(genericType)) {
                         out.print("(" + PointerTest.test(genericType) + ")");
                         out.print("env->GetLongField(jobj, FindCachedField(env, env->GetObjectClass(jobj), \"pointer\", \"J\"))");
-                    }
-                    else{
+                    } else {
                         out.print("cObj");
                     }
                     out.println(");");
@@ -185,15 +184,24 @@ public class CallImplementer {
     }
 
 
-
-    private String wrapInCCollection(String genericType) {
+    private String wrapInCCollection(String genericType, String javaMethodName) {
         String buffer = "";
         boolean isBWAPI4Collection = !CJavaPipeline.isBWAPI3() && !genericType.startsWith("BWTA::");
         if (!isBWAPI4Collection) {
-            buffer += "std::set<";
+            if(javaMethodName.equals("getHoles")){
+                buffer += "std::vector<";
+            }
+            else{
+                buffer += "std::set<";
+            }
         }
-        if (!javaContext.isConstantTye(genericType) && !javaContext.isValueType(genericType)) {
-            buffer += (PointerTest.test(genericType));
+        if (!javaContext.isConstantTye(genericType) && !javaContext.isValueType(genericType) ) {
+            if(!javaMethodName.equals("getHoles")){
+                buffer += (PointerTest.test(genericType));
+            }
+            else{
+                buffer += genericType;
+            }
         }
         if (!isBWAPI4Collection) {
             buffer += ">";
@@ -201,7 +209,10 @@ public class CallImplementer {
             buffer += "set";
         }
 
-        if(buffer.equals("set") && !CJavaPipeline.isBWAPI3()){
+        if (buffer.equals("set") && !CJavaPipeline.isBWAPI3()) {
+            if(javaContext.getPackageName().equals("bwta")){
+                return "std::vector<" + genericType + ">";
+            }
             return "SetContainer<" + genericType + ">";
         }
 
@@ -325,7 +336,7 @@ public class CallImplementer {
      *
      * @param genericType
      */
-    private void implementCollectionReturn(String genericType) {
+    private void implementCollectionReturn(String genericType, String javaMethodName) {
         String classGenericType = genericType;
         if (classGenericType.contains("::")) {
             classGenericType = classGenericType.substring(classGenericType.lastIndexOf(":") + 1);
@@ -346,7 +357,7 @@ public class CallImplementer {
 
 
         //the for loop
-        out.println("for(" + wrapInCCollection(genericType) + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
+        out.println("for(" + wrapInCCollection(genericType, javaMethodName) + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
         out.print("const " + genericType);
         if (!javaContext.isValueType(genericType)) {
             out.print(PointerTest.test(genericType, false));
@@ -355,6 +366,9 @@ public class CallImplementer {
         if (javaContext.isConstantTye(genericType)) {
             out.println("table" + genericType + ".find((*it).getID())->second;");
         } else {
+            if(javaMethodName.equals("getHoles")){
+                out.print("&");
+            }
             out.println("*it;");
         }
         if (!javaContext.isValueType(genericType)) {
@@ -370,8 +384,8 @@ public class CallImplementer {
 
     }
 
-    private void implementPairReturn(String javaPairType){
-        String [] pair = Generic.extractPair(javaPairType);
+    private void implementPairReturn(String javaPairType) {
+        String[] pair = Generic.extractPair(javaPairType);
 
         String cFirst = pair[0];
         String cSecond = pair[1];
@@ -423,7 +437,7 @@ public class CallImplementer {
         }
 
 
-          //first dynamic part
+        //first dynamic part
         out.print("const " + cFirst);
         if (!javaContext.isValueType(javaFirstType)) {
             out.print(PointerTest.test(cFirst, false));
@@ -459,25 +473,35 @@ public class CallImplementer {
         } else {
             out.println("jobject second = env->NewObject(secondElemClass, secondElemConsID" + javaContext.implementCopyReturn(cSecond, "second_elem_ptr") + ")" + SEMICOLON);
         }
-        
-                //for loop ends here
+
+        //for loop ends here
     }
-    
-    
+
+
     private void implementMethodReturn(String objName, String javaMethodName, List<Param> params, String cReturnType, String javaRetType, String javaPackageName, String clsName, boolean isStatic) {
 
-        String objectAccessor = VARIABLE_PREFIX + objName + (javaContext.isValueType(clsName) ? "." : "->");
+        String objectAccessor = VARIABLE_PREFIX + objName;
         if (isStatic) {
             objectAccessor = clsName + "::";
+        } else {
+            if (!javaContext.isSelfReturnType(clsName, javaMethodName)) {
+                objectAccessor += (javaContext.isValueType(clsName) ? "." : "->");
+            }
+            else{
+                objectAccessor = "*" + objectAccessor;
+            }
         }
 
         //case 1 - method returns a collection type, this requires a LOT of work, so get the std::set and proceed in implementCollectionReturn
         if (javaContext.isCollection(javaRetType)) {
             String genericType = convertToBWTA(Generic.extractGeneric(javaRetType));
-            out.print(wrapInCCollection(genericType) + " cresult = " + objectAccessor + javaMethodName + "(");
+            out.print(wrapInCCollection(genericType, javaMethodName) + " cresult = " + objectAccessor + (javaContext.isSelfReturnType(clsName, javaMethodName) ? "" : javaMethodName + "("));
             implementRealParams(params);
-            out.println(")" + SEMICOLON);
-            implementCollectionReturn(genericType);
+            if (!javaContext.isSelfReturnType(clsName, javaMethodName)) {
+                out.print(")");
+            }
+            out.println(SEMICOLON);
+            implementCollectionReturn(genericType, javaMethodName);
             return;
         }
 
@@ -508,7 +532,7 @@ public class CallImplementer {
                 out.print(")");
                 out.println(SEMICOLON);
                 //handle pairs
-                if(javaRetType.equals("Pair")){
+                if (javaRetType.equals("Pair")) {
                     implementPairReturn(fullReturnType);
                 }
 

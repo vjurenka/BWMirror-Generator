@@ -37,6 +37,16 @@ public class Function implements Method {
         return f;
     }
 
+    Function() {
+    }
+
+    public Function(String name, String returnType, boolean isStatic, ArrayList<Param> args) {
+        this.name = name;
+        this.returnType = returnType;
+        this.isStatic = isStatic;
+        this.args = args;
+    }
+
     @Override
     public String getType() {
         return returnType;

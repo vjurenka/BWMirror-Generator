@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class PointerTest {
 
-    private static final List<String> BWAPI4_INTERFACES = Arrays.asList("Client", "Game", "AIModule" ,"Event", "Race", "Error");
+    private static final List<String> BWAPI4_INTERFACES = Arrays.asList("Client", "Game", "AIModule" ,"Event", "Race", "Error", "Order");
 
     private static boolean testCls(String cls){
         return BWAPI4_INTERFACES.contains(cls) || cls.endsWith("set") || cls.endsWith("Type") || cls.startsWith("BWTA");

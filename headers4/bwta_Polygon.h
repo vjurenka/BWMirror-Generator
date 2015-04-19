@@ -47,6 +47,22 @@ JNIEXPORT jboolean JNICALL Java_bwta_Polygon_isInside_1native
 JNIEXPORT jobject JNICALL Java_bwta_Polygon_getNearestPoint_1native
   (JNIEnv *, jobject, jlong, jobject);
 
+/*
+ * Class:     bwta_Polygon
+ * Method:    getHoles_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getHoles_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Polygon
+ * Method:    getPoints_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Polygon_getPoints_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

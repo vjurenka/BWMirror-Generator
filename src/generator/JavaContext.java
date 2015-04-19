@@ -26,6 +26,8 @@ public class JavaContext {
 
     private List<String> bwtaClasses = Arrays.asList("Chokepoint", "Region", "RectangleArray", "Polygon", "BaseLocation");
 
+    private List<String> selfReturnTypes = Arrays.asList("BWTA::Polygon");
+
 
     private String packageName = "bwapi";
 
@@ -36,6 +38,10 @@ public class JavaContext {
         javaToCType.put("void", "void");
         javaToCType.put("boolean", "jboolean");
         javaToCType.put("String", "jstring");
+    }
+
+    public boolean isSelfReturnType(String clsName, String methodName){
+        return packageName.equals("bwta") && selfReturnTypes.contains(clsName) && methodName.equals("getPoints");
     }
 
     public String getPackageName() {

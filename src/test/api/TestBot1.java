@@ -5,9 +5,9 @@ import bwapi.Text.Size.Enum;
 import bwta.BWTA;
 import bwta.BaseLocation;
 import bwta.Chokepoint;
-import util.Pair;
+import bwta.Polygon;
 
-import java.io.File;
+import java.util.List;
 
 /**
  * User: PC
@@ -37,10 +37,15 @@ public class TestBot1 {
             }
 
             @Override
+            public void onEnd(boolean b) {
+                System.out.println("Ended");
+                //System.exit(0);
+            }
+
+            @Override
             public void onFrame() {
                 Game game = mirror.getGame();
                 Player self = game.self();
-                UnitType.Protoss_Archon.whatBuilds();
 
                 game.drawBoxScreen(0, 0, 100, 100, Color.Red, true);
 
@@ -49,17 +54,17 @@ public class TestBot1 {
 
                 StringBuilder units = new StringBuilder("My units:\n");
 
-                for(BaseLocation baseLocation : BWTA.getBaseLocations()){
+                for (BaseLocation baseLocation : BWTA.getBaseLocations()) {
                     //System.out.println(baseLocation.getPosition());
                     //System.out.println(baseLocation.getTilePosition());
                 }
 
-                for(Chokepoint chokepoint : BWTA.getChokepoints()){
+                for (Chokepoint chokepoint : BWTA.getChokepoints()) {
                     //System.out.println(chokepoint.getCenter());
                 }
 
                 for (Player player : game.getPlayers()) {
-                   // System.out.println(player.getName());
+                    // System.out.println(player.getName());
                     for (Unit enemyUnit : player.getUnits()) {
                         // System.out.println(enemyUnit.getType());
                     }
@@ -95,6 +100,17 @@ public class TestBot1 {
                 }
 
 
+                for (Unit myUnit : self.getUnits()) {
+                    if (myUnit.getType() == UnitType.Zerg_Hatchery) {
+                        Position p = myUnit.getPosition();
+                        TilePosition t = myUnit.getTilePosition();
+
+                        game.drawBoxMap(p.getX(), p.getY(), p.getX() + 20, p.getY() + 20, Color.Cyan);
+                        game.drawTextMap(p.getX(), p.getY(), "Can build? " + game.canBuildHere(t, UnitType.Zerg_Spawning_Pool) + "\nHas Creep? " + game.hasCreep(t.getX(), t.getY()));
+                    }
+                }
+
+
                 //draw my units on screen
                 //game.drawTextScreen(10, 25, Utils.formatText("hello world", Utils.Blue));
                 game.drawTextScreen(10, 25, Utils.formatText(units.toString(), Utils.Blue));
@@ -110,6 +126,7 @@ public class TestBot1 {
         });
           */
         mirror.startGame();
+        System.out.println("It's over");
     }
 
     public static void main(String... args) {
