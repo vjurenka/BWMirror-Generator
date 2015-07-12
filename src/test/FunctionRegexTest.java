@@ -21,7 +21,7 @@ public class FunctionRegexTest {
     Pattern funcPattern = Pattern.compile(FUNC_REGEX);
 
     public void run() {
-        Matcher matcher = funcPattern.matcher("const pair< UnitType , int > whatBuilds() const;");
+        Matcher matcher = funcPattern.matcher(" virtual std::set<Unit*>& getUnitsInRectangle(int left, int top, int right, int bottom) const = 0");
         if (matcher.matches()) {
             System.out.println("match");
             System.out.print(matcher.group(18));

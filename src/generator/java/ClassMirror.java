@@ -32,8 +32,8 @@ public class ClassMirror extends Mirror {
 
         writePackage();
         writeImports(superClass);
-        out.print("public" + SPACE + "class" + SPACE + cClass.getName() + SPACE );
-        if(superClass != null){
+        out.print("public" + SPACE + "class" + SPACE + cClass.getName() + SPACE);
+        if (superClass != null) {
             out.println("extends" + SPACE + superClass + SPACE);
         }
         out.println("{");
@@ -121,14 +121,18 @@ public class ClassMirror extends Mirror {
             out.println(INTEND + "}");
         }
     }
+
     private void writeMethod(Method method) {
         writeMethod(method, true);
     }
 
     private void writeMethod(Method method, boolean checkDefaults) {
-        if(checkDefaults){
+        if (checkDefaults) {
             handleDefaults(method);
         }
+
+        overloadPositionOrUnit(method);
+
         out.print(INTEND + "public" + SPACE + (cClass.isStatic() || method.isStatic() ? "static" + SPACE + "native" + SPACE : "") + context.toJavaType(method.getType()) + SPACE + method.getName() + "(");
         boolean first = true;
         for (Param param : method.getParams()) {
@@ -149,22 +153,39 @@ public class ClassMirror extends Mirror {
                     "_native(" + nativeCallParams(method) + ")" + SEMICOLON + NEW_LINE + NEW_LINE;
 
             checkToString(method);
-        }
-        else{
+        } else {
             out.println(SEMICOLON);
         }
     }
 
     private void handleDefaults(Method method) {
-        int numParams =  method.getParams().size();
+        int numParams = method.getParams().size();
         for (int i = numParams - 1; i >= 0; i--) {
             if (method.getParams().get(i).third != null) {
                 Method clone = method.clone();
 
-                for(int j = 0; j < numParams - i; j++){
+                for (int j = 0; j < numParams - i; j++) {
                     clone.getParams().remove(clone.getParams().size() - 1);
                 }
                 writeMethod(clone, false);
+                out.println();
+            }
+        }
+    }
+
+    private void overloadPositionOrUnit(Method method) {
+        int numParams = method.getParams().size();
+        for (int i = numParams - 1; i >= 0; i--) {
+            if (method.getParams().get(i).first.equals("PositionOrUnit")) {
+                Method clone1 = method.clone();
+                Method clone2 = method.clone();
+
+                clone1.getParams().get(i).first = "Position";
+                clone2.getParams().get(i).first = "Unit";
+
+                writeMethod(clone1, false);
+                out.println();
+                writeMethod(clone2, false);
                 out.println();
             }
         }

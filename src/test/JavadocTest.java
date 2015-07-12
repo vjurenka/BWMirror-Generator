@@ -1,6 +1,7 @@
 package test;
 
 import javadoc.Crawler;
+import javadoc.CrawlerBWAPI4;
 
 /**
  * User: PC
@@ -10,8 +11,8 @@ import javadoc.Crawler;
 public class JavadocTest {
 
     public static void main(String...args){
-        Crawler c = new Crawler();
-        c.request("Game");
+        CrawlerBWAPI4 c = new CrawlerBWAPI4();
+        c.request("Color");
     }
 
 }

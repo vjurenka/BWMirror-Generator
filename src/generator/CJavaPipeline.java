@@ -41,7 +41,7 @@ public class CJavaPipeline {
      * Classes from BWAPI 4 that don't need mirroring
      * Not used in mirroring BWAPI 3
      */
-    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Vectorset", "ConstVectorset", "VSetIterator", "GameWrapper",
+    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Client", "Vectorset", "ConstVectorset", "VSetIterator", "GameWrapper",
             "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl", "SetContainer", "InterfaceEvent", "PositionOrUnit", "Point"));
 
 

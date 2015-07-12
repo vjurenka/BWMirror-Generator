@@ -257,6 +257,54 @@ JNIEXPORT void JNICALL Java_bwapi_Game_enableFlag_1native
 
 /*
  * Class:     bwapi_Game
+ * Method:    getUnitsOnTile_native
+ * Signature: (JII)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getUnitsOnTile_1native__JII
+  (JNIEnv *, jobject, jlong, jint, jint);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getUnitsOnTile_native
+ * Signature: (JLbwapi/TilePosition;)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getUnitsOnTile_1native__JLbwapi_TilePosition_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getUnitsInRectangle_native
+ * Signature: (JIIII)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getUnitsInRectangle_1native__JIIII
+  (JNIEnv *, jobject, jlong, jint, jint, jint, jint);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getUnitsInRectangle_native
+ * Signature: (JLbwapi/Position;Lbwapi/Position;)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getUnitsInRectangle_1native__JLbwapi_Position_2Lbwapi_Position_2
+  (JNIEnv *, jobject, jlong, jobject, jobject);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getUnitsInRadius_native
+ * Signature: (JIII)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getUnitsInRadius_1native__JIII
+  (JNIEnv *, jobject, jlong, jint, jint, jint);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getUnitsInRadius_native
+ * Signature: (JLbwapi/Position;I)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getUnitsInRadius_1native__JLbwapi_Position_2I
+  (JNIEnv *, jobject, jlong, jobject, jint);
+
+/*
+ * Class:     bwapi_Game
  * Method:    getLastError_native
  * Signature: (J)Lbwapi/Error;
  */

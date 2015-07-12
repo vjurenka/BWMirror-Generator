@@ -7,6 +7,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#undef bwapi_TilePosition_SIZE_IN_PIXELS
+#define bwapi_TilePosition_SIZE_IN_PIXELS 32L
 /*
  * Class:     bwapi_TilePosition
  * Method:    isValid

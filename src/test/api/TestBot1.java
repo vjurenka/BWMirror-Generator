@@ -77,6 +77,9 @@ public class TestBot1 {
 
                 for (Unit myUnit : self.getUnits()) {
                     units.append(myUnit.getType()).append(" ").append(myUnit.getTilePosition()).append("\n");
+                    System.out.println(myUnit.getPosition().toTilePosition());
+                    System.out.println(myUnit.getTilePosition());
+
 
                     if (myUnit.getType() == UnitType.Zerg_Larva && self.minerals() >= 50) {
                         myUnit.morph(UnitType.Zerg_Drone);

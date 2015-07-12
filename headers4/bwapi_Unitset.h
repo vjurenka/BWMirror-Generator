@@ -41,6 +41,14 @@ JNIEXPORT jobject JNICALL Java_bwapi_Unitset_getLarva_1native
 
 /*
  * Class:     bwapi_Unitset
+ * Method:    getUnitsInRadius_native
+ * Signature: (JI)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Unitset_getUnitsInRadius_1native
+  (JNIEnv *, jobject, jlong, jint);
+
+/*
+ * Class:     bwapi_Unitset
  * Method:    issueCommand_native
  * Signature: (JLbwapi/UnitCommand;)Z
  */
@@ -50,10 +58,42 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_issueCommand_1native
 /*
  * Class:     bwapi_Unitset
  * Method:    attack_native
+ * Signature: (JLbwapi/Position;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_attack_1native__JLbwapi_Position_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    attack_native
+ * Signature: (JLbwapi/Unit;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_attack_1native__JLbwapi_Unit_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    attack_native
  * Signature: (JLbwapi/PositionOrUnit;)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_attack_1native__JLbwapi_PositionOrUnit_2
   (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    attack_native
+ * Signature: (JLbwapi/Position;Z)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_attack_1native__JLbwapi_Position_2Z
+  (JNIEnv *, jobject, jlong, jobject, jboolean);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    attack_native
+ * Signature: (JLbwapi/Unit;Z)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_attack_1native__JLbwapi_Unit_2Z
+  (JNIEnv *, jobject, jlong, jobject, jboolean);
 
 /*
  * Class:     bwapi_Unitset
@@ -106,9 +146,25 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_morph_1native
 /*
  * Class:     bwapi_Unitset
  * Method:    setRallyPoint_native
+ * Signature: (JLbwapi/Position;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_setRallyPoint_1native__JLbwapi_Position_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    setRallyPoint_native
+ * Signature: (JLbwapi/Unit;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_setRallyPoint_1native__JLbwapi_Unit_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    setRallyPoint_native
  * Signature: (JLbwapi/PositionOrUnit;)Z
  */
-JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_setRallyPoint_1native
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_setRallyPoint_1native__JLbwapi_PositionOrUnit_2
   (JNIEnv *, jobject, jlong, jobject);
 
 /*
@@ -346,10 +402,42 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_unloadAll_1native__JLbwapi_Positio
 /*
  * Class:     bwapi_Unitset
  * Method:    rightClick_native
+ * Signature: (JLbwapi/Position;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_rightClick_1native__JLbwapi_Position_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    rightClick_native
+ * Signature: (JLbwapi/Unit;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_rightClick_1native__JLbwapi_Unit_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    rightClick_native
  * Signature: (JLbwapi/PositionOrUnit;)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_rightClick_1native__JLbwapi_PositionOrUnit_2
   (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    rightClick_native
+ * Signature: (JLbwapi/Position;Z)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_rightClick_1native__JLbwapi_Position_2Z
+  (JNIEnv *, jobject, jlong, jobject, jboolean);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    rightClick_native
+ * Signature: (JLbwapi/Unit;Z)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_rightClick_1native__JLbwapi_Unit_2Z
+  (JNIEnv *, jobject, jlong, jobject, jboolean);
 
 /*
  * Class:     bwapi_Unitset
@@ -430,6 +518,22 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_cancelUpgrade_1native
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_useTech_1native__JLbwapi_TechType_2
   (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    useTech_native
+ * Signature: (JLbwapi/TechType;Lbwapi/Position;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_useTech_1native__JLbwapi_TechType_2Lbwapi_Position_2
+  (JNIEnv *, jobject, jlong, jobject, jobject);
+
+/*
+ * Class:     bwapi_Unitset
+ * Method:    useTech_native
+ * Signature: (JLbwapi/TechType;Lbwapi/Unit;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Unitset_useTech_1native__JLbwapi_TechType_2Lbwapi_Unit_2
+  (JNIEnv *, jobject, jlong, jobject, jobject);
 
 /*
  * Class:     bwapi_Unitset

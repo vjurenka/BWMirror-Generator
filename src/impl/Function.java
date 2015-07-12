@@ -32,7 +32,10 @@ public class Function implements Method {
         Function f = new Function();
         f.name = name;
         f.returnType = returnType;
-        f.args.addAll(args);
+        //f.args.addAll(args);
+        for (Param p : args){
+            f.args.add(new Param(p.first, p.second, p.third));
+        }
         f.isStatic = isStatic;
         return f;
     }

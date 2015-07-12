@@ -2,8 +2,10 @@ package generator.java;
 
 import c.CClass;
 import c.CDeclaration;
+import generator.CJavaPipeline;
 import generator.MirrorContext;
 import javadoc.Crawler;
+import javadoc.CrawlerBWAPI4;
 import javadoc.Documentation;
 import javadoc.DocumentedField;
 
@@ -16,7 +18,9 @@ import java.io.PrintStream;
  */
 public abstract class Mirror {
 
-    private static final boolean WRITE_DOC = false;
+    private static final boolean WRITE_DOC = true;
+
+    private static final boolean FORCE_WEB_DOCUMENTATION = true;
 
     protected static final String SPACE = " ";
 
@@ -40,7 +44,8 @@ public abstract class Mirror {
 
     protected void writeJavadoc(CDeclaration field) {
         if (WRITE_DOC) {
-            if (field.getJavadoc() != null) {
+            //noinspection PointlessBooleanExpression,ConstantConditions
+            if (field.getJavadoc() != null && !FORCE_WEB_DOCUMENTATION) {
                 if (field.getJavadoc().contains("copydoc")) {
                     if (lastDoc != null) {
                         out.print(lastDoc);
@@ -51,14 +56,27 @@ public abstract class Mirror {
                 }
             } else {
                 if (field instanceof CClass) {
-                    Crawler cl = new Crawler();
-                    if (context.getPackage().equals("bwta")) {
-                        cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
+                    if (CJavaPipeline.isBWAPI3() || context.getPackage().equals("bwta")) {
+
+                        Crawler cl = new Crawler();
+                        if (context.getPackage().equals("bwta")) {
+                            cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
+                        }
+                        documentation = cl.request(getDecl().getName());
+                        if (documentation != null) {
+                            printJavadoc(documentation.header);
+                        }
+                    } else {
+                        CrawlerBWAPI4 cl = new CrawlerBWAPI4();
+                        if (context.getPackage().equals("bwta")) {
+                            cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
+                        }
+                        documentation = cl.request(getDecl().getName());
+                        if (documentation != null) {
+                            printJavadoc(documentation.header);
+                        }
                     }
-                    documentation = cl.request(getDecl().getName());
-                    if (documentation != null) {
-                        printJavadoc(documentation.header);
-                    }
+
                 }
                 if (documentation == null) {
                     return;

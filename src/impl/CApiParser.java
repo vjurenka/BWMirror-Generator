@@ -295,7 +295,9 @@ public class CApiParser {
             if (matcher.group(F_REGEX_PARAMS) != null) {
                 String paramsString = matcher.group(F_REGEX_PARAMS);
                 String paramStrings[] = paramsString.split("\\,");
+                int i = 0;
                 for (String param : paramStrings) {
+                    i++;
                     if (param.isEmpty()) {
                         continue;
                     }
@@ -364,6 +366,9 @@ public class CApiParser {
                             continue;
                         }
 
+                        if (argType.equals("UnitFilter") && i == paramStrings.length) {
+                           continue;
+                        }
 
                         //
                         /*if (argType.equals("void") && argName.startsWith("*")) {
