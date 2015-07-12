@@ -47,12 +47,16 @@ public class TestBot1 {
                 Game game = mirror.getGame();
                 Player self = game.self();
 
+                System.out.println(UnitType.Terran_SCV.whatBuilds().first == UnitType.Terran_Command_Center);
+
+
                 game.drawBoxScreen(0, 0, 100, 100, Color.Red, true);
 
                 game.setTextSize(Enum.Large);
                 game.drawTextScreen(10, 10, "Playing as " + self.getName() + " - " + self.getRace());
 
                 StringBuilder units = new StringBuilder("My units:\n");
+                System.out.println(Order.AIPatrol.toString());
 
                 for (BaseLocation baseLocation : BWTA.getBaseLocations()) {
                     //System.out.println(baseLocation.getPosition());

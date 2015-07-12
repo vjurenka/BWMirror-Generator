@@ -150,7 +150,7 @@ public class JavaContext {
 
     public String implementValueReturnClosing(String javaReturnType) {
         if (valueReturnTypes.contains(javaReturnType) || constantTypes.contains(javaReturnType)) {
-            return ")->second";
+            return ".getID())->second";
         }
         return "";
     }

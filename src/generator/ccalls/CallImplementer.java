@@ -299,7 +299,7 @@ public class CallImplementer {
         }
 
         if (!javaContext.isValueType(javaKeyType)) {
-            out.println("jobject keyElem = env->CallStaticObjectMethod(keyElemClass, keyGetMethodID, (long)key_elem_ptr) ;");
+            out.println("jobject keyElem = env->CallStaticObjectMethod(keyElemClass, keyGetMethodID, (jlong)key_elem_ptr) ;");
         } else {
             out.println("jobject keyElem = env->NewObject(keyElemClass, keyElemConsID" + javaContext.implementCopyReturn(cKey, "key_elem_ptr") + ")" + SEMICOLON);
         }
@@ -318,7 +318,7 @@ public class CallImplementer {
         }
 
         if (!javaContext.isValueType(javaValueType)) {
-            out.println("jobject valueElem = env->CallStaticObjectMethod(valueElemClass, valueGetMethodID, (long)value_elem_ptr) ;");
+            out.println("jobject valueElem = env->CallStaticObjectMethod(valueElemClass, valueGetMethodID, (jlong)value_elem_ptr) ;");
         } else {
             out.println("jobject valueElem = env->NewObject(valueElemClass, valueElemConsID" + javaContext.implementCopyReturn(cValue, "value_elem_ptr") + ")" + SEMICOLON);
         }
@@ -450,7 +450,7 @@ public class CallImplementer {
         }
 
         if (!javaContext.isValueType(javaFirstType)) {
-            out.println("jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (long)first_elem_ptr) ;");
+            out.println("jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (jlong)first_elem_ptr) ;");
         } else {
             out.println("jobject first = env->NewObject(firstElemClass, firstElemConsID" + javaContext.implementCopyReturn(cFirst, "first_elem_ptr") + ")" + SEMICOLON);
         }
@@ -469,7 +469,7 @@ public class CallImplementer {
         }
 
         if (!javaContext.isValueType(javaSecondType)) {
-            out.println("jobject second = env->CallStaticObjectMethod(secondElemClass, secondGetMethodID, (long)second_elem_ptr) ;");
+            out.println("jobject second = env->CallStaticObjectMethod(secondElemClass, secondGetMethodID, (jlong)second_elem_ptr) ;");
         } else {
             out.println("jobject second = env->NewObject(secondElemClass, secondElemConsID" + javaContext.implementCopyReturn(cSecond, "second_elem_ptr") + ")" + SEMICOLON);
         }

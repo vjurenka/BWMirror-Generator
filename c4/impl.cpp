@@ -480,7 +480,7 @@ return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Game_getGameType_1native(JNIEnv * env, jobject obj, jlong pointer){
 Game* x_game = (Game*)pointer;
-jlong resptr = (jlong)tableGameType.find(x_game->getGameType())->second;
+jlong resptr = (jlong)tableGameType.find(x_game->getGameType().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/GameType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/GameType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -559,7 +559,7 @@ x_game->enableFlag(flag);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Game_getLastError_1native(JNIEnv * env, jobject obj, jlong pointer){
 Game* x_game = (Game*)pointer;
-jlong resptr = (jlong)tableError.find(x_game->getLastError())->second;
+jlong resptr = (jlong)tableError.find(x_game->getLastError().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Error");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Error;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -1640,14 +1640,14 @@ return result;
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Player_getRace_1native(JNIEnv * env, jobject obj, jlong pointer){
 Player x_player = (Player)pointer;
-jlong resptr = (jlong)tableRace.find(x_player->getRace())->second;
+jlong resptr = (jlong)tableRace.find(x_player->getRace().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Race");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Race;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Player_getType_1native(JNIEnv * env, jobject obj, jlong pointer){
 Player x_player = (Player)pointer;
-jlong resptr = (jlong)tablePlayerType.find(x_player->getType())->second;
+jlong resptr = (jlong)tablePlayerType.find(x_player->getType().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/PlayerType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/PlayerType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -1978,35 +1978,35 @@ return env->NewStringUTF(x_race->toString().c_str());
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Race_getWorker_1native(JNIEnv * env, jobject obj, jlong pointer){
 Race* x_race = (Race*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_race->getWorker())->second;
+jlong resptr = (jlong)tableUnitType.find(x_race->getWorker().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Race_getCenter_1native(JNIEnv * env, jobject obj, jlong pointer){
 Race* x_race = (Race*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_race->getCenter())->second;
+jlong resptr = (jlong)tableUnitType.find(x_race->getCenter().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Race_getRefinery_1native(JNIEnv * env, jobject obj, jlong pointer){
 Race* x_race = (Race*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_race->getRefinery())->second;
+jlong resptr = (jlong)tableUnitType.find(x_race->getRefinery().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Race_getTransport_1native(JNIEnv * env, jobject obj, jlong pointer){
 Race* x_race = (Race*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_race->getTransport())->second;
+jlong resptr = (jlong)tableUnitType.find(x_race->getTransport().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Race_getSupplyProvider_1native(JNIEnv * env, jobject obj, jlong pointer){
 Race* x_race = (Race*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_race->getSupplyProvider())->second;
+jlong resptr = (jlong)tableUnitType.find(x_race->getSupplyProvider().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2104,7 +2104,7 @@ return env->NewStringUTF(x_techType->toString().c_str());
 }
 JNIEXPORT jobject JNICALL Java_bwapi_TechType_getRace_1native(JNIEnv * env, jobject obj, jlong pointer){
 TechType* x_techType = (TechType*)pointer;
-jlong resptr = (jlong)tableRace.find(x_techType->getRace())->second;
+jlong resptr = (jlong)tableRace.find(x_techType->getRace().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Race");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Race;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2127,14 +2127,14 @@ return x_techType->energyCost();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_TechType_whatResearches_1native(JNIEnv * env, jobject obj, jlong pointer){
 TechType* x_techType = (TechType*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_techType->whatResearches())->second;
+jlong resptr = (jlong)tableUnitType.find(x_techType->whatResearches().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_TechType_getWeapon_1native(JNIEnv * env, jobject obj, jlong pointer){
 TechType* x_techType = (TechType*)pointer;
-jlong resptr = (jlong)tableWeaponType.find(x_techType->getWeapon())->second;
+jlong resptr = (jlong)tableWeaponType.find(x_techType->getWeapon().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/WeaponType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/WeaponType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2149,7 +2149,7 @@ return x_techType->targetsPosition();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_TechType_getOrder_1native(JNIEnv * env, jobject obj, jlong pointer){
 TechType* x_techType = (TechType*)pointer;
-jlong resptr = (jlong)tableOrder.find(x_techType->getOrder())->second;
+jlong resptr = (jlong)tableOrder.find(x_techType->getOrder().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Order");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Order;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2191,7 +2191,7 @@ return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getType_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_unit->getType())->second;
+jlong resptr = (jlong)tableUnitType.find(x_unit->getType().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2303,7 +2303,7 @@ return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getInitialType_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_unit->getInitialType())->second;
+jlong resptr = (jlong)tableUnitType.find(x_unit->getInitialType().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2410,21 +2410,21 @@ return x_unit->getStimTimer();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getBuildType_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_unit->getBuildType())->second;
+jlong resptr = (jlong)tableUnitType.find(x_unit->getBuildType().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getTech_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableTechType.find(x_unit->getTech())->second;
+jlong resptr = (jlong)tableTechType.find(x_unit->getTech().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/TechType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/TechType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getUpgrade_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableUpgradeType.find(x_unit->getUpgrade())->second;
+jlong resptr = (jlong)tableUpgradeType.find(x_unit->getUpgrade().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UpgradeType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UpgradeType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -2469,14 +2469,14 @@ return result;
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getOrder_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableOrder.find(x_unit->getOrder())->second;
+jlong resptr = (jlong)tableOrder.find(x_unit->getOrder().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Order");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Order;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getSecondaryOrder_1native(JNIEnv * env, jobject obj, jlong pointer){
 Unit x_unit = (Unit)pointer;
-jlong resptr = (jlong)tableOrder.find(x_unit->getSecondaryOrder())->second;
+jlong resptr = (jlong)tableOrder.find(x_unit->getSecondaryOrder().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Order");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Order;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5340,7 +5340,7 @@ return env->NewStringUTF(x_unitType->toString().c_str());
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_getRace_1native(JNIEnv * env, jobject obj, jlong pointer){
 UnitType* x_unitType = (UnitType*)pointer;
-jlong resptr = (jlong)tableRace.find(x_unitType->getRace())->second;
+jlong resptr = (jlong)tableRace.find(x_unitType->getRace().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Race");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Race;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5353,7 +5353,7 @@ jmethodID firstGetMethodID = FindCachedMethodStatic(env, firstElemClass, "get", 
 jclass secondElemClass = FindCachedClass(env, "java/lang/Integer");
 jmethodID secondElemConsID = FindCachedMethod(env, secondElemClass, "<init>", "(I)V");
 const UnitType* first_elem_ptr = tableUnitType.find((cresult.first).getID())->second;
-jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (long)first_elem_ptr) ;
+jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (jlong)first_elem_ptr) ;
 const int second_elem_ptr = cresult.second;
 jobject second = env->NewObject(secondElemClass, secondElemConsID, second_elem_ptr);
 jclass retcls = FindCachedClass(env, "bwapi/Pair");
@@ -5374,7 +5374,7 @@ jclass valueElemClass = FindCachedClass(env, "java/lang/Integer");
 jmethodID valueElemConsID = FindCachedMethod(env, valueElemClass, "<init>", "(I)V");
 for(std::map<UnitType, int>::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){
 const UnitType* key_elem_ptr = tableUnitType.find((it->first).getID())->second;
-jobject keyElem = env->CallStaticObjectMethod(keyElemClass, keyGetMethodID, (long)key_elem_ptr) ;
+jobject keyElem = env->CallStaticObjectMethod(keyElemClass, keyGetMethodID, (jlong)key_elem_ptr) ;
 const int value_elem_ptr = (it->second);
 jobject valueElem = env->NewObject(valueElemClass, valueElemConsID, value_elem_ptr);
 env->CallVoidMethod(result, addMethodID, keyElem, valueElem);
@@ -5383,14 +5383,14 @@ return result;
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_requiredTech_1native(JNIEnv * env, jobject obj, jlong pointer){
 UnitType* x_unitType = (UnitType*)pointer;
-jlong resptr = (jlong)tableTechType.find(x_unitType->requiredTech())->second;
+jlong resptr = (jlong)tableTechType.find(x_unitType->requiredTech().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/TechType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/TechType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_cloakingTech_1native(JNIEnv * env, jobject obj, jlong pointer){
 UnitType* x_unitType = (UnitType*)pointer;
-jlong resptr = (jlong)tableTechType.find(x_unitType->cloakingTech())->second;
+jlong resptr = (jlong)tableTechType.find(x_unitType->cloakingTech().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/TechType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/TechType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5429,7 +5429,7 @@ return result;
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_armorUpgrade_1native(JNIEnv * env, jobject obj, jlong pointer){
 UnitType* x_unitType = (UnitType*)pointer;
-jlong resptr = (jlong)tableUpgradeType.find(x_unitType->armorUpgrade())->second;
+jlong resptr = (jlong)tableUpgradeType.find(x_unitType->armorUpgrade().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UpgradeType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UpgradeType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5543,7 +5543,7 @@ return x_unitType->sightRange();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_groundWeapon_1native(JNIEnv * env, jobject obj, jlong pointer){
 UnitType* x_unitType = (UnitType*)pointer;
-jlong resptr = (jlong)tableWeaponType.find(x_unitType->groundWeapon())->second;
+jlong resptr = (jlong)tableWeaponType.find(x_unitType->groundWeapon().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/WeaponType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/WeaponType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5554,7 +5554,7 @@ return x_unitType->maxGroundHits();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UnitType_airWeapon_1native(JNIEnv * env, jobject obj, jlong pointer){
 UnitType* x_unitType = (UnitType*)pointer;
-jlong resptr = (jlong)tableWeaponType.find(x_unitType->airWeapon())->second;
+jlong resptr = (jlong)tableWeaponType.find(x_unitType->airWeapon().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/WeaponType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/WeaponType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5725,7 +5725,7 @@ return env->NewStringUTF(x_upgradeType->toString().c_str());
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UpgradeType_getRace_1native(JNIEnv * env, jobject obj, jlong pointer){
 UpgradeType* x_upgradeType = (UpgradeType*)pointer;
-jlong resptr = (jlong)tableRace.find(x_upgradeType->getRace())->second;
+jlong resptr = (jlong)tableRace.find(x_upgradeType->getRace().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/Race");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/Race;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5772,21 +5772,21 @@ return x_upgradeType->maxRepeats();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UpgradeType_whatUpgrades_1native(JNIEnv * env, jobject obj, jlong pointer){
 UpgradeType* x_upgradeType = (UpgradeType*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_upgradeType->whatUpgrades())->second;
+jlong resptr = (jlong)tableUnitType.find(x_upgradeType->whatUpgrades().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UpgradeType_whatsRequired_1native__J(JNIEnv * env, jobject obj, jlong pointer){
 UpgradeType* x_upgradeType = (UpgradeType*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_upgradeType->whatsRequired())->second;
+jlong resptr = (jlong)tableUnitType.find(x_upgradeType->whatsRequired().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_UpgradeType_whatsRequired_1native__JI(JNIEnv * env, jobject obj, jlong pointer, jint level){
 UpgradeType* x_upgradeType = (UpgradeType*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_upgradeType->whatsRequired(level))->second;
+jlong resptr = (jlong)tableUnitType.find(x_upgradeType->whatsRequired(level).getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5818,14 +5818,14 @@ return env->NewStringUTF(x_weaponType->toString().c_str());
 }
 JNIEXPORT jobject JNICALL Java_bwapi_WeaponType_getTech_1native(JNIEnv * env, jobject obj, jlong pointer){
 WeaponType* x_weaponType = (WeaponType*)pointer;
-jlong resptr = (jlong)tableTechType.find(x_weaponType->getTech())->second;
+jlong resptr = (jlong)tableTechType.find(x_weaponType->getTech().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/TechType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/TechType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
 }
 JNIEXPORT jobject JNICALL Java_bwapi_WeaponType_whatUses_1native(JNIEnv * env, jobject obj, jlong pointer){
 WeaponType* x_weaponType = (WeaponType*)pointer;
-jlong resptr = (jlong)tableUnitType.find(x_weaponType->whatUses())->second;
+jlong resptr = (jlong)tableUnitType.find(x_weaponType->whatUses().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UnitType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UnitType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
@@ -5848,7 +5848,7 @@ return x_weaponType->damageFactor();
 }
 JNIEXPORT jobject JNICALL Java_bwapi_WeaponType_upgradeType_1native(JNIEnv * env, jobject obj, jlong pointer){
 WeaponType* x_weaponType = (WeaponType*)pointer;
-jlong resptr = (jlong)tableUpgradeType.find(x_weaponType->upgradeType())->second;
+jlong resptr = (jlong)tableUpgradeType.find(x_weaponType->upgradeType().getID())->second;
 jclass retcls = FindCachedClass(env, "bwapi/UpgradeType");
 jmethodID mid = FindCachedMethodStatic(env, retcls, "get", "(J)Lbwapi/UpgradeType;");
 return env->CallStaticObjectMethod(retcls, mid, resptr);
