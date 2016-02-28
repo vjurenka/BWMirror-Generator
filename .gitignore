@@ -231,6 +231,7 @@ c/
 compiled/
 compiled4/
 concat_header.h
+concat_header4.h
 generated/
 headers/
 headers4/
