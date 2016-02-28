@@ -223,3 +223,15 @@ pip-log.txt
 *.exp
 x86/**
 out/**
+
+META-INF/**
+bwapi-master/
+bwta-c/
+c/
+compiled/
+compiled4/
+concat_header.h
+generated/
+headers/
+headers4/
+
