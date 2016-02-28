@@ -927,7 +927,7 @@ Checks if this unit is currently taking damage from a Psionic Storm. Returns tru
     }
 
 /**
-Checks if this unit has power. Most structures are powered by default, but Protoss structures require a Pylon to be powered and functional. Returns true if this unit has power or is inaccessible, and false if this unit is unpowered.
+Checks if this unit has power. Most structures are powered by default, but Protoss structures require a Pylon to be powered and functional. Returns true if this unit has power or is inaccessible, and false if this unit is unpowered. Since 4.0.1 Beta (previously isUnpowered)
 */
     public boolean isPowered() {
         return isPowered_native(pointer);

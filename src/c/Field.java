@@ -9,4 +9,5 @@ package c;
 public interface Field extends CDeclaration{
 
     public String getType();
+    public boolean isFinal();
 }

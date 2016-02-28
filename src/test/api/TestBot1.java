@@ -47,6 +47,8 @@ public class TestBot1 {
                 Game game = mirror.getGame();
                 Player self = game.self();
 
+
+                System.out.println(UnitType.Terran_Command_Center.toString());
                 System.out.println(UnitType.Terran_SCV.whatBuilds().first == UnitType.Terran_Command_Center);
 
 
@@ -64,7 +66,7 @@ public class TestBot1 {
                 }
 
                 for (Chokepoint chokepoint : BWTA.getChokepoints()) {
-                    //System.out.println(chokepoint.getCenter());
+                    System.out.println(chokepoint.getCenter());
                 }
 
                 for (Player player : game.getPlayers()) {

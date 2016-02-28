@@ -6844,7 +6844,7 @@ const TilePosition first_elem_ptr = cresult.first;
 jobject first = env->NewObject(firstElemClass, firstElemConsID, first_elem_ptr.x, first_elem_ptr.y);
 const double second_elem_ptr = cresult.second;
 jobject second = env->NewObject(secondElemClass, secondElemConsID,second_elem_ptr);
-jclass retcls = FindCachedClass(env, "bwta/Pair");
+jclass retcls = FindCachedClass(env, "bwapi/Pair");
 jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Ljava/lang/Object;Ljava/lang/Object;)V");
 jobject result = env->NewObject(retcls, retConsID, first, second);
 return result;
@@ -6929,6 +6929,38 @@ JNIEXPORT jint JNICALL Java_bwta_BWTA_getGroundDistance2(JNIEnv * env, jclass jc
 TilePosition start((int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "x", "I")), (int)env->GetIntField(p_start, FindCachedField(env, env->GetObjectClass(p_start), "y", "I")));
 TilePosition end((int)env->GetIntField(p_end, FindCachedField(env, env->GetObjectClass(p_end), "x", "I")), (int)env->GetIntField(p_end, FindCachedField(env, env->GetObjectClass(p_end), "y", "I")));
 return BWTA::getGroundDistance2(start, end);
+}
+JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getRegions_1native(JNIEnv * env, jobject obj, jlong pointer){
+BWTA::Chokepoint* x_chokepoint = (BWTA::Chokepoint*)pointer;
+std::pair<BWTA::Region*, BWTA::Region*> cresult = x_chokepoint->getRegions();
+jclass firstElemClass = FindCachedClass(env, "bwta/Region");
+jmethodID firstGetMethodID = FindCachedMethodStatic(env, firstElemClass, "get", "(J)Lbwta/Region;");
+jclass secondElemClass = FindCachedClass(env, "bwta/Region");
+jmethodID secondGetMethodID = FindCachedMethodStatic(env, secondElemClass, "get", "(J)Lbwta/Region;");
+const BWTA::Region* first_elem_ptr = cresult.first;
+jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (jlong)first_elem_ptr) ;
+const BWTA::Region* second_elem_ptr = cresult.second;
+jobject second = env->CallStaticObjectMethod(secondElemClass, secondGetMethodID, (jlong)second_elem_ptr) ;
+jclass retcls = FindCachedClass(env, "bwapi/Pair");
+jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Ljava/lang/Object;Ljava/lang/Object;)V");
+jobject result = env->NewObject(retcls, retConsID, first, second);
+return result;
+}
+JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getSides_1native(JNIEnv * env, jobject obj, jlong pointer){
+BWTA::Chokepoint* x_chokepoint = (BWTA::Chokepoint*)pointer;
+std::pair<Position, Position> cresult = x_chokepoint->getSides();
+jclass firstElemClass = FindCachedClass(env, "bwapi/Position");
+jmethodID firstElemConsID = FindCachedMethod(env, firstElemClass, "<init>", "(II)V");
+jclass secondElemClass = FindCachedClass(env, "bwapi/Position");
+jmethodID secondElemConsID = FindCachedMethod(env, secondElemClass, "<init>", "(II)V");
+const Position first_elem_ptr = cresult.first;
+jobject first = env->NewObject(firstElemClass, firstElemConsID, first_elem_ptr.x, first_elem_ptr.y);
+const Position second_elem_ptr = cresult.second;
+jobject second = env->NewObject(secondElemClass, secondElemConsID, second_elem_ptr.x, second_elem_ptr.y);
+jclass retcls = FindCachedClass(env, "bwapi/Pair");
+jmethodID retConsID = FindCachedMethod(env, retcls, "<init>", "(Ljava/lang/Object;Ljava/lang/Object;)V");
+jobject result = env->NewObject(retcls, retConsID, first, second);
+return result;
 }
 JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getCenter_1native(JNIEnv * env, jobject obj, jlong pointer){
 BWTA::Chokepoint* x_chokepoint = (BWTA::Chokepoint*)pointer;
@@ -7098,6 +7130,7 @@ void println(const char * text){
 JNIEXPORT void JNICALL Java_bwapi_Mirror_startGame(JNIEnv * env, jobject obj){
 jclass cls;
 jmethodID getId;
+jobject cst;
 cls = env->FindClass("Lbwapi/BulletType;");
 getId = env->GetStaticMethodID(cls, "get", "(J)Lbwapi/BulletType;");
 env->SetStaticObjectField(cls, env->GetStaticFieldID(cls, "Melee", "Lbwapi/BulletType;"), env->CallStaticObjectMethod(cls, getId, (jlong)&BulletTypes::Melee));

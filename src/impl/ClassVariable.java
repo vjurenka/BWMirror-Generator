@@ -12,9 +12,12 @@ public class ClassVariable implements Variable {
 
     private String type, name;
 
-    public ClassVariable(String type, String name) {
+    private boolean isFinal;
+
+    public ClassVariable(String type, String name, boolean isFinal) {
         this.type = type;
         this.name = name;
+        this.isFinal = isFinal;
     }
 
     @Override
@@ -40,5 +43,10 @@ public class ClassVariable implements Variable {
 
     public void setJavadoc(String javadoc) {
         this.javadoc = javadoc;
+    }
+
+    @Override
+    public boolean isFinal() {
+        return isFinal;
     }
 }

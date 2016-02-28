@@ -42,13 +42,13 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)(\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
-    //                    1     2             3         4           56         7        891011     12    13    14             15   16                     17                     18                19            20
-    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(vector)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*\\w+\\s*)?>)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
+    //                    1     2             3         4           56         7        891011    12       13    14    15              16   17                     18        19                          20                21             22
+    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(vector)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*(BWAPI::)?\\w+\\*?\\s*)?>&?)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
 
     static final int F_REGEX_STATIC = 4;
     static final int F_REGEX_RETURN_TYPE = 8;
-    static final int F_REGEX_NAME = 20;
-    static final int F_REGEX_PARAMS = 21;
+    static final int F_REGEX_NAME = 21;
+    static final int F_REGEX_PARAMS = 22;
 
     String ENUM_VALUE_REGEX = "^(\\s*)(\\w+)(\\s*=\\s*(0x)?([0-9A-Fa-f]+))?\\s*[\\,;]";
 
@@ -453,7 +453,7 @@ public class CApiParser {
         line = line.trim();
         line = line.substring("extern const".length(), line.lastIndexOf(";")).trim();
         String[] nameType = line.split("\\s");
-        Variable variable = new ClassVariable(nameType[0], nameType[1]);
+        Variable variable = new ClassVariable(nameType[0], nameType[1], true);
         return variable;
     }
 

@@ -106,7 +106,13 @@ public class ClassMirror extends Mirror {
     }
 
     private void writeVariable(Variable variable) {
-        out.print(INTEND + "public" + SPACE + "static" + SPACE + context.toJavaType(variable.getType()) + SPACE + variable.getName());
+        if (variable.isFinal()) {
+            out.print(INTEND + "public" + SPACE + "static" + SPACE + "final" + SPACE + context.toJavaType(variable.getType()) + SPACE + variable.getName());
+            out.print(SPACE + "=" + SPACE + "new" + SPACE + context.toJavaType(variable.getType()) + "(0)");
+        } else {
+            out.print(INTEND + "public" + SPACE + "static" + SPACE + context.toJavaType(variable.getType()) + SPACE + variable.getName());
+        }
+
     }
 
     private void writeConstant(Constant constant) {

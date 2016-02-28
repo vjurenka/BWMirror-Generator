@@ -125,7 +125,7 @@ Retrieves the GameType of the current game. Returns GameType indicating the rule
     }
 
 /**
-Retrieves the current latency setting that the game is set to. Latency indicates the delay between issuing a command and having it processed. Returns The latency setting of the game, which is of Latency::Enum. See also Latency::Enum Todo: Change return type to Latency::Enum without breaking everything.
+Retrieves the current latency setting that the game is set to. Latency indicates the delay between issuing a command and having it processed. Returns The latency setting of the game, which is of Latency::Enum. See also Latency::Enum
 */
     public int getLatency() {
         return getLatency_native(pointer);
@@ -216,14 +216,14 @@ Pings the minimap at the given position. Minimap pings are visible to allied pla
     }
 
 /**
-Checks if the state of the given flag is enabled or not. Note Flags may only be enabled at the start of the match during the AIModule::onStart callback. Parameters flag The Flag::Enum entry describing the flag's effects on BWAPI. Returns true if the given flag is enabled, false if the flag is disabled. See also Flag::Enum Todo: Take Flag::Enum as parameter instead of int
+Checks if the state of the given flag is enabled or not. Note Flags may only be enabled at the start of the match during the AIModule::onStart callback. Parameters flag The Flag::Enum entry describing the flag's effects on BWAPI. Returns true if the given flag is enabled, false if the flag is disabled. See also Flag::Enum
 */
     public boolean isFlagEnabled(int flag) {
         return isFlagEnabled_native(pointer, flag);
     }
 
 /**
-Enables the state of a given flag. Note Flags may only be enabled at the start of the match during the AIModule::onStart callback. Parameters flag The Flag::Enum entry describing the flag's effects on BWAPI. See also Flag::Enum Todo: Take Flag::Enum as parameter instead of int
+Enables the state of a given flag. Note Flags may only be enabled at the start of the match during the AIModule::onStart callback. Parameters flag The Flag::Enum entry describing the flag's effects on BWAPI. See also Flag::Enum
 */
     public void enableFlag(int flag) {
         enableFlag_native(pointer, flag);
@@ -304,14 +304,14 @@ Retrieves the height of the map in build tile units. Returns Height of the map i
     }
 
 /**
-Retrieves the file name of the currently loaded map. Returns Map file name as std::string object. See also mapPathName, mapName Todo: : Note on campaign files.
+Retrieves the file name of the currently loaded map. Returns Map file name as std::string object. See also mapPathName, mapName
 */
     public String mapFileName() {
         return mapFileName_native(pointer);
     }
 
 /**
-Retrieves the full path name of the currently loaded map. Returns Map file name as std::string object. See also mapFileName, mapName Todo: : Note on campaign files.
+Retrieves the full path name of the currently loaded map. Returns Map file name as std::string object. See also mapFileName, mapName
 */
     public String mapPathName() {
         return mapPathName_native(pointer);
@@ -325,7 +325,7 @@ Retrieves the title of the currently loaded map. Returns Map title as std::strin
     }
 
 /**
-Calculates the SHA-1 hash of the currently loaded map file. Returns std::string object containing SHA-1 hash. Note Campaign maps will return a hash of their internal map chunk components(.chk), while standard maps will return a hash of their entire map archive (.scm,.scx). Todo: : Note on replays.
+Calculates the SHA-1 hash of the currently loaded map file. Returns std::string object containing SHA-1 hash. Note Campaign maps will return a hash of their internal map chunk components(.chk), while standard maps will return a hash of their entire map archive (.scm,.scx).
 */
     public String mapHash() {
         return mapHash_native(pointer);
@@ -623,14 +623,14 @@ Leaves the current game by surrendering and enters the post-game statistics/scor
     }
 
 /**
-Restarts the match. Works the same as if the match was restarted from the in-game menu (F10). This option is only available in single player games. Todo: return a bool indicating success, document error code for invalid state
+Restarts the match. Works the same as if the match was restarted from the in-game menu (F10). This option is only available in single player games.
 */
     public void restartGame() {
         restartGame_native(pointer);
     }
 
 /**
-Sets the number of milliseconds Broodwar spends in each frame. The default values are as follows: Fastest: 42ms/frame Faster: 48ms/frame Fast: 56ms/frame Normal: 67ms/frame Slow: 83ms/frame Slower: 111ms/frame Slowest: 167ms/frame Note Specifying a value of 0 will not guarantee that logical frames are executed as fast as possible. If that is the intention, use this in combination with setFrameSkip. Bug: Changing this value will cause the execution of Use Map Settings scenario triggers to glitch. This will only happen in campaign maps and custom scenarios (non-melee). Parameters speed The time spent per frame, in milliseconds. A value of 0 indicates that frames are executed immediately with no delay. Negative values will restore the default value as listed above. See also setFrameSkip, getFPS
+Sets the number of milliseconds Broodwar spends in each frame. The default values are as follows: Fastest: 42ms/frame Faster: 48ms/frame Fast: 56ms/frame Normal: 67ms/frame Slow: 83ms/frame Slower: 111ms/frame Slowest: 167ms/frame Note Specifying a value of 0 will not guarantee that logical frames are executed as fast as possible. If that is the intention, use this in combination with setFrameSkip. Parameters speed The time spent per frame, in milliseconds. A value of 0 indicates that frames are executed immediately with no delay. Negative values will restore the default value as listed above. See also setFrameSkip, getFPS
 */
     public void setLocalSpeed(int speed) {
         setLocalSpeed_native(pointer, speed);

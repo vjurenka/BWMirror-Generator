@@ -393,55 +393,59 @@ public class CallImplementer {
         String javaFirstType = cFirst;
         String javaSecondType = cSecond;
 
-        String javaKeyType = cFirst;
+       // String javaKeyType = cFirst;
         if (cFirst.contains("::")) {
-            javaKeyType = cFirst.substring(cFirst.lastIndexOf(":") + 1);
+            javaFirstType = cFirst.substring(cFirst.lastIndexOf(":") + 1);
         }
 
-        String javaValueType = cSecond;
+        //String javaValueType = cSecond;
         if (cSecond.contains("::")) {
-            javaValueType = cSecond.substring(cSecond.lastIndexOf(":") + 1);
-        }
-
-        if (javaContext.isPrimitive(javaKeyType)) {
-            cFirst = javaContext.javaObjectToPrimitive(javaKeyType);
-        }
-        if (javaContext.isPrimitive(javaValueType)) {
-            cSecond = javaContext.javaObjectToPrimitive(javaValueType);
+            javaSecondType = cSecond.substring(cSecond.lastIndexOf(":") + 1);
         }
 
         //First static part
         String firstPackageName = javaContext.getPackageName(javaFirstType);
+
         if (javaContext.isPrimitive(javaFirstType)) {
+            cFirst = javaContext.javaObjectToPrimitive(javaFirstType);
             firstPackageName = "java/lang";
+        }
+        else{
+            if(!cFirst.contains("::") && javaContext.isBWTA(javaFirstType)){
+                cFirst = firstPackageName.toUpperCase() + "::" + cFirst;  
+            }
+        }
+        
+        
+        String secondPackageName = javaContext.getPackageName(javaSecondType);
+
+        if (javaContext.isPrimitive(javaSecondType)) {
+            cSecond = javaContext.javaObjectToPrimitive(javaSecondType);
+            secondPackageName = "java/lang";
+        }
+        else{
+            if(!cSecond.contains("::") && javaContext.isBWTA(javaSecondType)){
+                cSecond = secondPackageName.toUpperCase() + "::" + cSecond;  
+            }
         }
 
         out.println("jclass firstElemClass = FindCachedClass(env, \"" + firstPackageName + "/" + javaFirstType + "\");");
         if (!javaContext.isValueType(javaFirstType)) {
             out.println("jmethodID firstGetMethodID = FindCachedMethodStatic(env, firstElemClass, \"get\", \"(J)L" + firstPackageName + "/" + javaFirstType + ";\");");
         } else {
-            out.println("jmethodID firstElemConsID = FindCachedMethod(env, firstElemClass, \"<init>\", \"(" + javaContext.copyConstructor(cFirst) + ")V\");");
-        }
-
-        //Second static part
-        String secondPackageName = javaContext.getPackageName(javaSecondType);
-        if (javaContext.isPrimitive(javaSecondType)) {
-            secondPackageName = "java/lang";
+            out.println("jmethodID firstElemConsID = FindCachedMethod(env, firstElemClass, \"<init>\", \"(" + javaContext.copyConstructor(javaFirstType) + ")V\");");
         }
 
         out.println("jclass secondElemClass = FindCachedClass(env, \"" + secondPackageName + "/" + javaSecondType + "\");");
         if (!javaContext.isValueType(javaSecondType)) {
             out.println("jmethodID secondGetMethodID = FindCachedMethodStatic(env, secondElemClass, \"get\", \"(J)L" + secondPackageName + "/" + javaSecondType + ";\");");
         } else {
-            out.println("jmethodID secondElemConsID = FindCachedMethod(env, secondElemClass, \"<init>\", \"(" + javaContext.copyConstructor(cSecond) + ")V\");");
+            out.println("jmethodID secondElemConsID = FindCachedMethod(env, secondElemClass, \"<init>\", \"(" + javaContext.copyConstructor(javaSecondType) + ")V\");");
         }
 
 
         //first dynamic part
-        out.print("const " + cFirst);
-        if (!javaContext.isValueType(javaFirstType)) {
-            out.print(PointerTest.test(cFirst, false));
-        }
+        out.print("const " + PointerTest.test(cFirst));
         out.print(" first_elem_ptr = ");
         if (javaContext.isConstantTye(javaFirstType) && !javaContext.isPrimitive(javaFirstType)) {
             out.println("table" + cFirst + ".find((cresult.first).getID())->second;");
@@ -452,15 +456,12 @@ public class CallImplementer {
         if (!javaContext.isValueType(javaFirstType)) {
             out.println("jobject first = env->CallStaticObjectMethod(firstElemClass, firstGetMethodID, (jlong)first_elem_ptr) ;");
         } else {
-            out.println("jobject first = env->NewObject(firstElemClass, firstElemConsID" + javaContext.implementCopyReturn(cFirst, "first_elem_ptr") + ")" + SEMICOLON);
+            out.println("jobject first = env->NewObject(firstElemClass, firstElemConsID" + javaContext.implementCopyReturn(javaFirstType, "first_elem_ptr") + ")" + SEMICOLON);
         }
 
 
         //second dynamic part
-        out.print("const " + cSecond);
-        if (!javaContext.isValueType(javaSecondType)) {
-            out.print(PointerTest.test(cSecond, false));
-        }
+        out.print("const " + PointerTest.test(cSecond));
         out.print(" second_elem_ptr = ");
         if (javaContext.isConstantTye(javaSecondType) && !javaContext.isPrimitive(javaSecondType)) {
             out.println("table" + cSecond + ".find((cresult.second).getID())->second;");
@@ -471,7 +472,7 @@ public class CallImplementer {
         if (!javaContext.isValueType(javaSecondType)) {
             out.println("jobject second = env->CallStaticObjectMethod(secondElemClass, secondGetMethodID, (jlong)second_elem_ptr) ;");
         } else {
-            out.println("jobject second = env->NewObject(secondElemClass, secondElemConsID" + javaContext.implementCopyReturn(cSecond, "second_elem_ptr") + ")" + SEMICOLON);
+            out.println("jobject second = env->NewObject(secondElemClass, secondElemConsID" + javaContext.implementCopyReturn(javaSecondType, "second_elem_ptr") + ")" + SEMICOLON);
         }
 
         //for loop ends here
@@ -505,7 +506,7 @@ public class CallImplementer {
             return;
         }
 
-        //case 2 - method returns a mape, this requires a LOT of work, so get the std::map and proceed in implementCollectionReturn
+        //case 2 - method returns a map, this requires a LOT of work, so get the std::map and proceed in implementCollectionReturn
         if (javaContext.isMap(javaRetType)) {
             String pairData[] = Generic.extractPair(javaRetType);
             String key = pairData[0];

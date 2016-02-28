@@ -11,4 +11,5 @@ public interface CDeclaration {
     public DeclarationType getDeclType();
     public void setJavadoc(String string);
     public String getJavadoc();
+
 }

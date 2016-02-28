@@ -9,6 +9,22 @@ extern "C" {
 #endif
 /*
  * Class:     bwta_Chokepoint
+ * Method:    getRegions_native
+ * Signature: (J)Lbwapi/Pair;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getRegions_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Chokepoint
+ * Method:    getSides_native
+ * Signature: (J)Lbwapi/Pair;
+ */
+JNIEXPORT jobject JNICALL Java_bwta_Chokepoint_getSides_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwta_Chokepoint
  * Method:    getCenter_native
  * Signature: (J)Lbwapi/Position;
  */

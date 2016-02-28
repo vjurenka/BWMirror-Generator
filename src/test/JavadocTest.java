@@ -12,7 +12,7 @@ public class JavadocTest {
 
     public static void main(String...args){
         CrawlerBWAPI4 c = new CrawlerBWAPI4();
-        c.request("Color");
+        c.request("Race");
     }
 
 }

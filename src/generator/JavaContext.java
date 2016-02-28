@@ -1,6 +1,7 @@
 package generator;
 
 import util.Generic;
+import util.PointerTest;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class JavaContext {
         javaToCType.put("String", "jstring");
     }
 
-    public boolean isSelfReturnType(String clsName, String methodName){
+    public boolean isSelfReturnType(String clsName, String methodName) {
         return packageName.equals("bwta") && selfReturnTypes.contains(clsName) && methodName.equals("getPoints");
     }
 
@@ -49,7 +50,7 @@ public class JavaContext {
     }
 
     public String getPackageName(String javaRetType) {
-        if (packageName.equals("bwta") && (javaRetType.equals("Position")  || javaRetType.equals("Unit") || javaRetType.equals("TilePosition"))) {
+        if (packageName.equals("bwta") && (javaRetType.equals("Position") || javaRetType.equals("Unit") || javaRetType.equals("Pair") || javaRetType.equals("TilePosition"))) {
             return "bwapi";
         }
         return packageName;
@@ -67,9 +68,17 @@ public class JavaContext {
     public String toCPair(String javaType) {
         if (javaType.startsWith("Pair")) {
             String[] pair = Generic.extractPair(javaType);
-            return "std::pair<" + javaObjectToPrimitive(pair[0]) + ", " + javaObjectToPrimitive(pair[1]) + ">";
+            return "std::pair<" + javaObjectToPrimitive(prefixPackageNameAndAddPointerIfNeeded(pair[0])) + ", " + javaObjectToPrimitive(prefixPackageNameAndAddPointerIfNeeded(pair[1])) + ">";
         }
         return javaType;
+    }
+
+    public String prefixPackageNameAndAddPointerIfNeeded(String javaType) {
+        if (isBWTA(javaType)) {
+            return PointerTest.test("BWTA::" + javaType);
+        } else {
+            return javaType;
+        }
     }
 
     public boolean isReference(String javaType) {
@@ -169,8 +178,10 @@ public class JavaContext {
 
     public String copyConstructor(String javaType) {
         switch (javaType) {
+            case "Integer":
             case "int":
                 return "I";
+            case "Double":
             case "double":
                 return "D";
             case "TilePosition":
@@ -187,6 +198,7 @@ public class JavaContext {
             case "Pair":
                 return "Ljava/lang/Object;Ljava/lang/Object;";
             default:
+                System.err.println("Invalid type " + javaType);
                 throw new UnsupportedOperationException();
         }
     }
@@ -204,8 +216,10 @@ public class JavaContext {
 
     public String implementCopyReturn(String javaType, String fieldName) {
         switch (javaType) {
+            case "Integer":
             case "int":
                 return ", " + fieldName;
+            case "Double":
             case "double":
                 return "," + fieldName;
 
@@ -233,6 +247,7 @@ public class JavaContext {
                                 ", " + fieldName + ".getTargetPosition().y \n" +
                                 ", resolveUnitCommandExtra(" + fieldName + ")";
             default:
+                System.err.println("Invalid type " + javaType);
                 throw new UnsupportedOperationException();
         }
     }

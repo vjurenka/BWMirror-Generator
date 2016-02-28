@@ -55,6 +55,12 @@ public class Function implements Method {
         return returnType;
     }
 
+    //final functions are not supported yet
+    @Override
+    public boolean isFinal() {
+        return false;
+    }
+
     @Override
     public String getName() {
         return name;

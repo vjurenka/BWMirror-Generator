@@ -241,6 +241,7 @@ public class Bind {
     private void implementVariablesBind(List<CDeclaration> declarationList) {
         out.println("jclass cls;");
         out.println("jmethodID getId;");
+        out.println("jobject cst;");
         for (CDeclaration cDeclaration : declarationList) {
             if (cDeclaration.getDeclType().equals(DeclarationType.CLASS)) {
                 bindVariables((CClass) cDeclaration);
@@ -278,11 +279,20 @@ public class Bind {
                             ");");
             return;
         }
+
+/*
+        out.println("cst = env->GetStaticObjectField(" +
+                "cls, " +
+                "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"L" + context.getPackageName() + "/" + classVariable.getType() + ";\")" + ");");
+        out.println("env->SetLongField(cst, env->GetFieldID(cls, \"pointer\", \"j\"), (jlong)&" + cValue+");");
+                                 */
+
         out.println(
-                "env->SetStaticObjectField(cls, " +
-                        "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"L" + context.getPackageName() + "/" + classVariable.getType() + ";\"), " +
-                        "env->CallStaticObjectMethod(cls, getId, (jlong)&" + cValue + ")" +
-                        ");");
+                      "env->SetStaticObjectField(cls, " +
+                              "env->GetStaticFieldID(cls, \"" + classVariable.getName() + "\", \"L" + context.getPackageName() + "/" + classVariable.getType() + ";\"), " +
+                              "env->CallStaticObjectMethod(cls, getId, (jlong)&" + cValue + ")" +
+                              ");");
+
         if (cClass.getName().equals("Position") || cClass.getName().equals("TilePosition") || cClass.getName().equals("WalkPosition") || cClass.getName().equals("Point")) {
             return;
         }

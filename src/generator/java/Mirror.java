@@ -56,7 +56,7 @@ public abstract class Mirror {
                 }
             } else {
                 if (field instanceof CClass) {
-                    if (CJavaPipeline.isBWAPI3() || context.getPackage().equals("bwta")) {
+                    if (CJavaPipeline.isBWAPI3() /*|| context.getPackage().equals("bwta")*/) {
 
                         Crawler cl = new Crawler();
                         if (context.getPackage().equals("bwta")) {
