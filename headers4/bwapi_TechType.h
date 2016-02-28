@@ -95,6 +95,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi_TechType_targetsPosition_1native
 JNIEXPORT jobject JNICALL Java_bwapi_TechType_getOrder_1native
   (JNIEnv *, jobject, jlong);
 
+/*
+ * Class:     bwapi_TechType
+ * Method:    requiredUnit_native
+ * Signature: (J)Lbwapi/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_TechType_requiredUnit_1native
+  (JNIEnv *, jobject, jlong);
+
 #ifdef __cplusplus
 }
 #endif

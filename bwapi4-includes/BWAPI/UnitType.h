@@ -13,12 +13,16 @@ namespace BWAPI
   class UnitSizeType;
   class Race;
 
+  /// <summary>Namespace containing unit types.</summary>
+  /// @see UnitType
   namespace UnitTypes
   {
-    /// Enumeration of unit types
+    /// <summary>Enumeration of unit types</summary>
+    /// @see UnitType
     namespace Enum
     {
-      /// Enumeration of unit types
+      /// <summary>Enumeration of unit types</summary>
+      /// @see UnitType
       enum Enum
       {
         Terran_Marine = 0,
@@ -261,25 +265,26 @@ namespace BWAPI
 
     };
   }
-  /// The UnitType is used to get information about a particular type of unit, such as its cost,
-  /// build time, weapon, hit points, abilities, etc.
+  /// <summary>The UnitType is used to get information about a particular type of unit, such as its cost,
+  /// build time, weapon, hit points, abilities, etc.</summary>
   ///
-  /// @see UnitInterface::getType
+  /// @see UnitInterface::getType, UnitTypes
+  /// @ingroup TypeClasses
   class UnitType : public Type<UnitType, UnitTypes::Enum::Unknown>
   {
   public:
     /// @copydoc Type::Type(int)
     UnitType(int id = UnitTypes::Enum::None);
 
-    /// Retrieves the Race that the unit type belongs to.
+    /// <summary>Retrieves the Race that the unit type belongs to.</summary>
     ///
     /// @returns Race indicating the race that owns this unit type.
     /// @retval Race::None indicating that the unit type does not belong to any particular race (a
     /// critter for example).
     Race getRace() const;
 
-    /// Obtains the source unit type that is used to build or train this unit type, as well as the
-    /// amount of them that are required.
+    /// <summary>Obtains the source unit type that is used to build or train this unit type, as well as the
+    /// amount of them that are required.</summary>
     ///
     /// @returns std::pair in which the first value is the UnitType that builds this unit type, and
     /// the second value is the number of those types that are required (this value is 2 for
@@ -287,12 +292,12 @@ namespace BWAPI
     /// @retval pair(UnitTypes::None,0) If this unit type cannot be made by the player.
     const std::pair< UnitType, int > whatBuilds() const;
 
-    /// Retrieves the immediate technology tree requirements to make this unit type.
+    /// <summary>Retrieves the immediate technology tree requirements to make this unit type.</summary>
     ///
     /// @returns std::map containing a UnitType to number mapping of UnitTypes required.
     const std::map< UnitType, int >& requiredUnits() const;
 
-    /// Identifies the required TechType in order to create certain units.
+    /// <summary>Identifies the required TechType in order to create certain units.</summary>
     ///
     /// @note The only unit that requires a technology is the @Lurker, which needs @Lurker_Aspect.
     /// @returns TechType indicating the technology that must be researched in order to create this
@@ -301,38 +306,38 @@ namespace BWAPI
     /// researched.
     TechType requiredTech() const;
     
-    /// Retrieves the cloaking technology associated with certain units.
+    /// <summary>Retrieves the cloaking technology associated with certain units.</summary>
     ///
     /// @returns TechType referring to the cloaking technology that this unit type uses as an
     /// ability.
     /// @retval TechTypes::None If this unit type does not have an active cloak ability.
     TechType cloakingTech() const;
 
-    /// Retrieves the set of abilities that this unit can use, provided it is available to you in
-    /// the game.
+    /// <summary>Retrieves the set of abilities that this unit can use, provided it is available to you in
+    /// the game.</summary>
     ///
     /// @returns Set of TechTypes containing ability information.
     const SetContainer<TechType>& abilities() const;
 
-    /// Retrieves the set of upgrades that this unit can use to enhance its fighting ability.
+    /// <summary>Retrieves the set of upgrades that this unit can use to enhance its fighting ability.</summary>
     ///
     /// @return Set of UpgradeTypes containing upgrade types that will impact this unit type.
     const SetContainer<UpgradeType>& upgrades() const;
 
-    /// Retrieves the upgrade type used to increase the armor of this unit type. For each upgrade,
+    /// <summary>Retrieves the upgrade type used to increase the armor of this unit type.</summary> For each upgrade,
     /// this unit type gains +1 additional armor.
     ///
     /// @returns UpgradeType indicating the upgrade that increases this unit type's armor amount.
     UpgradeType armorUpgrade() const;
 
-    /// Retrieves the default maximum amount of hit points that this unit type can have.
+    /// <summary>Retrieves the default maximum amount of hit points that this unit type can have.</summary>
     ///
     /// @note This value may not necessarily match the value seen in the @UMS game type.
     ///
     /// @returns Integer indicating the maximum amount of hit points for this unit type.
     int maxHitPoints() const;
 
-    /// Retrieves the default maximum amount of shield points that this unit type can have.
+    /// <summary>Retrieves the default maximum amount of shield points that this unit type can have.</summary>
     ///
     /// @note This value may not necessarily match the value seen in the @UMS game type.
     ///
@@ -340,34 +345,34 @@ namespace BWAPI
     /// @retval 0 If this unit type does not have shields.
     int maxShields() const;
 
-    /// Retrieves the maximum amount of energy this unit type can have by default.
+    /// <summary>Retrieves the maximum amount of energy this unit type can have by default.</summary>
     ///
     /// @returns Integer indicating the maximum amount of energy for this unit type.
     /// @retval 0 If this unit does not gain energy for abilities.
     int maxEnergy() const;
 
-    /// Retrieves the default amount of armor that the unit type starts with, excluding upgrades.
+    /// <summary>Retrieves the default amount of armor that the unit type starts with, excluding upgrades.</summary>
     ///
     /// @note This value may not necessarily match the value seen in the @UMS game type.
     ///
     /// @returns The amount of armor the unit type has.
     int armor() const;
 
-    /// Retrieves the default mineral price of purchasing the unit.
+    /// <summary>Retrieves the default mineral price of purchasing the unit.</summary>
     ///
     /// @note This value may not necessarily match the value seen in the @UMS game type.
     ///
     /// @returns Mineral cost of the unit.
     int mineralPrice() const;
 
-    /// Retrieves the default vespene gas price of purchasing the unit.
+    /// <summary>Retrieves the default vespene gas price of purchasing the unit.</summary>
     ///
     /// @note This value may not necessarily match the value seen in the @UMS game type.
     ///
     /// @returns Vespene gas cost of the unit.
     int gasPrice() const;
 
-    /// Retrieves the default time, in frames, needed to train, morph, or build the unit.
+    /// <summary>Retrieves the default time, in frames, needed to train, morph, or build the unit.</summary>
     ///
     /// @note This value may not necessarily match the value seen in the @UMS game type.
     ///
@@ -375,7 +380,7 @@ namespace BWAPI
     /// @see UnitInterface::getRemainingBuildTime
     int buildTime() const;
 
-    /// Retrieves the amount of supply that this unit type will use when created. It will use the
+    /// <summary>Retrieves the amount of supply that this unit type will use when created.</summary> It will use the
     /// supply pool that is appropriate for its Race.
     ///
     /// @note In Starcraft programming, the managed supply values are double than what they appear
@@ -385,8 +390,8 @@ namespace BWAPI
     /// @see supplyProvided, PlayerInterface::supplyTotal, PlayerInterface::supplyUsed
     int supplyRequired() const;
 
-    /// Retrieves the amount of supply that this unit type produces for its appropriate Race's
-    /// supply pool.
+    /// <summary>Retrieves the amount of supply that this unit type produces for its appropriate Race's
+    /// supply pool.</summary>
     ///
     /// @note In Starcraft programming, the managed supply values are double than what they appear
     /// in the game. The reason for this is because @Zerglings use 0.5 visible supply.
@@ -394,131 +399,131 @@ namespace BWAPI
     /// @see supplyRequired, PlayerInterface::supplyTotal, PlayerInterface::supplyUsed
     int supplyProvided() const;
 
-    /// Retrieves the amount of space required by this unit type to fit inside a @Bunker or
-    /// @Transport.
+    /// <summary>Retrieves the amount of space required by this unit type to fit inside a @Bunker or
+    /// @Transport.</summary>
     ///
     /// @returns Amount of space required by this unit type for transport.
     /// @retval 255 If this unit type can not be transported.
     /// @see spaceProvided
     int spaceRequired() const;
 
-    /// Retrieves the amount of space provided by this @Bunker or @Transport for unit
-    /// transportation.
+    /// <summary>Retrieves the amount of space provided by this @Bunker or @Transport for unit
+    /// transportation.</summary>
     /// 
     /// @returns The number of slots provided by this unit type.
     /// @see spaceRequired
     int spaceProvided() const;
 
-    /// Retrieves the amount of score points awarded for constructing this unit type. This value is
+    /// <summary>Retrieves the amount of score points awarded for constructing this unit type.</summary> This value is
     /// used for calculating scores in the post-game score screen.
     ///
     /// @returns Number of points awarded for constructing this unit type.
     /// @see destroyScore
     int buildScore() const;
 
-    /// Retrieves the amount of score points awarded for killing this unit type. This value is
+    /// <summary>Retrieves the amount of score points awarded for killing this unit type.</summary> This value is
     /// used for calculating scores in the post-game score screen.
     ///
     /// @returns Number of points awarded for killing this unit type.
     /// @see buildScore
     int destroyScore() const;
 
-    /// Retrieves the UnitSizeType of this unit, which is used in calculations along with weapon
-    /// damage types to determine the amount of damage that will be dealt to this type.
+    /// <summary>Retrieves the UnitSizeType of this unit, which is used in calculations along with weapon
+    /// damage types to determine the amount of damage that will be dealt to this type.</summary>
     ///
     /// @returns UnitSizeType indicating the conceptual size of the unit type.
     /// @see WeaponType::damageType
     UnitSizeType size() const;
 
-    /// Retrieves the width of this unit type, in tiles. Used for determining the tile size of
+    /// <summary>Retrieves the width of this unit type, in tiles.</summary> Used for determining the tile size of
     /// structures.
     ///
     /// @returns Width of this unit type, in tiles.
     int tileWidth() const;
 
-    /// Retrieves the height of this unit type, in tiles. Used for determining the tile size of
+    /// <summary>Retrieves the height of this unit type, in tiles.</summary> Used for determining the tile size of
     /// structures.
     ///
     /// @returns Height of this unit type, in tiles.
     int tileHeight() const;
 
-    /// Retrieves the tile size of this unit type. Used for determining the tile size of
+    /// <summary>Retrieves the tile size of this unit type.</summary> Used for determining the tile size of
     /// structures.
     ///
     /// @returns TilePosition containing the width (x) and height (y) of the unit type, in tiles.
     TilePosition tileSize() const;
 
-    /// Retrieves the distance from the center of the unit type to its left edge.
+    /// <summary>Retrieves the distance from the center of the unit type to its left edge.</summary>
     ///
     /// @returns Distance to this unit type's left edge from its center, in pixels.
     int dimensionLeft() const;
 
-    /// Retrieves the distance from the center of the unit type to its top edge.
+    /// <summary>Retrieves the distance from the center of the unit type to its top edge.</summary>
     ///
     /// @returns Distance to this unit type's top edge from its center, in pixels.
     int dimensionUp() const;
 
-    /// Retrieves the distance from the center of the unit type to its right edge.
+    /// <summary>Retrieves the distance from the center of the unit type to its right edge.</summary>
     ///
     /// @returns Distance to this unit type's right edge from its center, in pixels.
     int dimensionRight() const;
 
-    /// Retrieves the distance from the center of the unit type to its bottom edge.
+    /// <summary>Retrieves the distance from the center of the unit type to its bottom edge.</summary>
     ///
     /// @returns Distance to this unit type's bottom edge from its center, in pixels.
     int dimensionDown() const;
 
-    /// A macro for retrieving the width of the unit type, which is calculated using
-    /// dimensionLeft + dimensionRight + 1.
+    /// <summary>A macro for retrieving the width of the unit type, which is calculated using
+    /// dimensionLeft + dimensionRight + 1.</summary>
     ///
     /// @returns Width of the unit, in pixels.
     int width() const;
 
-    /// A macro for retrieving the height of the unit type, which is calculated using
-    /// dimensionUp + dimensionDown + 1.
+    /// <summary>A macro for retrieving the height of the unit type, which is calculated using
+    /// dimensionUp + dimensionDown + 1.</summary>
     ///
     /// @returns Height of the unit, in pixels.
     int height() const;
 
-    /// Retrieves the range at which this unit type will start targeting enemy units.
+    /// <summary>Retrieves the range at which this unit type will start targeting enemy units.</summary>
     ///
     /// @returns Distance at which this unit type begins to seek out enemy units, in pixels.
     int seekRange() const;
 
-    /// Retrieves the sight range of this unit type.
+    /// <summary>Retrieves the sight range of this unit type.</summary>
     ///
     /// @returns Sight range of this unit type, measured in pixels.
     int sightRange() const;
 
-    /// Retrieves this unit type's weapon type used when attacking targets on the ground.
+    /// <summary>Retrieves this unit type's weapon type used when attacking targets on the ground.</summary>
     ///
     /// @returns WeaponType used as this unit type's ground weapon.
     /// @see maxGroundHits, airWeapon
     WeaponType groundWeapon() const;
 
-    /// Retrieves the maximum number of hits this unit can deal to a ground target using its
-    /// ground weapon. This value is multiplied by the ground weapon's damage to calculate the
+    /// <summary>Retrieves the maximum number of hits this unit can deal to a ground target using its
+    /// ground weapon.</summary> This value is multiplied by the ground weapon's damage to calculate the
     /// unit type's damage potential.
     ///
     /// @returns Maximum number of hits given to ground targets.
     /// @see groundWeapon, maxAirHits
     int maxGroundHits() const;
 
-    /// Retrieves this unit type's weapon type used when attacking targets in the air.
+    /// <summary>Retrieves this unit type's weapon type used when attacking targets in the air.</summary>
     ///
     /// @returns WeaponType used as this unit type's air weapon.
     /// @see maxAirHits, groundWeapon
     WeaponType airWeapon() const;
 
-    /// Retrieves the maximum number of hits this unit can deal to a flying target using its
-    /// air weapon. This value is multiplied by the air weapon's damage to calculate the
+    /// <summary>Retrieves the maximum number of hits this unit can deal to a flying target using its
+    /// air weapon.</summary> This value is multiplied by the air weapon's damage to calculate the
     /// unit type's damage potential.
     ///
     /// @returns Maximum number of hits given to air targets.
     /// @see airWeapon, maxGroundHits
     int maxAirHits() const;
 
-    /// Retrieves this unit type's top movement speed with no upgrades.
+    /// <summary>Retrieves this unit type's top movement speed with no upgrades.</summary>
     ///
     /// @note That some units have inconsistent movement and this value is sometimes an
     /// approximation.
@@ -527,92 +532,116 @@ namespace BWAPI
     /// structures, this function returns their movement speed while lifted.
     double topSpeed() const;
 
-    /** Returns how fast the unit can accelerate to its top speed. What units this quantity is measured in
-     * is currently unknown. */
+    /// <summary>Retrieves the unit's acceleration amount.</summary>
+    ///
+    /// @returns How fast the unit can accelerate to its top speed.
+    ///
+    /// @todo Figure out the units this quantity is measured in.
     int acceleration() const;
 
-    /** Related to how fast the unit can halt. What units this quantity is measured in is currently
-     * unknown. */
+    /// <summary>Retrieves the unit's halting distance.</summary> This determines how fast a unit
+    /// can stop moving.
+    ///
+    /// @returns A halting distance value.
+    ///
+    /// @todo Figure out the units this quantity is measured in.
     int haltDistance() const;
 
-    /** Related to how fast the unit can turn. What units this quantity is measured in is currently
-     * unknown. */
+    /// <summary>Retrieves a unit's turning radius.</summary> This determines how fast a unit can
+    /// turn.
+    ///
+    /// @returns A turn radius value.
+    ///
+    /// @todo Figure out the units this quantity is measured in.
     int turnRadius() const;
 
-    /** Returns true if the unit can train other units. For example, UnitTypes::Terran_Barracks.canProduce()
-     * will return true, while UnitTypes::Terran_Marine?.canProduce() will return false. This is also true
-     * for two non-building units: Protoss Carrier (can produce interceptors) and Protoss Reaver
-     * (can produce scarabs). */
+    /// <summary>Determines if a unit can train other units.</summary> For example,
+    /// UnitTypes::Terran_Barracks.canProduce() will return true, while
+    /// UnitTypes::Terran_Marine.canProduce() will return false. This is also true for two
+    /// non-structures: @Carrier (can produce interceptors) and @Reaver (can produce scarabs).
+    ///
+    /// @returns true if this unit type can have a production queue, and false otherwise.
     bool canProduce() const;
 
-    /** Returns true if the unit can attack (either ground or air). Returns false for units that can only
-     * inflict damage via special abilities (such as Protoss High Templar). */
+    /// <summary>Checks if this unit is capable of attacking.</summary>
+    ///
+    /// @note This function returns false for units that can only inflict damage via special
+    /// abilities, such as the @High_Templar.
+    ///
+    /// @returns true if this unit type is capable of damaging other units with a standard attack,
+    /// and false otherwise.
     bool canAttack() const;
 
-    /** Returns true if the unit can move. Note that buildings will return false, even Terran buildings
-     * which can move once lifted. */
+    /// <summary>Checks if this unit type is capable of movement.</summary>
+    ///
+    /// @note Buildings will return false, including @Terran liftable buildings which are capable
+    /// of moving when lifted.
+    ///
+    /// @returns true if this unit can use a movement command, and false if they cannot move.
     bool canMove() const;
 
     /// <summary>Checks if this unit type is a flying unit. Flying units ignore ground pathing and
     /// collisions.</summary>
     ///
-    /// <returns>true if this unit type is in the air by default, and false otherwise</returns>
+    /// @returns true if this unit type is in the air by default, and false otherwise.
     bool isFlyer() const;
 
-    /// Checks if this unit type can regenerate hit points. This generally applies to @Zerg units.
+    /// <summary>Checks if this unit type can regenerate hit points. This generally applies to @Zerg units.</summary>
     ///
     /// @returns true if this unit type regenerates its hit points, and false otherwise.
     bool regeneratesHP() const;
 
-    /// Checks if this unit type has the capacity to store energy and use it for special abilities.
+    /// <summary>Checks if this unit type has the capacity to store energy and use it for special abilities.</summary>
     ///
     /// @returns true if this unit type generates energy, and false if it does not have an energy
     /// pool.
     bool isSpellcaster() const;
 
-    /// Checks if this unit type is permanently cloaked. This means the unit type is always
+    /// <summary>Checks if this unit type is permanently cloaked.</summary> This means the unit type is always
     /// cloaked and requires a detector in order to see it.
     ///
     /// @returns true if this unit type is permanently cloaked, and false otherwise.
     bool hasPermanentCloak() const;
 
-    /// Checks if this unit type is invincible by default. Invincible units cannot be destroyed by
-    /// other units' attacks.
+    /// <summary>Checks if this unit type is invincible by default.</summary> Invincible units
+    /// cannot take damage.
     ///
     /// @returns true if this unit type is invincible, and false if it is vulnerable to attacks.
     bool isInvincible() const;
 
-    /// Checks if this unit is an organic unit. The organic property is required for some abilities
+    /// <summary>Checks if this unit is an organic unit.</summary> The organic property is required for some abilities
     /// such as @Heal.
     ///
     /// @returns true if this unit type has the organic property, and false otherwise.
     bool isOrganic() const;
 
-    /// Checks if this unit is mechanical. The mechanical property is required for some actions
+    /// <summary>Checks if this unit is mechanical.</summary> The mechanical property is required for some actions
     /// such as @Repair.
     ///
     /// @returns true if this unit type has the mechanical property, and false otherwise.
     bool isMechanical() const;
 
-    /// Checks if this unit is robotic. The robotic property is @todo finish this
+    /// <summary>Checks if this unit is robotic.</summary> The robotic property is applied
+    /// to robotic units such as the @Probe which prevents them from taking damage from
+    /// @Irradiate.
     ///
     /// @returns true if this unit type has the robotic property, and false otherwise.
     bool isRobotic() const;
 
-    /// Checks if this unit type is capable of detecting units that are cloaked or burrowed.
+    /// <summary>Checks if this unit type is capable of detecting units that are cloaked or burrowed.</summary>
     ///
     /// @returns true if this unit type is a detector by default, false if it does not have this
     /// property
     bool isDetector() const;
 
-    /// Checks if this unit type is capable of storing resources such as @minerals . Resources
+    /// <summary>Checks if this unit type is capable of storing resources such as @minerals.</summary> Resources
     /// are harvested from resource containers.
     ///
     /// @returns true if this unit type may contain resources that can be harvested, false
     /// otherwise.
     bool isResourceContainer() const;
 
-    /// Checks if this unit type is a resource depot. Resource depots must be placed a certain
+    /// <summary>Checks if this unit type is a resource depot.</summary> Resource depots must be placed a certain
     /// distance from resources. Resource depots are typically the main building for any
     /// particular race. Workers will return resources to the nearest resource depot.
     ///
@@ -631,7 +660,7 @@ namespace BWAPI
     /// @returns true if the unit type is a resource depot, false if it is not.
     bool isResourceDepot() const;
 
-    /// Checks if this unit type is a refinery. A refinery is a structure that is placed on top of
+    /// <summary>Checks if this unit type is a refinery.</summary> A refinery is a structure that is placed on top of
     /// a @geyser . Refinery types are @refinery , @extractor , and @assimilator.
     ///
     /// Example:
@@ -668,65 +697,147 @@ namespace BWAPI
     /// @returns true if this unit type is a refinery, and false if it is not.
     bool isRefinery() const;
 
-    /// Checks if this unit type is a worker unit. Worker units can harvest resources and build
+    /// <summary>Checks if this unit type is a worker unit.</summary> Worker units can harvest resources and build
     /// structures. Worker unit types include the @SCV , @probe, and @drone.
     ///
     /// @returns true if this unit type is a worker, and false if it is not.
     bool isWorker() const;
 
-    /** Returns true for buildings that must be near a pylon to be constructed. */
+    /// <summary>Checks if this structure is powered by a psi field.</summary> Structures powered
+    /// by psi can only be placed near a @Pylon. If the @Pylon is destroyed, then this unit will
+    /// lose power.
+    ///
+    /// @returns true if this unit type can only be placed in a psi field, false otherwise.
+    /// @implies isBuilding(), getRace() == Races::Protoss
     bool requiresPsi() const;
 
-    /** Returns true for buildings that can only be built on zerg creep. */
+    /// <summary>Checks if this structure must be placed on @Zerg creep.</summary>
+    ///
+    /// @returns true if this unit type requires creep, false otherwise.
+    /// @implies isBuilding(), getRace() == Races::Zerg
     bool requiresCreep() const;
 
-    /** Returns true for Zergling and Scourge. */
+    /// <summary>Checks if this unit type spawns two units when being hatched from an @Egg.</summary>
+    /// This is only applicable to @Zerglings and @Scourges.
+    ///
+    /// @returns true if morphing this unit type will spawn two of them, and false if only one
+    /// is spawned.
     bool isTwoUnitsInOneEgg() const;
 
-    /** Returns true for Zerg Lurker and units that can burrow when burrow tech is researched. */
+    /// <summary>Checks if this unit type has the capability to use the @Burrow technology when it
+    /// is researched.</summary>
+    ///
+    /// @note The @Lurker can burrow even without researching the ability.
+    /// @see TechTypes::Burrow
+    /// @returns true if this unit can use the @Burrow ability, and false otherwise.
+    /// @implies getRace() == Races::Zerg, !isBuilding(), canMove()
     bool isBurrowable() const;
 
-    /** Returns true for units that can be cloaked - Terran Ghost and Terran Wraith. Does not include units
-     * which have permanent cloak (Protoss Observer and Protoss Dark Templar). */
+    /// <summary>Checks if this unit type has the capability to use a cloaking ability when it
+    /// is researched.</summary> This applies only to @Wraiths and @Ghosts, and does not include
+    /// units which are permanently cloaked.
+    ///
+    /// @returns true if this unit has a cloaking ability, false otherwise.
+    /// @see hasPermanentCloak, TechTypes::Cloaking_Field, TechTypes::Personnel_Cloaking
     bool isCloakable() const;
 
-    /** Returns true if the unit is a building (also true for mineral field and vespene geyser). */
+    /// <summary>Checks if this unit is a structure.</summary> This includes @Mineral_Fields and
+    /// @Vespene_Geysers.
+    ///
+    /// @returns true if this unit is a building, and false otherwise.
     bool isBuilding() const;
 
-    /** Returns true if the unit is an add-on, such as a Terran Comsat Station. */
+    /// <summary>Checks if this unit is an add-on.</summary> Add-ons are attachments used by some
+    /// @Terran structures such as the @Comsat_Station.
+    ///
+    /// @returns true if this unit is an add-on, and false otherwise.
+    /// @implies getRace() == Races::Terran, isBuilding()
     bool isAddon() const;
 
-    /** Returns true for Terran buildings that can lift off (i.e. Barracks). */
+    /// <summary>Checks if this structure has the capability to use the lift-off command.</summary>
+    ///
+    /// @returns true if this unit type is a flyable building, false otherwise.
+    /// @implies isBuilding()
     bool isFlyingBuilding() const;
 
-    /** Returns true if the unit is neutral, such as a critter or mineral field. */
+    /// <summary>Checks if this unit type is a neutral type, such as critters and resources.</summary>
+    ///
+    /// @returns true if this unit is intended to be neutral, and false otherwise.
     bool isNeutral() const;
 
-    /** Returns true if the unit is a Hero unit. */
+    /// <summary>Checks if this unit type is a hero.</summary> Heroes are types that the player
+    /// cannot obtain normally, and are identified by the white border around their icon when
+    /// selected with a group.
+    ///
+    /// @note There are two non-hero units included in this set, the @Civilian and @Dark_Templar_Hero.
+    ///
+    /// @returns true if this unit type is a hero type, and false otherwise.
     bool isHero() const;
 
-    /** Returns true if the unit is a Powerup unit. */
+    /// <summary>Checks if this unit type is a powerup.</summary> Powerups can be picked up and
+    /// carried by workers. They are usually only seen in campaign maps and @Capture_the_flag.
+    ///
+    /// @returns true if this unit type is a powerup type, and false otherwise.
     bool isPowerup() const;
 
-    /** Returns true if the unit is a regular Beacon. */
+    /// <summary>Checks if this unit type is a beacon.</summary> Each race has exactly one beacon
+    /// each. They are UnitTypes::Special_Zerg_Beacon, UnitTypes::Special_Terran_Beacon, and
+    /// UnitTypes::Special_Protoss_Beacon.
+    ///
+    /// @see isFlagBeacon
+    /// @returns true if this unit type is one of the three race beacons, and false otherwise.
     bool isBeacon() const;
 
-    /** Returns true if the unit is a flag Beacon. */
+    /// <summary>Checks if this unit type is a flag beacon.</summary> Each race has exactly one
+    /// flag beacon each. They are UnitTypes::Special_Zerg_Flag_Beacon,
+    /// UnitTypes::Special_Terran_Flag_Beacon, and UnitTypes::Special_Protoss_Flag_Beacon.
+    /// Flag beacons spawn a @Flag after some ARBITRARY I FORGOT AMOUNT OF FRAMES.
+    ///
+    /// @see isBeacon
+    /// @returns true if this unit type is one of the three race flag beacons, and false otherwise.
+    ///
+    /// @todo specify number of frames for flag spawner
     bool isFlagBeacon() const;
 
-    /** Returns true if the unit is a special building. */
+    /// <summary>Checks if this structure is special and cannot be obtained normally within the
+    /// game.</summary>
+    ///
+    /// @returns true if this structure is a special building, and false otherwise.
+    /// @implies isBuilding()
     bool isSpecialBuilding() const;
 
-    /** Returns true if the unit is a spell unit. */
+    /// <summary>Identifies if this unit type is used to complement some @abilities.</summary>
+    /// These include UnitTypes::Spell_Dark_Swarm, UnitTypes::Spell_Disruption_Web, and
+    /// UnitTypes::Spell_Scanner_Sweep, which correspond to TechTypes::Dark_Swarm,
+    /// TechTypes::Disruption_Web, and TechTypes::Scanner_Sweep respectively.
+    ///
+    /// @returns true if this unit type is used for an ability, and false otherwise.
     bool isSpell() const;
 
-    /** Returns true if the unit produces larva. */
+    /// <summary>Checks if this structure type produces creep.</summary> That is, the unit type
+    /// spreads creep over a wide area so that @Zerg structures can be placed on it.
+    ///
+    /// @returns true if this unit type spreads creep.
+    /// @implies getRace() == Races::Zerg, isBuilding()
+    ///
+    /// @since 4.1.2
+    bool producesCreep() const;
+
+    /// <summary>Checks if this unit type produces larva.</summary> This is essentially used to
+    /// check if the unit type is a @Hatchery, @Lair, or @Hive.
+    ///
+    /// @returns true if this unit type produces larva.
+    /// @implies getRace() == Races::Zerg, isBuilding()
     bool producesLarva() const;
 
-    /** Returns true if the unit is one of the three mineral field types. */
+    /// <summary>Checks if this unit type is a mineral field and contains a resource amount.</summary>
+    /// This indicates that the unit type is either UnitTypes::Resource_Mineral_Field, 
+    /// UnitTypes::Resource_Mineral_Field_Type_2, or UnitTypes::Resource_Mineral_Field_Type_3.
+    ///
+    /// @returns true if this unit type is a mineral field resource.
     bool isMineralField() const;
 
-    /// Checks if this unit type is a neutral critter.
+    /// <summary>Checks if this unit type is a neutral critter.</summary>
     ///
     /// @returns true if this unit type is a critter, and false otherwise.
     ///
@@ -746,277 +857,374 @@ namespace BWAPI
     /// @endcode
     bool isCritter() const;
 
-    /// Checks if this unit type is capable of constructing an add-on. An add-on is an extension
+    /// <summary>Checks if this unit type is capable of constructing an add-on.</summary> An add-on is an extension
     /// or attachment for @Terran structures, specifically the @Command_Center, @Factory,
     /// @Starport, and @Science_Facility.
     ///
     /// @returns true if this unit type can construct an add-on, and false if it can not.
     /// @see isAddon
     bool canBuildAddon() const;
+
+    /// <summary>Retrieves the set of units that this unit type is capable of creating.</summary>
+    /// This includes training, constructing, warping, and morphing.
+    ///
+    /// @note Some maps have special parameters that disable construction of units that are otherwise
+    /// normally available. Use PlayerInterface::isUnitAvailable to determine if a unit type is
+    /// actually available in the current game for a specific player.
+    ///
+    /// @returns UnitType::set containing the units it can build.
+    /// @see PlayerInterface::isUnitAvailable
+    ///
+    /// @since 4.1.2
+    const UnitType::set& buildsWhat() const;
+
+    /// <summary>Retrieves the set of technologies that this unit type is capable of researching.</summary>
+    /// 
+    /// @note Some maps have special parameters that disable certain technologies. Use
+    /// PlayerInterface::isResearchAvailable to determine if a technology is actually available in the
+    /// current game for a specific player.
+    ///
+    /// @returns TechType::set containing the technology types that can be researched.
+    /// @see PlayerInterface::isResearchAvailable
+    ///
+    /// @since 4.1.2
+    const SetContainer<TechType>& researchesWhat() const;
+
+    /// <summary>Retrieves the set of upgrades that this unit type is capable of upgrading.</summary>
+    ///
+    /// @note Some maps have special upgrade limitations. Use PlayerInterface::getMaxUpgradeLevel
+    /// to check if an upgrade is available.
+    ///
+    /// @returns UpgradeType::set containing the upgrade types that can be upgraded.
+    /// @see PlayerInterface::getMaxUpgradeLevel
+    ///
+    /// @since 4.1.2
+    const SetContainer<UpgradeType>& upgradesWhat() const;
   };
 
-  /// The amount of shield points that a unit recovers over 256 frames. That is, 7/256 shields are regenerated per frame.
+  /// <summary>The amount of shield points that a unit recovers over 256 frames.</summary>
+  /// That is, 7/256 shields are regenerated per frame.
+  ///
+  /// @since 4.1.0 Beta
   static const int SHIELD_REGEN_RATE = 7;
 
-  /// The amount of energy that a unit with special abilities recovers over 256 frames. That is, 8/256 energy is generated per frame.
+  /// <summary>The amount of energy that a unit with special abilities recovers over 256 frames.</summary>
+  /// That is, 8/256 energy is generated per frame.
+  ///
+  /// @since 4.1.0 Beta
   static const int ENERGY_REGEN_RATE = 8;
 
-  /// The amount of life that a zerg unit recovers over 256 frames. That is, 4/256 life is regenerated per frame.
+  /// <summary>The amount of life that a zerg unit recovers over 256 frames.</summary>
+  /// That is, 4/256 life is regenerated per frame.
+  ///
+  /// @since 4.1.0 Beta
   static const int LIFE_REGEN_RATE = 4;
 
-  /// Namespace containing unit types
+  /// @ingroup Types
   namespace UnitTypes
   {
-    /// Retrieves the maximum unit width from the set of all units.
+    /// <summary>Retrieves the maximum unit width from the set of all units.</summary> Used
+    /// internally to search through unit positions efficiently.
     ///
-    /// @returns The maximum width of all units, in pixels.
+    /// @returns The maximum width of all unit types, in pixels.
     int maxUnitWidth();
     
-    /// Retrieves the maximum unit height from the set of all units.
+    /// <summary>Retrieves the maximum unit height from the set of all units.</summary> Used
+    /// internally to search through unit positions efficiently.
     ///
-    /// @returns The maximum height of all units, in pixels.
+    /// @returns The maximum height of all unit types, in pixels.
     int maxUnitHeight();
 
-    /// Retrieves the set of all unit types.
+    /// <summary>Retrieves the set of all defined unit types.</summary>
     ///
     /// @returns A constant set of all available unit types.
     const UnitType::set& allUnitTypes();
 
-    /// Retrieves the set of all macro unit types. A macro type is a fake unit type, used by some
-    /// functions. These include #AllUnits, #Men, #Buildings, and #Factories. The purpose of these
-    /// types are to match the same ones used in Broodwar, also seen in the StarEdit map editor.
+    /// <summary>Retrieves the set of all macro unit types.</summary> A macro type is a fake unit
+    /// type, used by some functions. These include #AllUnits, #Men, #Buildings, and #Factories.
+    /// The purpose of these types are to match the same ones used in Broodwar, also seen in the
+    /// StarEdit map editor.
     ///
     /// @returns A constant set of all macro unit types.
     const UnitType::set& allMacroTypes();
 
-    extern const UnitType Terran_Marine;
-    extern const UnitType Terran_Ghost;
-    extern const UnitType Terran_Vulture;
-    extern const UnitType Terran_Goliath;
-    // goliath turret 4
-    extern const UnitType Terran_Siege_Tank_Tank_Mode;
-    // siege tank turret 6
-    extern const UnitType Terran_SCV;
-    extern const UnitType Terran_Wraith;
-    extern const UnitType Terran_Science_Vessel;
-    extern const UnitType Hero_Gui_Montag;
-    extern const UnitType Terran_Dropship;
-    extern const UnitType Terran_Battlecruiser;
-    extern const UnitType Terran_Vulture_Spider_Mine;
-    extern const UnitType Terran_Nuclear_Missile;
-    extern const UnitType Terran_Civilian;
-    extern const UnitType Hero_Sarah_Kerrigan;
-    extern const UnitType Hero_Alan_Schezar;
-    // alan turret 18
-    extern const UnitType Hero_Jim_Raynor_Vulture;
-    extern const UnitType Hero_Jim_Raynor_Marine;
-    extern const UnitType Hero_Tom_Kazansky;
-    extern const UnitType Hero_Magellan;
-    extern const UnitType Hero_Edmund_Duke_Tank_Mode;
-    // edmund duke turret 24
-    extern const UnitType Hero_Edmund_Duke_Siege_Mode;
-    // edmund duke turret siege mode 26
-    extern const UnitType Hero_Arcturus_Mengsk;
-    extern const UnitType Hero_Hyperion;
-    extern const UnitType Hero_Norad_II;
-    extern const UnitType Terran_Siege_Tank_Siege_Mode;
-    // siege tank siege mode turret 31
+    /// @name Terran Ground Units
+    /// @{
     extern const UnitType Terran_Firebat;
-    extern const UnitType Spell_Scanner_Sweep;
+    extern const UnitType Terran_Ghost;
+    extern const UnitType Terran_Goliath;
+    extern const UnitType Terran_Marine;
     extern const UnitType Terran_Medic;
-    extern const UnitType Zerg_Larva;
-    extern const UnitType Zerg_Egg;
-    extern const UnitType Zerg_Zergling;
-    extern const UnitType Zerg_Hydralisk;
-    extern const UnitType Zerg_Ultralisk;
-    extern const UnitType Zerg_Broodling;
-    extern const UnitType Zerg_Drone;
-    extern const UnitType Zerg_Overlord;
-    extern const UnitType Zerg_Mutalisk;
-    extern const UnitType Zerg_Guardian;
-    extern const UnitType Zerg_Queen;
-    extern const UnitType Zerg_Defiler;
-    extern const UnitType Zerg_Scourge;
-    extern const UnitType Hero_Torrasque;
-    extern const UnitType Hero_Matriarch;
-    extern const UnitType Zerg_Infested_Terran;
-    extern const UnitType Hero_Infested_Kerrigan;
-    extern const UnitType Hero_Unclean_One;
-    extern const UnitType Hero_Hunter_Killer;
-    extern const UnitType Hero_Devouring_One;
-    extern const UnitType Hero_Kukulza_Mutalisk;
-    extern const UnitType Hero_Kukulza_Guardian;
-    extern const UnitType Hero_Yggdrasill;
+    extern const UnitType Terran_SCV;
+    extern const UnitType Terran_Siege_Tank_Siege_Mode;
+    extern const UnitType Terran_Siege_Tank_Tank_Mode;
+    extern const UnitType Terran_Vulture;
+    extern const UnitType Terran_Vulture_Spider_Mine;
+    /// @}
+    /// @name Terran Air Units
+    /// @{
+    extern const UnitType Terran_Battlecruiser;
+    extern const UnitType Terran_Dropship;
+    extern const UnitType Terran_Nuclear_Missile;
+    extern const UnitType Terran_Science_Vessel;
     extern const UnitType Terran_Valkyrie;
-    extern const UnitType Zerg_Cocoon;
-    extern const UnitType Protoss_Corsair;
-    extern const UnitType Protoss_Dark_Templar;
-    extern const UnitType Zerg_Devourer;
-    extern const UnitType Protoss_Dark_Archon;
-    extern const UnitType Protoss_Probe;
-    extern const UnitType Protoss_Zealot;
-    extern const UnitType Protoss_Dragoon;
-    extern const UnitType Protoss_High_Templar;
-    extern const UnitType Protoss_Archon;
-    extern const UnitType Protoss_Shuttle;
-    extern const UnitType Protoss_Scout;
-    extern const UnitType Protoss_Arbiter;
-    extern const UnitType Protoss_Carrier;
-    extern const UnitType Protoss_Interceptor;
-    extern const UnitType Hero_Dark_Templar;
-    extern const UnitType Hero_Zeratul;
-    extern const UnitType Hero_Tassadar_Zeratul_Archon;
-    extern const UnitType Hero_Fenix_Zealot;
-    extern const UnitType Hero_Fenix_Dragoon;
-    extern const UnitType Hero_Tassadar;
-    extern const UnitType Hero_Mojo;
-    extern const UnitType Hero_Warbringer;
-    extern const UnitType Hero_Gantrithor;
-    extern const UnitType Protoss_Reaver;
-    extern const UnitType Protoss_Observer;
-    extern const UnitType Protoss_Scarab;
-    extern const UnitType Hero_Danimoth;
-    extern const UnitType Hero_Aldaris;
-    extern const UnitType Hero_Artanis;
-    extern const UnitType Critter_Rhynadon;
-    extern const UnitType Critter_Bengalaas;
-    extern const UnitType Special_Cargo_Ship;
-    extern const UnitType Special_Mercenary_Gunship;
-    extern const UnitType Critter_Scantid;
-    extern const UnitType Critter_Kakaru;
-    extern const UnitType Critter_Ragnasaur;
-    extern const UnitType Critter_Ursadon;
-    extern const UnitType Zerg_Lurker_Egg;
-    extern const UnitType Hero_Raszagal;
-    extern const UnitType Hero_Samir_Duran;
+    extern const UnitType Terran_Wraith;
+    /// @}
+    /// @name Terran Heroes
+    /// @{
+    extern const UnitType Hero_Alan_Schezar;
     extern const UnitType Hero_Alexei_Stukov;
-    extern const UnitType Special_Map_Revealer;
+    extern const UnitType Hero_Arcturus_Mengsk;
+    extern const UnitType Hero_Edmund_Duke_Tank_Mode;
+    extern const UnitType Hero_Edmund_Duke_Siege_Mode;
     extern const UnitType Hero_Gerard_DuGalle;
-    extern const UnitType Zerg_Lurker;
-    extern const UnitType Hero_Infested_Duran;
-    extern const UnitType Spell_Disruption_Web;
-    extern const UnitType Terran_Command_Center;
-    extern const UnitType Terran_Comsat_Station;
-    extern const UnitType Terran_Nuclear_Silo;
-    extern const UnitType Terran_Supply_Depot;
-    extern const UnitType Terran_Refinery;
-    extern const UnitType Terran_Barracks;
+    extern const UnitType Hero_Gui_Montag;
+    extern const UnitType Hero_Hyperion;
+    extern const UnitType Hero_Jim_Raynor_Marine;
+    extern const UnitType Hero_Jim_Raynor_Vulture;
+    extern const UnitType Hero_Magellan;
+    extern const UnitType Hero_Norad_II;
+    extern const UnitType Hero_Samir_Duran;
+    extern const UnitType Hero_Sarah_Kerrigan;
+    extern const UnitType Hero_Tom_Kazansky;
+    extern const UnitType Terran_Civilian;
+    /// @}
+    /// @name Terran Buildings
+    /// @{
     extern const UnitType Terran_Academy;
-    extern const UnitType Terran_Factory;
-    extern const UnitType Terran_Starport;
-    extern const UnitType Terran_Control_Tower;
-    extern const UnitType Terran_Science_Facility;
-    extern const UnitType Terran_Covert_Ops;
-    extern const UnitType Terran_Physics_Lab;
-    // starbase 119
-    extern const UnitType Terran_Machine_Shop;
-    // repair bay 121
-    extern const UnitType Terran_Engineering_Bay;
     extern const UnitType Terran_Armory;
-    extern const UnitType Terran_Missile_Turret;
+    extern const UnitType Terran_Barracks;
     extern const UnitType Terran_Bunker;
+    extern const UnitType Terran_Command_Center;
+    extern const UnitType Terran_Engineering_Bay;
+    extern const UnitType Terran_Factory;
+    extern const UnitType Terran_Missile_Turret;
+    extern const UnitType Terran_Refinery;
+    extern const UnitType Terran_Science_Facility;
+    extern const UnitType Terran_Starport;
+    extern const UnitType Terran_Supply_Depot;
+    /// @}
+    /// @name Terran Addons
+    /// @{
+    extern const UnitType Terran_Comsat_Station;
+    extern const UnitType Terran_Control_Tower;
+    extern const UnitType Terran_Covert_Ops;
+    extern const UnitType Terran_Machine_Shop;
+    extern const UnitType Terran_Nuclear_Silo;
+    extern const UnitType Terran_Physics_Lab;
+    /// @}
+    /// @name Terran Special Buildings
+    /// @{
     extern const UnitType Special_Crashed_Norad_II;
     extern const UnitType Special_Ion_Cannon;
-    extern const UnitType Powerup_Uraj_Crystal;
-    extern const UnitType Powerup_Khalis_Crystal;
-    extern const UnitType Zerg_Infested_Command_Center;
-    extern const UnitType Zerg_Hatchery;
-    extern const UnitType Zerg_Lair;
-    extern const UnitType Zerg_Hive;
-    extern const UnitType Zerg_Nydus_Canal;
-    extern const UnitType Zerg_Hydralisk_Den;
-    extern const UnitType Zerg_Defiler_Mound;
-    extern const UnitType Zerg_Greater_Spire;
-    extern const UnitType Zerg_Queens_Nest;
-    extern const UnitType Zerg_Evolution_Chamber;
-    extern const UnitType Zerg_Ultralisk_Cavern;
-    extern const UnitType Zerg_Spire;
-    extern const UnitType Zerg_Spawning_Pool;
-    extern const UnitType Zerg_Creep_Colony;
-    extern const UnitType Zerg_Spore_Colony;
-    // unused zerg 1 145
-    extern const UnitType Zerg_Sunken_Colony;
-    extern const UnitType Special_Overmind_With_Shell;
-    extern const UnitType Special_Overmind;
-    extern const UnitType Zerg_Extractor;
-    extern const UnitType Special_Mature_Chrysalis;
-    extern const UnitType Special_Cerebrate;
-    extern const UnitType Special_Cerebrate_Daggoth;
-    // unused zerg 2 153
-    extern const UnitType Protoss_Nexus;
-    extern const UnitType Protoss_Robotics_Facility;
-    extern const UnitType Protoss_Pylon;
+    extern const UnitType Special_Power_Generator;
+    extern const UnitType Special_Psi_Disrupter;
+    /// @}
+    /// @name Protoss Ground Units
+    /// @{
+    extern const UnitType Protoss_Archon;
+    extern const UnitType Protoss_Dark_Archon;
+    extern const UnitType Protoss_Dark_Templar;
+    extern const UnitType Protoss_Dragoon;
+    extern const UnitType Protoss_High_Templar;
+    extern const UnitType Protoss_Probe;
+    extern const UnitType Protoss_Reaver;
+    extern const UnitType Protoss_Scarab;
+    extern const UnitType Protoss_Zealot;
+    /// @}
+    /// @name Protoss Air Units
+    /// @{
+    extern const UnitType Protoss_Arbiter;
+    extern const UnitType Protoss_Carrier;
+    extern const UnitType Protoss_Corsair;
+    extern const UnitType Protoss_Interceptor;
+    extern const UnitType Protoss_Observer;
+    extern const UnitType Protoss_Scout;
+    extern const UnitType Protoss_Shuttle;
+    /// @}
+    /// @name Protoss Heroes Units
+    /// @{
+    extern const UnitType Hero_Aldaris;
+    extern const UnitType Hero_Artanis;
+    extern const UnitType Hero_Danimoth;
+    extern const UnitType Hero_Dark_Templar;
+    extern const UnitType Hero_Fenix_Dragoon;
+    extern const UnitType Hero_Fenix_Zealot;
+    extern const UnitType Hero_Gantrithor;
+    extern const UnitType Hero_Mojo;
+    extern const UnitType Hero_Raszagal;
+    extern const UnitType Hero_Tassadar;
+    extern const UnitType Hero_Tassadar_Zeratul_Archon;
+    extern const UnitType Hero_Warbringer;
+    extern const UnitType Hero_Zeratul;
+    /// @}
+    /// @name Protoss Buildings
+    /// @{
+    extern const UnitType Protoss_Arbiter_Tribunal;
     extern const UnitType Protoss_Assimilator;
-    // unused protoss 1 158
-    extern const UnitType Protoss_Observatory;
-    extern const UnitType Protoss_Gateway;
-    // unused protoss 2 161
-    extern const UnitType Protoss_Photon_Cannon;
     extern const UnitType Protoss_Citadel_of_Adun;
     extern const UnitType Protoss_Cybernetics_Core;
-    extern const UnitType Protoss_Templar_Archives;
-    extern const UnitType Protoss_Forge;
-    extern const UnitType Protoss_Stargate;
-    extern const UnitType Special_Stasis_Cell_Prison;
     extern const UnitType Protoss_Fleet_Beacon;
-    extern const UnitType Protoss_Arbiter_Tribunal;
+    extern const UnitType Protoss_Forge;
+    extern const UnitType Protoss_Gateway;
+    extern const UnitType Protoss_Nexus;
+    extern const UnitType Protoss_Observatory;
+    extern const UnitType Protoss_Photon_Cannon;
+    extern const UnitType Protoss_Pylon;
+    extern const UnitType Protoss_Robotics_Facility;
     extern const UnitType Protoss_Robotics_Support_Bay;
     extern const UnitType Protoss_Shield_Battery;
+    extern const UnitType Protoss_Stargate;
+    extern const UnitType Protoss_Templar_Archives;
+    /// @}
+    /// @name Protoss Special Buildings
+    /// @{
     extern const UnitType Special_Khaydarin_Crystal_Form;
     extern const UnitType Special_Protoss_Temple;
+    extern const UnitType Special_Stasis_Cell_Prison;
+    extern const UnitType Special_Warp_Gate;
     extern const UnitType Special_XelNaga_Temple;
+    /// @}
+    /// @name Zerg Ground Units
+    /// @{
+    extern const UnitType Zerg_Broodling;
+    extern const UnitType Zerg_Defiler;
+    extern const UnitType Zerg_Drone;
+    extern const UnitType Zerg_Egg;
+    extern const UnitType Zerg_Hydralisk;
+    extern const UnitType Zerg_Infested_Terran;
+    extern const UnitType Zerg_Larva;
+    extern const UnitType Zerg_Lurker;
+    extern const UnitType Zerg_Lurker_Egg;
+    extern const UnitType Zerg_Ultralisk;
+    extern const UnitType Zerg_Zergling;
+    /// @}
+    /// @name Zerg Air Units
+    /// @{
+    extern const UnitType Zerg_Cocoon;
+    extern const UnitType Zerg_Devourer;
+    extern const UnitType Zerg_Guardian;
+    extern const UnitType Zerg_Mutalisk;
+    extern const UnitType Zerg_Overlord;
+    extern const UnitType Zerg_Queen;
+    extern const UnitType Zerg_Scourge;
+    /// @}
+    /// @name Zerg Heroes
+    /// @{
+    extern const UnitType Hero_Devouring_One;
+    extern const UnitType Hero_Hunter_Killer;
+    extern const UnitType Hero_Infested_Duran;
+    extern const UnitType Hero_Infested_Kerrigan;
+    extern const UnitType Hero_Kukulza_Guardian;
+    extern const UnitType Hero_Kukulza_Mutalisk;
+    extern const UnitType Hero_Matriarch;
+    extern const UnitType Hero_Torrasque;
+    extern const UnitType Hero_Unclean_One;
+    extern const UnitType Hero_Yggdrasill;
+    /// @}
+    /// @name Zerg Buildings
+    /// @{
+    extern const UnitType Zerg_Creep_Colony;
+    extern const UnitType Zerg_Defiler_Mound;
+    extern const UnitType Zerg_Evolution_Chamber;
+    extern const UnitType Zerg_Extractor;
+    extern const UnitType Zerg_Greater_Spire;
+    extern const UnitType Zerg_Hatchery;
+    extern const UnitType Zerg_Hive;
+    extern const UnitType Zerg_Hydralisk_Den;
+    extern const UnitType Zerg_Infested_Command_Center;
+    extern const UnitType Zerg_Lair;
+    extern const UnitType Zerg_Nydus_Canal;
+    extern const UnitType Zerg_Queens_Nest;
+    extern const UnitType Zerg_Spawning_Pool;
+    extern const UnitType Zerg_Spire;
+    extern const UnitType Zerg_Spore_Colony;
+    extern const UnitType Zerg_Sunken_Colony;
+    extern const UnitType Zerg_Ultralisk_Cavern;
+    /// @}
+    /// @name Zerg Special Buildings
+    /// @{
+    extern const UnitType Special_Cerebrate;
+    extern const UnitType Special_Cerebrate_Daggoth;
+    extern const UnitType Special_Mature_Chrysalis;
+    extern const UnitType Special_Overmind;
+    extern const UnitType Special_Overmind_Cocoon;
+    extern const UnitType Special_Overmind_With_Shell;
+    /// @}
+    /// @name Critters
+    /// @{
+    extern const UnitType Critter_Bengalaas;
+    extern const UnitType Critter_Kakaru;
+    extern const UnitType Critter_Ragnasaur;
+    extern const UnitType Critter_Rhynadon;
+    extern const UnitType Critter_Scantid;
+    extern const UnitType Critter_Ursadon;
+    /// @}
+    /// @name Resources
+    /// @{
     extern const UnitType Resource_Mineral_Field;
     extern const UnitType Resource_Mineral_Field_Type_2;
     extern const UnitType Resource_Mineral_Field_Type_3;
-    // cave 179
-    // cave-in 180
-    // cantina 181
-    // mining platform 182
-    // independant command center 183
-    extern const UnitType Special_Independant_Starport;
-    // independant jump gate 185
-    // ruins 186
-    // unused khaydarin crystal formation 187
     extern const UnitType Resource_Vespene_Geyser;
-    extern const UnitType Special_Warp_Gate;
-    extern const UnitType Special_Psi_Disrupter;
-    // zerg marker 191
-    // terran marker 192
-    // protoss marker 193
-    extern const UnitType Special_Zerg_Beacon;
-    extern const UnitType Special_Terran_Beacon;
-    extern const UnitType Special_Protoss_Beacon;
-    extern const UnitType Special_Zerg_Flag_Beacon;
-    extern const UnitType Special_Terran_Flag_Beacon;
-    extern const UnitType Special_Protoss_Flag_Beacon;
-    extern const UnitType Special_Power_Generator;
-    extern const UnitType Special_Overmind_Cocoon;
+    /// @}
+    /// @name Spells
+    /// @{
     extern const UnitType Spell_Dark_Swarm;
-    extern const UnitType Special_Floor_Missile_Trap;
-    extern const UnitType Special_Floor_Hatch;
-    extern const UnitType Special_Upper_Level_Door;
-    extern const UnitType Special_Right_Upper_Level_Door;
-    extern const UnitType Special_Pit_Door;
-    extern const UnitType Special_Right_Pit_Door;
-    extern const UnitType Special_Floor_Gun_Trap;
-    extern const UnitType Special_Wall_Missile_Trap;
-    extern const UnitType Special_Wall_Flame_Trap;
-    extern const UnitType Special_Right_Wall_Missile_Trap;
-    extern const UnitType Special_Right_Wall_Flame_Trap;
-    extern const UnitType Special_Start_Location;
-    extern const UnitType Powerup_Flag;
-    extern const UnitType Powerup_Young_Chrysalis;
-    extern const UnitType Powerup_Psi_Emitter;
+    extern const UnitType Spell_Disruption_Web;
+    extern const UnitType Spell_Scanner_Sweep;
+    /// @}
+    /// @name Beacons
+    /// @{
+    extern const UnitType Special_Protoss_Beacon;
+    extern const UnitType Special_Protoss_Flag_Beacon;
+    extern const UnitType Special_Terran_Beacon;
+    extern const UnitType Special_Terran_Flag_Beacon;
+    extern const UnitType Special_Zerg_Beacon;
+    extern const UnitType Special_Zerg_Flag_Beacon;
+    /// @}
+    /// @name Powerups
+    /// @{
     extern const UnitType Powerup_Data_Disk;
+    extern const UnitType Powerup_Flag;
+    extern const UnitType Powerup_Khalis_Crystal;
     extern const UnitType Powerup_Khaydarin_Crystal;
     extern const UnitType Powerup_Mineral_Cluster_Type_1;
     extern const UnitType Powerup_Mineral_Cluster_Type_2;
     extern const UnitType Powerup_Protoss_Gas_Orb_Type_1;
     extern const UnitType Powerup_Protoss_Gas_Orb_Type_2;
-    extern const UnitType Powerup_Zerg_Gas_Sac_Type_1;
-    extern const UnitType Powerup_Zerg_Gas_Sac_Type_2;
+    extern const UnitType Powerup_Psi_Emitter;
     extern const UnitType Powerup_Terran_Gas_Tank_Type_1;
     extern const UnitType Powerup_Terran_Gas_Tank_Type_2;
+    extern const UnitType Powerup_Uraj_Crystal;
+    extern const UnitType Powerup_Young_Chrysalis;
+    extern const UnitType Powerup_Zerg_Gas_Sac_Type_1;
+    extern const UnitType Powerup_Zerg_Gas_Sac_Type_2;
+    /// @}
+    /// @name Traps
+    /// @{
+    extern const UnitType Special_Floor_Gun_Trap;
+    extern const UnitType Special_Floor_Missile_Trap;
+    extern const UnitType Special_Right_Wall_Flame_Trap;
+    extern const UnitType Special_Right_Wall_Missile_Trap;
+    extern const UnitType Special_Wall_Flame_Trap;
+    extern const UnitType Special_Wall_Missile_Trap;
+    /// @}
+    /// @name Doors
+    /// @{
+    extern const UnitType Special_Pit_Door;
+    extern const UnitType Special_Right_Pit_Door;
+    extern const UnitType Special_Right_Upper_Level_Door;
+    extern const UnitType Special_Upper_Level_Door;
+    /// @}
+    /// @name Special
+    /// @{
+    extern const UnitType Special_Cargo_Ship;
+    extern const UnitType Special_Floor_Hatch;
+    extern const UnitType Special_Independant_Starport;
+    extern const UnitType Special_Map_Revealer;
+    extern const UnitType Special_Mercenary_Gunship;
+    extern const UnitType Special_Start_Location;
+    /// @}
 
     extern const UnitType None;
     extern const UnitType AllUnits;

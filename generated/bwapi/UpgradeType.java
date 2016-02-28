@@ -111,31 +111,11 @@ Returns the type of unit that is required for the upgrade. The player must have 
 
     public static final UpgradeType Terran_Ship_Plating = new UpgradeType(0);
 
-    public static final UpgradeType Zerg_Carapace = new UpgradeType(0);
-
-    public static final UpgradeType Zerg_Flyer_Carapace = new UpgradeType(0);
-
-    public static final UpgradeType Protoss_Ground_Armor = new UpgradeType(0);
-
-    public static final UpgradeType Protoss_Air_Armor = new UpgradeType(0);
-
     public static final UpgradeType Terran_Infantry_Weapons = new UpgradeType(0);
 
     public static final UpgradeType Terran_Vehicle_Weapons = new UpgradeType(0);
 
     public static final UpgradeType Terran_Ship_Weapons = new UpgradeType(0);
-
-    public static final UpgradeType Zerg_Melee_Attacks = new UpgradeType(0);
-
-    public static final UpgradeType Zerg_Missile_Attacks = new UpgradeType(0);
-
-    public static final UpgradeType Zerg_Flyer_Attacks = new UpgradeType(0);
-
-    public static final UpgradeType Protoss_Ground_Weapons = new UpgradeType(0);
-
-    public static final UpgradeType Protoss_Air_Weapons = new UpgradeType(0);
-
-    public static final UpgradeType Protoss_Plasma_Shields = new UpgradeType(0);
 
     public static final UpgradeType U_238_Shells = new UpgradeType(0);
 
@@ -150,6 +130,20 @@ Returns the type of unit that is required for the upgrade. The player must have 
     public static final UpgradeType Apollo_Reactor = new UpgradeType(0);
 
     public static final UpgradeType Colossus_Reactor = new UpgradeType(0);
+
+    public static final UpgradeType Caduceus_Reactor = new UpgradeType(0);
+
+    public static final UpgradeType Charon_Boosters = new UpgradeType(0);
+
+    public static final UpgradeType Zerg_Carapace = new UpgradeType(0);
+
+    public static final UpgradeType Zerg_Flyer_Carapace = new UpgradeType(0);
+
+    public static final UpgradeType Zerg_Melee_Attacks = new UpgradeType(0);
+
+    public static final UpgradeType Zerg_Missile_Attacks = new UpgradeType(0);
+
+    public static final UpgradeType Zerg_Flyer_Attacks = new UpgradeType(0);
 
     public static final UpgradeType Ventral_Sacs = new UpgradeType(0);
 
@@ -168,6 +162,20 @@ Returns the type of unit that is required for the upgrade. The player must have 
     public static final UpgradeType Gamete_Meiosis = new UpgradeType(0);
 
     public static final UpgradeType Metasynaptic_Node = new UpgradeType(0);
+
+    public static final UpgradeType Chitinous_Plating = new UpgradeType(0);
+
+    public static final UpgradeType Anabolic_Synthesis = new UpgradeType(0);
+
+    public static final UpgradeType Protoss_Ground_Armor = new UpgradeType(0);
+
+    public static final UpgradeType Protoss_Air_Armor = new UpgradeType(0);
+
+    public static final UpgradeType Protoss_Ground_Weapons = new UpgradeType(0);
+
+    public static final UpgradeType Protoss_Air_Weapons = new UpgradeType(0);
+
+    public static final UpgradeType Protoss_Plasma_Shields = new UpgradeType(0);
 
     public static final UpgradeType Singularity_Charge = new UpgradeType(0);
 
@@ -196,14 +204,6 @@ Returns the type of unit that is required for the upgrade. The player must have 
     public static final UpgradeType Argus_Jewel = new UpgradeType(0);
 
     public static final UpgradeType Argus_Talisman = new UpgradeType(0);
-
-    public static final UpgradeType Caduceus_Reactor = new UpgradeType(0);
-
-    public static final UpgradeType Chitinous_Plating = new UpgradeType(0);
-
-    public static final UpgradeType Anabolic_Synthesis = new UpgradeType(0);
-
-    public static final UpgradeType Charon_Boosters = new UpgradeType(0);
 
     public static final UpgradeType Upgrade_60 = new UpgradeType(0);
 

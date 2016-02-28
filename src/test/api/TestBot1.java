@@ -66,7 +66,7 @@ public class TestBot1 {
                 }
 
                 for (Chokepoint chokepoint : BWTA.getChokepoints()) {
-                    System.out.println(chokepoint.getCenter());
+                   // System.out.println(chokepoint.getCenter());
                 }
 
                 for (Player player : game.getPlayers()) {
@@ -79,8 +79,8 @@ public class TestBot1 {
 
                 for (Unit myUnit : self.getUnits()) {
                     units.append(myUnit.getType()).append(" ").append(myUnit.getTilePosition()).append("\n");
-                    System.out.println(myUnit.getPosition().toTilePosition());
-                    System.out.println(myUnit.getTilePosition());
+                  //  System.out.println(myUnit.getPosition().toTilePosition());
+                  //  System.out.println(myUnit.getTilePosition());
 
 
                     if (myUnit.getType() == UnitType.Zerg_Larva && self.minerals() >= 50) {
@@ -116,6 +116,10 @@ public class TestBot1 {
 
                         game.drawBoxMap(p.getX(), p.getY(), p.getX() + 20, p.getY() + 20, Color.Cyan);
                         game.drawTextMap(p.getX(), p.getY(), "Can build? " + game.canBuildHere(t, UnitType.Zerg_Spawning_Pool) + "\nHas Creep? " + game.hasCreep(t.getX(), t.getY()));
+                    }
+
+                    if (myUnit.getType() == UnitType.Terran_Command_Center && self.minerals() >= 50) {
+                        myUnit.train(UnitType.Terran_SCV);
                     }
                 }
 

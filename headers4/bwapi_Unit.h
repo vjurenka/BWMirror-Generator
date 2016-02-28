@@ -441,6 +441,14 @@ JNIEXPORT jobject JNICALL Java_bwapi_Unit_getBuildType_1native
 
 /*
  * Class:     bwapi_Unit
+ * Method:    getTrainingQueue_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Unit_getTrainingQueue_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_Unit
  * Method:    getTech_native
  * Signature: (J)Lbwapi/TechType;
  */

@@ -108,6 +108,7 @@ public abstract class Mirror {
         out.println("import java.util.HashMap" + SEMICOLON);
         out.println("import java.util.Collection" + SEMICOLON);
         out.println("import java.util.List" + SEMICOLON);
+        //out.println("import java.util.Deque" + SEMICOLON);
         for (String pkg : context.getAdditionalImports()) {
             out.println("import" + SPACE + pkg + SEMICOLON);
         }

@@ -89,6 +89,14 @@ JNIEXPORT jobject JNICALL Java_bwapi_Game_getBullets_1native
 
 /*
  * Class:     bwapi_Game
+ * Method:    getNukeDots_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getNukeDots_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_Game
  * Method:    getForce_native
  * Signature: (JI)Lbwapi/Force;
  */
@@ -670,6 +678,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Game_canUpgrade_1native__JLbwapi_UpgradeTy
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_Game_canUpgrade_1native__JLbwapi_UpgradeType_2Lbwapi_Unit_2Z
   (JNIEnv *, jobject, jlong, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getStartLocations_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getStartLocations_1native
+  (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     bwapi_Game

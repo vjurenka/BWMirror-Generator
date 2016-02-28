@@ -83,6 +83,13 @@ Retrieves the set of all accessible bullets. Returns Bulletset containing all ac
     }
 
 /**
+Retrieves the set of all accessible Nuke dots. Note Nuke dots are the red dots painted by a Ghost when using the nuclear strike ability. Returns Set of Positions giving the coordinates of nuke locations.
+*/
+    public List<Position> getNukeDots() {
+        return getNukeDots_native(pointer);
+    }
+
+/**
 Retrieves the Force interface object associated with a given identifier. Parameters forceID The identifier for the Force object. Returns Force interface object mapped to the given forceID. Return values nullptr if the given identifier is invalid.
 */
     public Force getForce(int forceID) {
@@ -543,6 +550,13 @@ Checks all the requirements in order to upgrade a given upgrade type for the cur
 
     public boolean canUpgrade(UpgradeType type, Unit unit, boolean checkCanIssueCommandType) {
         return canUpgrade_native(pointer, type, unit, checkCanIssueCommandType);
+    }
+
+/**
+Retrieves the set of all starting locations for the current map. A starting location is essentially a candidate for a player's spawn point. Returns A TilePosition::list containing all the TilePosition objects that indicate a start location. See also PlayerInterface::getStartLocation
+*/
+    public List<TilePosition> getStartLocations() {
+        return getStartLocations_native(pointer);
     }
 
 /**
@@ -1439,6 +1453,8 @@ Calculates the damage dealt for a given player. It can be understood as the dama
 
     private native List<Bullet> getBullets_native(long pointer);
 
+    private native List<Position> getNukeDots_native(long pointer);
+
     private native Force getForce_native(long pointer, int forceID);
 
     private native Player getPlayer_native(long pointer, int playerID);
@@ -1584,6 +1600,8 @@ Calculates the damage dealt for a given player. It can be understood as the dama
     private native boolean canUpgrade_native(long pointer, UpgradeType type);
 
     private native boolean canUpgrade_native(long pointer, UpgradeType type, Unit unit, boolean checkCanIssueCommandType);
+
+    private native List<TilePosition> getStartLocations_native(long pointer);
 
     private native void printf_native(long pointer, String cstr_format);
 

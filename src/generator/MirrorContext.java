@@ -56,6 +56,10 @@ public class MirrorContext {
         return cType.startsWith("pair<");
     }
 
+    private boolean isDeque(String cType) {
+        return cType.endsWith("::list");
+    }
+
     private boolean isBWAPI4Collection(String cType) {
         return cType.endsWith("set");
     }
@@ -82,22 +86,34 @@ public class MirrorContext {
 
 
     private String extractCollectionGeneric(String cType) {
-        cType = cType.substring(cType.indexOf("<") + 1, cType.lastIndexOf(">")).trim();
+        if(cType.contains("<")){
+            cType = cType.substring(cType.indexOf("<") + 1, cType.lastIndexOf(">")).trim();
+        }
+        if(cType.endsWith("::list")) {
+            cType = cType.substring(0, cType.lastIndexOf("::"));
+        }
+
         if (cType.contains(":")) {
             cType = cType.substring(cType.lastIndexOf(":") + 1);
         }
         if (cType.endsWith("*")) {
             cType = cType.substring(0, cType.lastIndexOf("*"));
         }
+
+
         return cType;
     }
 
     private String extractBWAPI4CollectionGeneric(String cType) {
-        return cType.substring(0, cType.length() - 3);
+        cType = cType.substring(0, cType.length() - 3);
+        return cType;
     }
 
 
     public String toJavaType(String cType) {
+        if (isDeque(cType)) {
+            return "List<" + extractCollectionGeneric(cType) + ">";
+        }
         if (isCollection(cType)) {
             return "List<" + extractCollectionGeneric(cType) + ">";
         }

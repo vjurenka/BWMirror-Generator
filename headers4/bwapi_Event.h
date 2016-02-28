@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     bwapi_Event
+ * Method:    getType_native
+ * Signature: (J)Ljava/lang/Enum;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Event_getType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_Event
  * Method:    getPosition_native
  * Signature: (J)Lbwapi/Position;
  */

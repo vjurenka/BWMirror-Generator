@@ -188,18 +188,16 @@ public class CallImplementer {
         String buffer = "";
         boolean isBWAPI4Collection = !CJavaPipeline.isBWAPI3() && !genericType.startsWith("BWTA::");
         if (!isBWAPI4Collection) {
-            if(javaMethodName.equals("getHoles")){
+            if (javaMethodName.equals("getHoles")) {
                 buffer += "std::vector<";
-            }
-            else{
+            } else {
                 buffer += "std::set<";
             }
         }
-        if (!javaContext.isConstantTye(genericType) && !javaContext.isValueType(genericType) ) {
-            if(!javaMethodName.equals("getHoles")){
+        if (!javaContext.isConstantTye(genericType) && !javaContext.isValueType(genericType)) {
+            if (!javaMethodName.equals("getHoles")) {
                 buffer += (PointerTest.test(genericType));
-            }
-            else{
+            } else {
                 buffer += genericType;
             }
         }
@@ -210,7 +208,7 @@ public class CallImplementer {
         }
 
         if (buffer.equals("set") && !CJavaPipeline.isBWAPI3()) {
-            if(javaContext.getPackageName().equals("bwta")){
+            if (javaContext.getPackageName().equals("bwta")) {
                 return "std::vector<" + genericType + ">";
             }
             return "SetContainer<" + genericType + ">";
@@ -224,6 +222,13 @@ public class CallImplementer {
         buffer += javaContext.javaObjectToPrimitive(cKey);
         buffer += ", ";
         buffer += javaContext.javaObjectToPrimitive(cValue);
+        buffer += ">";
+        return buffer;
+    }
+
+    private String wrapInCDeque(String genericType) {
+        String buffer = "std::deque<";
+        buffer += javaContext.javaObjectToPrimitive(genericType);
         buffer += ">";
         return buffer;
     }
@@ -336,7 +341,7 @@ public class CallImplementer {
      *
      * @param genericType
      */
-    private void implementCollectionReturn(String genericType, String javaMethodName) {
+    private void implementCollectionReturn(String genericType, String javaMethodName, boolean useBWCollectionTypes) {
         String classGenericType = genericType;
         if (classGenericType.contains("::")) {
             classGenericType = classGenericType.substring(classGenericType.lastIndexOf(":") + 1);
@@ -356,8 +361,14 @@ public class CallImplementer {
         }
 
 
+        String cCollectionType;
+        if (!useBWCollectionTypes) {
+            cCollectionType = wrapInCDeque(genericType);
+        } else {
+            cCollectionType = wrapInCCollection(genericType, javaMethodName);
+        }
         //the for loop
-        out.println("for(" + wrapInCCollection(genericType, javaMethodName) + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
+        out.println("for(" + cCollectionType + "::const_iterator it = cresult.begin(); it != cresult.end(); it++ ){");
         out.print("const " + genericType);
         if (!javaContext.isValueType(genericType)) {
             out.print(PointerTest.test(genericType, false));
@@ -366,7 +377,7 @@ public class CallImplementer {
         if (javaContext.isConstantTye(genericType)) {
             out.println("table" + genericType + ".find((*it).getID())->second;");
         } else {
-            if(javaMethodName.equals("getHoles")){
+            if (javaMethodName.equals("getHoles")) {
                 out.print("&");
             }
             out.println("*it;");
@@ -393,7 +404,7 @@ public class CallImplementer {
         String javaFirstType = cFirst;
         String javaSecondType = cSecond;
 
-       // String javaKeyType = cFirst;
+        // String javaKeyType = cFirst;
         if (cFirst.contains("::")) {
             javaFirstType = cFirst.substring(cFirst.lastIndexOf(":") + 1);
         }
@@ -409,23 +420,21 @@ public class CallImplementer {
         if (javaContext.isPrimitive(javaFirstType)) {
             cFirst = javaContext.javaObjectToPrimitive(javaFirstType);
             firstPackageName = "java/lang";
-        }
-        else{
-            if(!cFirst.contains("::") && javaContext.isBWTA(javaFirstType)){
-                cFirst = firstPackageName.toUpperCase() + "::" + cFirst;  
+        } else {
+            if (!cFirst.contains("::") && javaContext.isBWTA(javaFirstType)) {
+                cFirst = firstPackageName.toUpperCase() + "::" + cFirst;
             }
         }
-        
-        
+
+
         String secondPackageName = javaContext.getPackageName(javaSecondType);
 
         if (javaContext.isPrimitive(javaSecondType)) {
             cSecond = javaContext.javaObjectToPrimitive(javaSecondType);
             secondPackageName = "java/lang";
-        }
-        else{
-            if(!cSecond.contains("::") && javaContext.isBWTA(javaSecondType)){
-                cSecond = secondPackageName.toUpperCase() + "::" + cSecond;  
+        } else {
+            if (!cSecond.contains("::") && javaContext.isBWTA(javaSecondType)) {
+                cSecond = secondPackageName.toUpperCase() + "::" + cSecond;
             }
         }
 
@@ -487,8 +496,7 @@ public class CallImplementer {
         } else {
             if (!javaContext.isSelfReturnType(clsName, javaMethodName)) {
                 objectAccessor += (javaContext.isValueType(clsName) ? "." : "->");
-            }
-            else{
+            } else {
                 objectAccessor = "*" + objectAccessor;
             }
         }
@@ -496,14 +504,16 @@ public class CallImplementer {
         //case 1 - method returns a collection type, this requires a LOT of work, so get the std::set and proceed in implementCollectionReturn
         if (javaContext.isCollection(javaRetType)) {
             String genericType = convertToBWTA(Generic.extractGeneric(javaRetType));
-            out.print(wrapInCCollection(genericType, javaMethodName) + " cresult = " + objectAccessor + (javaContext.isSelfReturnType(clsName, javaMethodName) ? "" : javaMethodName + "("));
-            implementRealParams(params);
-            if (!javaContext.isSelfReturnType(clsName, javaMethodName)) {
-                out.print(")");
+            if (javaPackageName.equals("bwta") || (!genericType.equals("UnitType") && !genericType.equals("Position") && !genericType.equals("TilePosition"))){
+                out.print(wrapInCCollection(genericType, javaMethodName) + " cresult = " + objectAccessor + (javaContext.isSelfReturnType(clsName, javaMethodName) ? "" : javaMethodName + "("));
+                implementRealParams(params);
+                if (!javaContext.isSelfReturnType(clsName, javaMethodName)) {
+                    out.print(")");
+                }
+                out.println(SEMICOLON);
+                implementCollectionReturn(genericType, javaMethodName, true);
+                return;
             }
-            out.println(SEMICOLON);
-            implementCollectionReturn(genericType, javaMethodName);
-            return;
         }
 
         //case 2 - method returns a map, this requires a LOT of work, so get the std::map and proceed in implementCollectionReturn
@@ -515,6 +525,16 @@ public class CallImplementer {
             implementRealParams(params);
             out.println(")" + SEMICOLON);
             implementMapReturn(key, value);
+            return;
+        }
+
+        //case 3 - method returns a deque, this requires a LOT of work, so get the type and proceed in implementCollectionReturn
+        if (javaContext.isDeque(javaRetType)) {
+            String genericType = convertToBWTA(Generic.extractGeneric(javaRetType));
+            out.print(wrapInCDeque(genericType) + " cresult = " + objectAccessor + (javaContext.isSelfReturnType(clsName, javaMethodName) ? "" : javaMethodName + "("));
+            implementRealParams(params);
+            out.println(")" + SEMICOLON);
+            implementCollectionReturn(genericType, javaMethodName, false);
             return;
         }
 

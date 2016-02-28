@@ -495,6 +495,22 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Player_isResearchAvailable_1native
 JNIEXPORT jboolean JNICALL Java_bwapi_Player_isUnitAvailable_1native
   (JNIEnv *, jobject, jlong, jobject);
 
+/*
+ * Class:     bwapi_Player
+ * Method:    hasUnitTypeRequirement_native
+ * Signature: (JLbwapi/UnitType;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Player_hasUnitTypeRequirement_1native__JLbwapi_UnitType_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Player
+ * Method:    hasUnitTypeRequirement_native
+ * Signature: (JLbwapi/UnitType;I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Player_hasUnitTypeRequirement_1native__JLbwapi_UnitType_2I
+  (JNIEnv *, jobject, jlong, jobject, jint);
+
 #ifdef __cplusplus
 }
 #endif

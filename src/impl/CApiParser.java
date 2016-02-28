@@ -43,7 +43,7 @@ public class CApiParser {
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s(BWAPI::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //String FUNC_REGEX = "^(\\s*)(virtual)?\\s((BWAPI)|(std)::)?([\\w\\*]+)\\s([\\w\\*]+)\\((.*)\\)((\\sconst)?\\s=\\s0;)?";
     //                    1     2             3         4           56         7        891011    12       13    14    15              16   17                     18        19                          20                21             22
-    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(vector)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*(BWAPI::)?\\w+\\*?\\s*)?>&?)|([\\w\\*]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
+    String FUNC_REGEX = "^(\\s*)(virtual\\s)?(const\\s)?(static\\s)?((BWAPI::)|(std::))?((((pair)|(vector)|(set)|(map)|(SetContainer))<(\\s*(BWAPI::)?\\w+\\*?\\s*)(\\s*,\\s*(BWAPI::)?\\w+\\*?\\s*)?>&?)|([\\w\\*\\:]+))&?\\s+(&?[\\w\\*]+)\\((.*)\\)(\\s*const)?(\\s*=\\s0)?(;)?\\s*";
 
     static final int F_REGEX_STATIC = 4;
     static final int F_REGEX_RETURN_TYPE = 8;
@@ -262,6 +262,11 @@ public class CApiParser {
             }
             if (function.returnType.equals("Event")) {
                 System.err.println("function skipped - Event return (" + function.name + ")");
+                return null;
+            }
+
+            if(function.returnType.endsWith("::set")){
+                System.err.println("function skipped - global set (" + function.name + ")");
                 return null;
             }
 
@@ -487,7 +492,7 @@ public class CApiParser {
                         }
                         if (classes.isEmpty()) {
                             globalClass.getFields().add(f);
-                            System.err.println("Global function - " + f.getName());
+                           // System.err.println("Global function - " + f.getName());
                             continue;
                         }
                         classes.get(classes.size() - 1).getFields().add(f);

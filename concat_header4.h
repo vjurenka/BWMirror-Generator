@@ -342,6 +342,14 @@ extern "C" {
 #endif
 /*
  * Class:     bwapi_Event
+ * Method:    getType_native
+ * Signature: (J)Ljava/lang/Enum;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Event_getType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_Event
  * Method:    getPosition_native
  * Signature: (J)Lbwapi/Position;
  */
@@ -542,6 +550,14 @@ JNIEXPORT jobject JNICALL Java_bwapi_Game_getStaticNeutralUnits_1native
  * Signature: (J)Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_bwapi_Game_getBullets_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getNukeDots_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getNukeDots_1native
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -1127,6 +1143,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Game_canUpgrade_1native__JLbwapi_UpgradeTy
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_Game_canUpgrade_1native__JLbwapi_UpgradeType_2Lbwapi_Unit_2Z
   (JNIEnv *, jobject, jlong, jobject, jobject, jboolean);
+
+/*
+ * Class:     bwapi_Game
+ * Method:    getStartLocations_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Game_getStartLocations_1native
+  (JNIEnv *, jobject, jlong);
 
 /*
  * Class:     bwapi_Game
@@ -2853,6 +2877,22 @@ JNIEXPORT jboolean JNICALL Java_bwapi_Player_isResearchAvailable_1native
 JNIEXPORT jboolean JNICALL Java_bwapi_Player_isUnitAvailable_1native
   (JNIEnv *, jobject, jlong, jobject);
 
+/*
+ * Class:     bwapi_Player
+ * Method:    hasUnitTypeRequirement_native
+ * Signature: (JLbwapi/UnitType;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Player_hasUnitTypeRequirement_1native__JLbwapi_UnitType_2
+  (JNIEnv *, jobject, jlong, jobject);
+
+/*
+ * Class:     bwapi_Player
+ * Method:    hasUnitTypeRequirement_native
+ * Signature: (JLbwapi/UnitType;I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_Player_hasUnitTypeRequirement_1native__JLbwapi_UnitType_2I
+  (JNIEnv *, jobject, jlong, jobject, jint);
+
 #ifdef __cplusplus
 }
 #endif
@@ -3310,6 +3350,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi_TechType_targetsPosition_1native
  * Signature: (J)Lbwapi/Order;
  */
 JNIEXPORT jobject JNICALL Java_bwapi_TechType_getOrder_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_TechType
+ * Method:    requiredUnit_native
+ * Signature: (J)Lbwapi/UnitType;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_TechType_requiredUnit_1native
   (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
@@ -3801,6 +3849,14 @@ JNIEXPORT jint JNICALL Java_bwapi_Unit_getStimTimer_1native
  * Signature: (J)Lbwapi/UnitType;
  */
 JNIEXPORT jobject JNICALL Java_bwapi_Unit_getBuildType_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_Unit
+ * Method:    getTrainingQueue_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_Unit_getTrainingQueue_1native
   (JNIEnv *, jobject, jlong);
 
 /*
@@ -9207,6 +9263,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_isSpell_1native
 
 /*
  * Class:     bwapi_UnitType
+ * Method:    producesCreep_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_producesCreep_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
  * Method:    producesLarva_native
  * Signature: (J)Z
  */
@@ -9235,6 +9299,22 @@ JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_isCritter_1native
  * Signature: (J)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_canBuildAddon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    researchesWhat_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_researchesWhat_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    upgradesWhat_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_upgradesWhat_1native
   (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus

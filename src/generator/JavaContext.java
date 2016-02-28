@@ -2,6 +2,7 @@ package generator;
 
 import util.Generic;
 import util.PointerTest;
+import util.StringUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -175,6 +176,11 @@ public class JavaContext {
     public boolean isMap(String javaType) {
         return javaType.startsWith("Map");
     }
+
+    public boolean isDeque(String javaType) {
+        return javaType.startsWith("List");
+    }
+
 
     public String copyConstructor(String javaType) {
         switch (javaType) {

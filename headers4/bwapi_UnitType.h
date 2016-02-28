@@ -593,6 +593,14 @@ JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_isSpell_1native
 
 /*
  * Class:     bwapi_UnitType
+ * Method:    producesCreep_native
+ * Signature: (J)Z
+ */
+JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_producesCreep_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
  * Method:    producesLarva_native
  * Signature: (J)Z
  */
@@ -621,6 +629,22 @@ JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_isCritter_1native
  * Signature: (J)Z
  */
 JNIEXPORT jboolean JNICALL Java_bwapi_UnitType_canBuildAddon_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    researchesWhat_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_researchesWhat_1native
+  (JNIEnv *, jobject, jlong);
+
+/*
+ * Class:     bwapi_UnitType
+ * Method:    upgradesWhat_native
+ * Signature: (J)Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_bwapi_UnitType_upgradesWhat_1native
   (JNIEnv *, jobject, jlong);
 
 #ifdef __cplusplus
