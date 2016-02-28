@@ -49,7 +49,7 @@ public class HeaderMaker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        command = "javah -d " + outputDir +" -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath);
+        /*command = "javah -d " + outputDir +" -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath);
         try {
             Process process = Runtime.getRuntime().exec(command);
             //process.getErrorStream()
@@ -60,7 +60,7 @@ public class HeaderMaker {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }   */
     }
 
 }
