@@ -1,0 +1,59 @@
+package bwmirror.generator.c;
+
+import java.io.*;
+import java.util.List;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: Vladimir
+ * Date: 27.2.2014
+ * Time: 17:34
+ */
+public class HeaderMaker {
+
+    private String prepareClassList(List<String> javaRoot, File clpath) {
+        /*JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        try {
+            compiler.run(null, new FileOutputStream("bwapi/Bullet.class"), null, new File("bwapi/Bullet.java").getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }              */
+        StringBuilder result = new StringBuilder();
+        for (String javaRootDir : javaRoot) {
+            for (File f : new File(clpath, javaRootDir).listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(".class");
+                }
+            })) {
+                result.append(" ").append(javaRootDir).append(".").append(f.getName().substring(0, f.getName().indexOf(".")));
+            }
+        }
+        //return "bwapi.Bullet";
+        return result.toString();
+    }
+
+    private void runCommand(String command) {
+        System.out.println(command);
+        try {
+            Process process = Runtime.getRuntime().exec(command);
+            //process.getErrorStream()
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String s;
+            while ((s = br.readLine()) != null) {
+                System.out.println(s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run(List<String> javaRoot, File clpath, String outputFile, String outputDir) {
+        // need to run javah twice. once to generate all the individual header files (one per class)
+        // and then again to generate a combined header. unfortunately javah will only use the "-d"
+        // option if we pass in both "-o" and "-d"
+        runCommand("javah -o " + outputFile + " -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath));
+        runCommand("javah -d " + outputDir + " -classpath " + clpath.toString() + prepareClassList(javaRoot, clpath));
+    }
+
+}
