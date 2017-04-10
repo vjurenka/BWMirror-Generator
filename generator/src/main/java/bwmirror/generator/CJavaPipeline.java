@@ -181,7 +181,11 @@ public class CJavaPipeline {
 
         TypeTable typeTable = new TypeTable();
 
-        System.out.println("Using output native implementation source file: " + new File(processingOptions.getProperty(C_IMPLEMENTATION_FILE_PROPERTY)));
+        File cImplFile = new File(processingOptions.getProperty(C_IMPLEMENTATION_FILE_PROPERTY));
+        System.out.println("Using output native implementation source file: " + cImplFile);
+        File cImplDir = cImplFile.getParentFile();
+        if (!cImplDir.exists())
+            cImplDir.mkdirs();
 
         PrintStream out = null;
         try {
@@ -249,6 +253,7 @@ public class CJavaPipeline {
         bind.setOut(out);
         bind.implementBind(allDecs);
 
+        System.out.println("\n\nAll done.");
     }
 
     public static void main(String... args) {
@@ -267,11 +272,11 @@ public class CJavaPipeline {
             bwtaOptions.globalClassName = "BWTA";
 
             Properties props = new Properties();
-            props.put(COMPILE_DIR_PROPERTY, "compiled");
-            props.put(HEADERS_DIR_PROPERTY, "headers");
-            props.put(HEADER_FILE_PROPERTY, "concat_header.h");
-            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c/impl.cpp");
-            props.put(GENERATE_TO_DIR, ".");
+            props.put(COMPILE_DIR_PROPERTY, "output/compiled");
+            props.put(HEADERS_DIR_PROPERTY, "output/headers");
+            props.put(HEADER_FILE_PROPERTY, "output/concat_header.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "output/c/impl.cpp");
+            props.put(GENERATE_TO_DIR, "output");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         }
@@ -292,11 +297,11 @@ public class CJavaPipeline {
             bwtaOptions.globalClassName = "BWTA";
 
             Properties props = new Properties();
-            props.put(COMPILE_DIR_PROPERTY, "compiled4");
-            props.put(HEADERS_DIR_PROPERTY, "headers4");
-            props.put(HEADER_FILE_PROPERTY, "concat_header4.h");
-            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "c4/impl.cpp");
-            props.put(GENERATE_TO_DIR, "generated");
+            props.put(COMPILE_DIR_PROPERTY, "output/compiled4");
+            props.put(HEADERS_DIR_PROPERTY, "output/headers4");
+            props.put(HEADER_FILE_PROPERTY, "output/concat_header4.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "output/c4/impl.cpp");
+            props.put(GENERATE_TO_DIR, "output/generated");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         }

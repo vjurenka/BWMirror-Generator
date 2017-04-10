@@ -26,7 +26,7 @@ public class MyJavaCompiler {
 
         List<JavaFileObject> javaFileObjects = new ArrayList<JavaFileObject>();
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
-        Iterable<String> compilationOptions = Arrays.asList("-d", outDir.getName(), "-cp", outDir.getName());
+        Iterable<String> compilationOptions = Arrays.asList("-d", outDir.getPath(), "-cp", outDir.getPath());
         System.out.print("Compile options: ");
         for (String option : compilationOptions) {
             System.out.print(option + " ");
