@@ -19,12 +19,4 @@ target/
 *.idb
 *.ilk
 *.pdb
-/compiled
-/compiled4
-/headers
-/headers4
-/concat_header.h
-/concat_header4.h
-/c
-/c4
-/generated
+/output
