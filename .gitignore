@@ -4,6 +4,9 @@ out/
 target/
 .idea/
 .settings/
+/output
+bwapi_bridge/Debug/
+bwapi_bridge/Release/
 .project
 .classpath
 *.iml
@@ -19,4 +22,3 @@ target/
 *.idb
 *.ilk
 *.pdb
-/output
