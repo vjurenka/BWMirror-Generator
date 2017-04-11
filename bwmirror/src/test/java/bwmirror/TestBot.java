@@ -1,4 +1,4 @@
-package test.api;
+package bwmirror;
 
 import bwapi.*;
 import bwapi.Text.Size.Enum;
@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 14:55
  */
 
-public class TestBot1 {
+public class TestBot {
 
 
     public void run() {
