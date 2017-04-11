@@ -143,6 +143,6 @@ public class TestBot {
     }
 
     public static void main(String... args) {
-        new TestBot1().run();
+        new TestBot().run();
     }
 }
