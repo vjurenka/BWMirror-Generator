@@ -8,6 +8,7 @@ import java.io.File;
 import java.lang.Exception;
 import java.lang.UnsupportedOperationException;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.zip.*;
 
 /**
@@ -56,55 +57,79 @@ public class Mirror {
 
     private static final boolean EXTRACT_JAR = true;
 
-    private static final String VERSION = "2_5";
+    private static void extractResourceFile(String resourceFilename, String outputFilename) throws Exception {
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceFilename);
+        if (in == null)
+            throw new FileNotFoundException("Resource file not found: " + resourceFilename);
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(outputFilename);
+        } catch (Exception e) {
+            throw new FileNotFoundException("Could not open output file: " + outputFilename);
+        }
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = in.read(buffer, 0, buffer.length)) != -1) {
+            out.write(buffer, 0, bytesRead);
+        }
+        out.close();
+        in.close();
+    }
+
+    private static boolean extractAndLoadNativeLibraries() {
+        try {
+            System.out.println("Extracting bwapi_bridge.dll");
+            extractResourceFile("bwapi_bridge.dll", "./bwapi_bridge.dll");
+
+            System.out.println("Extracting libgmp-10.dll");
+            extractResourceFile("libgmp-10.dll", "./libgmp-10.dll");
+
+            System.out.println("Extracting libmpfr-4.dll");
+            extractResourceFile("libmpfr-4.dll", "./libmpfr-4.dll");
+
+            System.out.println("Loading native library bwapi_bridge.dll");
+            System.load(new File("./bwapi_bridge.dll").getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean extractBwtaDataFiles() {
+        try {
+            Collection<String> bwtaFilenames = ResourceList.getResources(Pattern.compile("bwapi\\-data/BWTA2/[a-zA-Z0-9]+\\.bwta"));
+
+            System.out.println("Creating ./bwapi-data/BWTA2 directory");
+            new File("./bwapi-data/BWTA2").mkdirs();
+
+            System.out.println("Extracting " + bwtaFilenames.size() + " BWTA2 files:");
+            for (String filename : bwtaFilenames) {
+                System.out.println(filename);
+                String outputFilename = "./" + filename;
+                extractResourceFile(filename, outputFilename);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 
     static {
         String arch = System.getProperty("os.arch");
-        String dllNames[] = {"bwapi_bridge" + VERSION, "libgmp-10", "libmpfr-4"};
         if(!arch.equals("x86")){
             throw new UnsupportedOperationException("BWMirror API supports only x86 architecture.");
         }
-        try {
-            if (EXTRACT_JAR) {
-                System.setProperty("java.library.path", ".");
-                java.lang.reflect.Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
-                fieldSysPath.setAccessible(true);
-                fieldSysPath.set(null, null);
 
-                String path = Mirror.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-                String decodedPath = java.net.URLDecoder.decode(path, "UTF-8");
-
-                JarResources jar = null;
-                for (String dllName : dllNames) {
-                    String dllNameExt = dllName + ".dll";
-                    if (!new File(dllNameExt).exists()) {
-                        if (null == jar) {
-                            jar = new JarResources(decodedPath);
-                        }
-                        byte[] correctDllData = jar.getResource(dllNameExt);
-                        // prevents the creation of zero byte files
-                        if (null != correctDllData) {
-                            FileOutputStream funnyStream = new FileOutputStream(dllNameExt);
-                            funnyStream.write(correctDllData);
-                            funnyStream.close();
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Failed to extract native libraries.\n" + e);
-        }
-
-        System.loadLibrary(dllNames[0]);
-
-        File dataDir = new File("bwapi-data/BWTA");
-        if(!dataDir.exists()){
-            try {
-                dataDir.mkdirs();
-            } catch (Exception e) {
-                System.err.println("Unable to create /bwapi-data/BWTA folder, BWTA analysis will not be saved.");
-            }
-        }
+        if (!extractAndLoadNativeLibraries())
+            System.exit(1);
+        if (!extractBwtaDataFiles())
+            System.exit(1);
     }
 
     public Game getGame() {
@@ -137,132 +162,5 @@ public class Mirror {
      */
     /*public*/ private interface FrameCallback {
         public void update();
-    }
-
-    @SuppressWarnings({"unchecked"})
-    private static class JarResources {
-
-        // external debug flag
-        public boolean debugOn = false;
-
-        // jar resource mapping tables
-        private Hashtable htSizes = new Hashtable();
-        private Hashtable htJarContents = new Hashtable();
-
-        // a jar file
-        private String jarFileName;
-
-        /**
-         * creates a javabot.JarResources. It extracts all resources from a Jar
-         * into an internal hashtable, keyed by resource names.
-         *
-         * @param jarFileName a jar or zip file
-         */
-        public JarResources(String jarFileName) {
-            this.jarFileName = jarFileName;
-            init();
-        }
-
-        /**
-         * Extracts a jar resource as a blob.
-         *
-         * @param name a resource name.
-         */
-        public byte[] getResource(String name) {
-            return (byte[]) htJarContents.get(name);
-        }
-
-        /**
-         * initializes internal hash tables with Jar file resources.
-         */
-        private void init() {
-            try {
-                // extracts just sizes only.
-                ZipFile zf = new ZipFile(jarFileName);
-                Enumeration e = zf.entries();
-                while (e.hasMoreElements()) {
-                    ZipEntry ze = (ZipEntry) e.nextElement();
-                    if (debugOn) {
-                        System.out.println(dumpZipEntry(ze));
-                    }
-                    htSizes.put(ze.getName(), new Integer((int) ze.getSize()));
-                }
-                zf.close();
-
-                // extract resources and put them into the hashtable.
-                FileInputStream fis = new FileInputStream(jarFileName);
-                BufferedInputStream bis = new BufferedInputStream(fis);
-                ZipInputStream zis = new ZipInputStream(bis);
-                ZipEntry ze = null;
-                while ((ze = zis.getNextEntry()) != null) {
-                    if (ze.isDirectory()) {
-                        continue;
-                    }
-                    if (debugOn) {
-                        System.out.println(
-                                "ze.getName()=" + ze.getName() + "," + "getSize()=" + ze.getSize()
-                        );
-                    }
-                    int size = (int) ze.getSize();
-                    // -1 means unknown size.
-                    if (size == -1) {
-                        size = ((Integer) htSizes.get(ze.getName())).intValue();
-                    }
-                    byte[] b = new byte[(int) size];
-                    int rb = 0;
-                    int chunk = 0;
-                    while (((int) size - rb) > 0) {
-                        chunk = zis.read(b, rb, (int) size - rb);
-                        if (chunk == -1) {
-                            break;
-                        }
-                        rb += chunk;
-                    }
-                    // add to internal resource hashtable
-                    htJarContents.put(ze.getName(), b);
-                    if (debugOn) {
-                        System.out.println(
-                                ze.getName() + "  rb=" + rb +
-                                        ",size=" + size +
-                                        ",csize=" + ze.getCompressedSize()
-                        );
-                    }
-                }
-            } catch (NullPointerException e) {
-                System.out.println("done.");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        /**
-         * Dumps a zip entry into a string.
-         *
-         * @param ze a ZipEntry
-         */
-        private String dumpZipEntry(ZipEntry ze) {
-            StringBuffer sb = new StringBuffer();
-            if (ze.isDirectory()) {
-                sb.append("d ");
-            } else {
-                sb.append("f ");
-            }
-            if (ze.getMethod() == ZipEntry.STORED) {
-                sb.append("stored   ");
-            } else {
-                sb.append("defalted ");
-            }
-            sb.append(ze.getName());
-            sb.append("\t");
-            sb.append("" + ze.getSize());
-            if (ze.getMethod() == ZipEntry.DEFLATED) {
-                sb.append("/" + ze.getCompressedSize());
-            }
-            return (sb.toString());
-        }
-
-
     }
 }
