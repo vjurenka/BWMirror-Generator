@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\output\concat_header4.h">
+    <ClInclude Include="..\output\concat_header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\output\c4\impl.cpp">
+    <ClCompile Include="..\output\c\impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

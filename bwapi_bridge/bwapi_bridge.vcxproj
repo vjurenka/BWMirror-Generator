@@ -82,10 +82,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\output\concat_header4.h" />
+    <ClInclude Include="..\output\concat_header.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\output\c4\impl.cpp" />
+    <ClCompile Include="..\output\c\impl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
