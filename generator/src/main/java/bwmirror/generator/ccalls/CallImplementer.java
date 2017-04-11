@@ -51,7 +51,7 @@ public class CallImplementer {
 
     public void setOut(PrintStream out) {
         this.out = out;
-        out.print("#include \"../concat_header.h\"\n" +
+        out.print("#include \"concat_header.h\"\n" +
                 "#include <BWAPI.h>\n" +
                 "#include <BWAPI/Client.h>\n" +
                 "#include <BWTA.h>\n" +

@@ -82,10 +82,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\output\concat_header.h" />
+    <ClInclude Include="..\output\bwapi_bridge_src\concat_header.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\output\c\impl.cpp" />
+    <ClCompile Include="..\output\bwapi_bridge_src\impl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
