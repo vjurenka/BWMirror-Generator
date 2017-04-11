@@ -60,6 +60,9 @@
       <AdditionalLibraryDirectories>$(BWTA_HOME)\lib;$(BWAPI_HOME)\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>BWAPId.lib;BWAPIClientd.lib;libgmp-10.lib;libmpfr-4.lib;BWTAd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)..\bwmirror\src\main\resources</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -80,6 +83,9 @@
       <AdditionalLibraryDirectories>$(BWTA_HOME)\lib;$(BWAPI_HOME)\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>BWAPI.lib;BWAPIClient.lib;libgmp-10.lib;libmpfr-4.lib;BWTA.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(SolutionDir)..\bwmirror\src\main\resources</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\output\bwapi_bridge_src\concat_header.h" />
@@ -90,4 +96,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <Target Name="BeforeClean">
+    <Message Text="Cleaning bwapi_bridge binary from bwmirror Java project tree..."/>
+    <Exec Command="del $(SolutionDir)..\bwmirror\src\main\resources\$(TargetFileName)"/>
+  </Target>
 </Project>
