@@ -338,7 +338,7 @@ public class CJavaPipeline {
             props.put(HEADERS_DIR_PROPERTY, basePath.getPath() + "/output/headers");
             props.put(HEADER_FILE_PROPERTY, basePath.getPath() + "/output/bwapi_bridge_src/concat_header.h");
             props.put(C_IMPLEMENTATION_FILE_PROPERTY, basePath.getPath() + "/output/bwapi_bridge_src/impl.cpp");
-            props.put(GENERATE_TO_DIR, basePath.getPath() + "/output/generated");
+            props.put(GENERATE_TO_DIR, basePath.getPath() + "/bwmirror/src/main/java");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         } catch (Exception ex) {
