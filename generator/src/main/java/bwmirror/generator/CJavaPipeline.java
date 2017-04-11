@@ -14,7 +14,7 @@ import bwmirror.generator.ccalls.CallImplementer;
 import bwmirror.impl.CApiParser;
 import bwmirror.impl.Clazz;
 import bwmirror.inject.GetPolygonPointsInjector;
-import bwmirror.util.FileUtils;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -102,10 +102,12 @@ public class CJavaPipeline {
          Init
          */
         System.out.println("\n\nInit");
-        for (PackageProcessOptions pkg : packages) {
-            System.out.println("Deleting " + pkg.packageName);
-            FileUtils.deleteDirectory(new File(pkg.packageName));
-        }
+        System.out.println("Cleaning existing generated output");
+        FileUtils.deleteDirectory(new File(processingOptions.getProperty(GENERATE_TO_DIR)));
+        FileUtils.deleteDirectory(new File(processingOptions.getProperty(HEADERS_DIR_PROPERTY)));
+        FileUtils.deleteDirectory(new File(processingOptions.getProperty(COMPILE_DIR_PROPERTY)));
+        FileUtils.deleteDirectory(new File(processingOptions.getProperty(C_IMPLEMENTATION_FILE_PROPERTY)).getParentFile());
+        FileUtils.deleteDirectory(new File(processingOptions.getProperty(HEADER_FILE_PROPERTY)).getParentFile());
 
         MirrorContext context = new MirrorContext();
         Generator generator = new Generator(context);
