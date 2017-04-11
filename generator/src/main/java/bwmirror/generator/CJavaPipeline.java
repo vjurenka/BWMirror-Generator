@@ -63,7 +63,8 @@ public class CJavaPipeline {
 
     public void run(PackageProcessOptions[] packages, Properties processingOptions) {
         System.out.println("Processing options:");
-        processingOptions.list(System.out);
+        for (String propKey : processingOptions.stringPropertyNames())
+            System.out.println("   " + propKey + " = " + processingOptions.getProperty(propKey));
 
         /**
          Init
@@ -257,26 +258,43 @@ public class CJavaPipeline {
     }
 
     public static void main(String... args) {
+        String basePathString;
+        if (args.length > 0)
+            basePathString = args[0];
+        else
+            basePathString = ".";
+
+        File basePath = new File(basePathString);
+
+        if (!basePath.exists()) {
+            System.out.println("Working directory \"" + basePath + "\" does not exist. Exiting.");
+            System.exit(1);
+            return;
+        }
+
+        System.out.println("Using base path: " + basePath.getPath());
+        if (!basePath.isAbsolute())
+            System.out.println("Absolute base path: " + basePath.getAbsolutePath());
 
         if (BWAPI_VERSION == BWAPI_V3) {
 
             PackageProcessOptions bwapiOptions = new PackageProcessOptions();
             bwapiOptions.packageName = "bwapi";
-            bwapiOptions.cHeadersDir = new File("bwapi-master");
-            bwapiOptions.manualCopyClassesDir = new File("manual-bwapi");
+            bwapiOptions.cHeadersDir = new File(basePath.getPath() + "/bwapi-master");
+            bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi");
 
             PackageProcessOptions bwtaOptions = new PackageProcessOptions();
             bwtaOptions.packageName = "bwta";
-            bwtaOptions.cHeadersDir = new File("bwta-c");
+            bwtaOptions.cHeadersDir = new File(basePath.getPath() + "/bwta-c");
             bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player");
             bwtaOptions.globalClassName = "BWTA";
 
             Properties props = new Properties();
-            props.put(COMPILE_DIR_PROPERTY, "output/compiled");
-            props.put(HEADERS_DIR_PROPERTY, "output/headers");
-            props.put(HEADER_FILE_PROPERTY, "output/concat_header.h");
-            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "output/c/impl.cpp");
-            props.put(GENERATE_TO_DIR, "output");
+            props.put(COMPILE_DIR_PROPERTY, basePath.getPath() + "/output/compiled");
+            props.put(HEADERS_DIR_PROPERTY, basePath.getPath() + "/output/headers");
+            props.put(HEADER_FILE_PROPERTY, basePath.getPath() + "/output/concat_header.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, basePath.getPath() + "/output/c/impl.cpp");
+            props.put(GENERATE_TO_DIR, basePath.getPath() + "/output");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         }
@@ -287,21 +305,21 @@ public class CJavaPipeline {
 
             PackageProcessOptions bwapiOptions = new PackageProcessOptions();
             bwapiOptions.packageName = "bwapi";
-            bwapiOptions.cHeadersDir = new File("bwapi4-includes");
-            bwapiOptions.manualCopyClassesDir = new File("manual-bwapi4");
+            bwapiOptions.cHeadersDir = new File(basePath.getPath() + "/bwapi4-includes");
+            bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi4");
 
             PackageProcessOptions bwtaOptions = new PackageProcessOptions();
             bwtaOptions.packageName = "bwta";
-            bwtaOptions.cHeadersDir = new File("bwta2-c");
+            bwtaOptions.cHeadersDir = new File(basePath.getPath() + "/bwta2-c");
             bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player", "bwapi.Unit", "bwapi.Pair");
             bwtaOptions.globalClassName = "BWTA";
 
             Properties props = new Properties();
-            props.put(COMPILE_DIR_PROPERTY, "output/compiled4");
-            props.put(HEADERS_DIR_PROPERTY, "output/headers4");
-            props.put(HEADER_FILE_PROPERTY, "output/concat_header4.h");
-            props.put(C_IMPLEMENTATION_FILE_PROPERTY, "output/c4/impl.cpp");
-            props.put(GENERATE_TO_DIR, "output/generated");
+            props.put(COMPILE_DIR_PROPERTY, basePath.getPath() + "/output/compiled4");
+            props.put(HEADERS_DIR_PROPERTY, basePath.getPath() + "/output/headers4");
+            props.put(HEADER_FILE_PROPERTY, basePath.getPath() + "/output/concat_header4.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, basePath.getPath() + "/output/c4/impl.cpp");
+            props.put(GENERATE_TO_DIR, basePath.getPath() + "/output/generated");
 
             new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         }
