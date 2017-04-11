@@ -1,7 +1,6 @@
-package test;
+package bwmirror;
 
-import javadoc.Crawler;
-import javadoc.CrawlerBWAPI4;
+import bwmirror.javadoc.CrawlerBWAPI4;
 
 /**
  * User: PC

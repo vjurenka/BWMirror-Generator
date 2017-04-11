@@ -1,6 +1,4 @@
-package test;
-
-import impl.CApiParser;
+package bwmirror;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
