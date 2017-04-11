@@ -103,7 +103,9 @@ public class CJavaPipeline {
          */
         System.out.println("\n\nInit");
         System.out.println("Cleaning existing generated output");
-        FileUtils.deleteDirectory(new File(processingOptions.getProperty(GENERATE_TO_DIR)));
+        for (PackageProcessOptions pkg : packages) {
+            FileUtils.deleteDirectory(new File(processingOptions.getProperty(GENERATE_TO_DIR) + "/" + pkg.packageName));
+        }
         FileUtils.deleteDirectory(new File(processingOptions.getProperty(HEADERS_DIR_PROPERTY)));
         FileUtils.deleteDirectory(new File(processingOptions.getProperty(COMPILE_DIR_PROPERTY)));
         FileUtils.deleteDirectory(new File(processingOptions.getProperty(C_IMPLEMENTATION_FILE_PROPERTY)).getParentFile());
@@ -192,7 +194,11 @@ public class CJavaPipeline {
         MyJavaCompiler compiler = new MyJavaCompiler();
 
         for (PackageProcessOptions pkg : packages) {
-            compiler.run(new File(processingOptions.get(GENERATE_TO_DIR) + "/" + pkg.packageName), javaOut);
+            if (!compiler.run(new File(processingOptions.get(GENERATE_TO_DIR) + "/" + pkg.packageName), javaOut)) {
+                System.out.println("\n\nAborting due to compile errors (see above).");
+                System.exit(1);
+                return;
+            }
         }
 
         /**

@@ -19,10 +19,9 @@ public class MyJavaCompiler {
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
     @SuppressWarnings("ConstantConditions")
-    public void run(File inDir, File outDir) {
+    public boolean run(File inDir, File outDir) throws Exception {
         System.out.println("Compiling " + inDir + ", output " + outDir);
-        outDir.delete();
-        outDir.mkdir();
+        outDir.mkdirs();
 
         List<JavaFileObject> javaFileObjects = new ArrayList<JavaFileObject>();
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
@@ -58,15 +57,19 @@ public class MyJavaCompiler {
         JavaCompiler.CompilationTask compilerTask =
                 compiler.getTask(null, compiler.getStandardFileManager(null, Locale.getDefault(), null), diagnostics, compilationOptions, null, javaFileObjects);
 
-        try {
-            boolean status = compilerTask.call();
+        boolean status = false;
 
-            for (Diagnostic diagnostic : diagnostics.getDiagnostics()){
-                    System.out.format("Error on line %d in %s", diagnostic.getLineNumber(), diagnostic);
-                }
+        try {
+            status = compilerTask.call();
+
+            for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
+                System.out.format("Error on line %d in %s", diagnostic.getLineNumber(), diagnostic);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         System.out.println();
+        return status;
     }
 }
