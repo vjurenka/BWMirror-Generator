@@ -5,8 +5,11 @@ target/
 .idea/
 .settings/
 /output
-bwapi_bridge/Debug/
-bwapi_bridge/Release/
+/bwapi_bridge/Debug/
+/bwapi_bridge/Release/
+/bwmirror/src/main/java/bwapi
+/bwmirror/src/main/java/bwta
+/bwmirror/src/main/resources/bwapi_bridge*.dll
 .project
 .classpath
 *.iml
