@@ -1,7 +1,5 @@
 package bwmirror.util;
 
-import bwmirror.generator.CJavaPipeline;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,9 +22,6 @@ public class PointerTest {
 
 
     public static String test(String cls, boolean print) {
-        if (CJavaPipeline.isBWAPI3()) {
-            return (print ? cls : "" )+ "*";
-        }
         return (print ? cls : "" ) + (testCls(cls) ? "*" : "");
     }
 

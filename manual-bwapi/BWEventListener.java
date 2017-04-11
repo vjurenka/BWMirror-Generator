@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Implement this interface and call {@link bwapi.AIModule#setEventListener(bwapi.BWEventListener)} to receive all of the in game events.
+ * Implement this interface and call {@link AIModule#setEventListener(bwapi.BWEventListener)} to receive all of the in game events.
  */
 public interface BWEventListener {
 

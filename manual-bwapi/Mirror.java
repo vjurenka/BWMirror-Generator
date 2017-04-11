@@ -13,9 +13,9 @@ import java.util.zip.*;
 /**
  * <p>The API entry point. Standard use case:</p>
  * <ul>
- *     <li>Create a Mirror object and use {@link #getModule()} and then set an {@link bwapi.AIModule}'s {@link bwapi.BWEventListener}<br/>
+ *     <li>Create a Mirror object and use {@link #getModule()} and then set an {@link AIModule}'s {@link BWEventListener}<br/>
  *     <li>Call {@link #startGame()} to init the API and connect to Broodwar, then launch Broodwar from ChaosLauncher.</li>
- *     <li>In you {@link bwapi.BWEventListener#onStart()} method, receive the Game object by calling {@link #getGame()}</li>
+ *     <li>In you {@link BWEventListener#onStart()} method, receive the Game object by calling {@link #getGame()}</li>
  * </ul>
  * <br/>
  * <b>Example</b>
@@ -56,11 +56,11 @@ public class Mirror {
 
     private static final boolean EXTRACT_JAR = true;
 
-    private static final String VERSION = "1_2";
+    private static final String VERSION = "2_5";
 
     static {
         String arch = System.getProperty("os.arch");
-        String dllNames[] = {"bwapi_bridge" + VERSION, "gmp-vc90-mt", "mpfr-vc90-mt"};
+        String dllNames[] = {"bwapi_bridge" + VERSION, "libgmp-10", "libmpfr-4"};
         if(!arch.equals("x86")){
             throw new UnsupportedOperationException("BWMirror API supports only x86 architecture.");
         }
@@ -74,14 +74,20 @@ public class Mirror {
                 String path = Mirror.class.getProtectionDomain().getCodeSource().getLocation().getPath();
                 String decodedPath = java.net.URLDecoder.decode(path, "UTF-8");
 
+                JarResources jar = null;
                 for (String dllName : dllNames) {
                     String dllNameExt = dllName + ".dll";
                     if (!new File(dllNameExt).exists()) {
-                        JarResources jar = new JarResources(path);
+                        if (null == jar) {
+                            jar = new JarResources(decodedPath);
+                        }
                         byte[] correctDllData = jar.getResource(dllNameExt);
-                        FileOutputStream funnyStream = new FileOutputStream(dllNameExt);
-                        funnyStream.write(correctDllData);
-                        funnyStream.close();
+                        // prevents the creation of zero byte files
+                        if (null != correctDllData) {
+                            FileOutputStream funnyStream = new FileOutputStream(dllNameExt);
+                            funnyStream.write(correctDllData);
+                            funnyStream.close();
+                        }
                     }
                 }
             }
@@ -110,7 +116,7 @@ public class Mirror {
     }
 
     /**
-     * Starts the API, initializes all constants ( {@link bwapi.UnitType}, {@link bwapi.WeaponType} ) and the {@link bwapi.Game} object.
+     * Starts the API, initializes all constants ( {@link UnitType}, {@link WeaponType} ) and the {@link Game} object.
      * This method blocks until the end of game.
      */
     public native void startGame();
@@ -127,7 +133,7 @@ public class Mirror {
 
     /**
      * The simplest interface to receive update event from Broodwar. The {@link #update()} method is called once each frame.
-     * For a simple bot and implementation of this interface is enough, to receive all in game events, implement {@link bwapi.BWEventListener}.
+     * For a simple bot and implementation of this interface is enough, to receive all in game events, implement {@link BWEventListener}.
      */
     /*public*/ private interface FrameCallback {
         public void update();

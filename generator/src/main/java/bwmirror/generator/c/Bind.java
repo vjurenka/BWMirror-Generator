@@ -4,14 +4,11 @@ import bwmirror.c.CClass;
 import bwmirror.c.CDeclaration;
 import bwmirror.c.DeclarationType;
 import bwmirror.c.Field;
-import bwmirror.generator.CJavaPipeline;
 import bwmirror.generator.JavaContext;
 import bwmirror.impl.ClassVariable;
 
 import java.io.PrintStream;
 import java.util.List;
-
-import static bwmirror.generator.JavaContext.checkBWAPI3brackets;
 
 /**
  * User: PC
@@ -33,38 +30,17 @@ public class Bind {
         this.context = context;
     }
 
-    private void implementBWAPIInit() {
-        out.println("println(\"Attempting to init BWAPI...\");");
-        out.println("\t\tBWAPI_init();");
-        out.println("\t\tprintln(\"BWAPI ready.\");");
-    }
-
-
     private void implementConnectionRoutine() {
-        if (CJavaPipeline.isBWAPI3()) {
-            out.println("            if (Broodwar != NULL) {\n" +
-                    "\t\t\t\tprintln(\"Waiting...\");\n" +
-                    "                while (!Broodwar->isInGame()) {\n" +
-                    "                    BWAPIClient.update();\n" +
-                    "\t\t\t\t\tif (Broodwar == NULL) {\n" +
-                    "                            println(\"Match ended.\");\n" +
-                    "                            return;\n" +
-                    "                    }\n" +
-                    "                }\n" +
-                    "            }\n" +
-                    "\n");
-        } else {
-            out.println("\t\t\t\tprintln(\"Waiting...\");\n" +
-                    "while ( !Broodwar->isInGame() )\n" +
-                    "    {\n" +
-                    "      BWAPI::BWAPIClient.update();\n" +
-                    "      if (!BWAPI::BWAPIClient.isConnected())\n" +
-                    "      {\n" +
-                    "        println(\"Reconnecting...\");\n" +
-                    "        reconnect();\n" +
-                    "      }\n" +
-                    "    }");
-        }
+        out.println("\t\t\t\tprintln(\"Waiting...\");\n" +
+                "while ( !Broodwar->isInGame() )\n" +
+                "    {\n" +
+                "      BWAPI::BWAPIClient.update();\n" +
+                "      if (!BWAPI::BWAPIClient.isConnected())\n" +
+                "      {\n" +
+                "        println(\"Reconnecting...\");\n" +
+                "        reconnect();\n" +
+                "      }\n" +
+                "    }");
     }
 
 
@@ -81,7 +57,7 @@ public class Bind {
                 "\t\tjobject moduleObj = env->GetObjectField(obj, env->GetFieldID(cls, \"module\", \"L" + context.getPackageName() + "/AIModule;\"));\n" +
                 "\t\tjclass moduleCls = env->GetObjectClass(moduleObj);\n" +
                 "\t\tenv->SetObjectField(obj, env->GetFieldID(cls, \"game\", \"L" + context.getPackageName() + "/Game;\"), " +
-                "env->CallStaticObjectMethod(gamecls, env->GetStaticMethodID(gamecls, \"get\", \"(J)L" + context.getPackageName() + "/Game;\"), (long)Broodwar" + (CJavaPipeline.isBWAPI3() ? "" : "Ptr")+"));\n" +
+                "env->CallStaticObjectMethod(gamecls, env->GetStaticMethodID(gamecls, \"get\", \"(J)L" + context.getPackageName() + "/Game;\"), (long)BroodwarPtr));\n" +
                 "\n" +
                 "\t\tjmethodID updateMethodID = env->GetMethodID(env->GetObjectClass(obj), \"update\", \"()V\");");
 
@@ -117,12 +93,6 @@ public class Bind {
                 "\t\t\t\t\t  switch (it->getType()) {\n" +
 
                 "\t\t\t\t\t\t  case EventType::MatchStart:\n" +
-                (CJavaPipeline.isBWAPI3() ?
-                        "\t\t\t\t\t\t\t  BWTA::BWTA_Result::regions.clear();\n" +
-                                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::baselocations.clear();\n" +
-                                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::startlocations.clear();\n" +
-                                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::chokepoints.clear();\n" +
-                                "\t\t\t\t\t\t\t  BWTA::BWTA_Result::unwalkablePolygons.clear();\n" : "") +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, matchStartCallback);\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::MatchEnd:\n" +
@@ -141,7 +111,7 @@ public class Bind {
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, playerLeftCallback, env->CallStaticObjectMethod(playerCls, env->GetStaticMethodID(playerCls, \"get\", \"(J)L" + context.getPackageName() + "/Player;\"), (jlong)it->getPlayer()));\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::NukeDetect:\n" +
-                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, nukeDetectCallback, env->NewObject(posCls, env->GetMethodID(posCls,\"<init>\", \"(II)V\"), it->getPosition().x" + checkBWAPI3brackets() + ", it->getPosition().y" + checkBWAPI3brackets() + "));\n" +
+                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, nukeDetectCallback, env->NewObject(posCls, env->GetMethodID(posCls,\"<init>\", \"(II)V\"), it->getPosition().x, it->getPosition().y));\n" +
                 "\t\t\t\t\t\t  break;\n" +
                 "\t\t\t\t\t\t  case EventType::UnitDiscover:\n" +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, unitDiscoverCallback, env->CallStaticObjectMethod(unitCls, env->GetStaticMethodID(unitCls, \"get\", \"(J)L" + context.getPackageName() + "/Unit;\"), (jlong)it->getUnit()));\n" +
@@ -173,11 +143,6 @@ public class Bind {
                 "\t\t\t\t\t\t  case EventType::UnitComplete:\n" +
                 "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, unitCompleteCallback, env->CallStaticObjectMethod(unitCls, env->GetStaticMethodID(unitCls, \"get\", \"(J)L" + context.getPackageName() + "/Unit;\"), (jlong)it->getUnit()));\n" +
                 "\t\t\t\t\t\t  break;\n" +
-                (CJavaPipeline.isBWAPI3() ?
-                        "\t\t\t\t\t\t  case EventType::PlayerDropped:\n" +
-                                "\t\t\t\t\t\t\t  env->CallVoidMethod(moduleObj, playerDroppedCallback, env->CallStaticObjectMethod(playerCls, env->GetStaticMethodID(playerCls, \"get\", \"(J)L" + context.getPackageName() + "/Player;\")));\n" +
-                                "\t\t\t\t\t\t  break;\n"
-                        : "") +
                 "\n" +
                 "\t\t\t\t\t  }\n" +
                 "\t\t\t\t  }");
@@ -188,30 +153,19 @@ public class Bind {
                         "\t\t\t\t\t\treconnect();\n" +
                         "\t\t\t\t}\n" +
                         "\t\t\t}\n" +
-                        (CJavaPipeline.isBWAPI3() ? "" : "println(\"Match ended.\");") +
+                        "println(\"Match ended.\");" +
                         "\t\t}");
     }
 
     private void implementHelpers() {
-        if (CJavaPipeline.isBWAPI3()) {
-            out.println("void reconnect()\n" +
-                    "{\n" +
-                    "\twhile (!BWAPIClient.connect()) {\n" +
-                    "            Sleep(1000);\n" +
-                    "    }\n" +
-                    "}\n" +
-                    "\n" +
-                    "\n");
-        } else {
-            out.println("void reconnect()\n" +
-                    "{\n" +
-                    "\twhile (!BWAPIClient.connect()) {\n" +
-                    "            std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 });\n" +
-                    "    }\n" +
-                    "}\n" +
-                    "\n" +
-                    "\n");
-        }
+        out.println("void reconnect()\n" +
+                "{\n" +
+                "\twhile (!BWAPIClient.connect()) {\n" +
+                "            std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 });\n" +
+                "    }\n" +
+                "}\n" +
+                "\n" +
+                "\n");
 
         out.println(
                 "void flushPrint(const char * text){\n" +
@@ -229,9 +183,6 @@ public class Bind {
     private void implementMirrorInit(List<CDeclaration> declarationList) {
         implementHelpers();
         out.println("JNIEXPORT void JNICALL Java_" + context.getPackageName() + "_Mirror_startGame(JNIEnv * env, jobject obj){");
-        if (CJavaPipeline.isBWAPI3()) {
-            implementBWAPIInit();
-        }
         implementVariablesBind(declarationList);
         implementGameStart();
         out.println("}");

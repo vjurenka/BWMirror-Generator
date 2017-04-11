@@ -1,7 +1,6 @@
 package bwmirror.generator.ccalls;
 
 import bwmirror.c.Param;
-import bwmirror.generator.CJavaPipeline;
 import bwmirror.generator.JavaContext;
 import bwmirror.util.Generic;
 import bwmirror.util.PointerTest;
@@ -52,14 +51,14 @@ public class CallImplementer {
 
     public void setOut(PrintStream out) {
         this.out = out;
-        out.print("#include \"../concat_header" + (CJavaPipeline.isBWAPI3() ? "" : "4") + ".h\"\n" +
+        out.print("#include \"../concat_header.h\"\n" +
                 "#include <BWAPI.h>\n" +
                 "#include <BWAPI/Client.h>\n" +
                 "#include <BWTA.h>\n" +
-                (CJavaPipeline.isBWAPI3() ? "" : "#include <thread>\n" + "#include <chrono>\n") +
+                "#include <thread>\n" +
+                "#include <chrono>\n" +
                 "#include <jni.h>\n" +
                 "#include <cstring>\n" +
-                (CJavaPipeline.isBWAPI3() ? "#include \"../BWTA_Result.h\"" : "") +
                 "\n" +
                 "using namespace BWAPI;\n\n");
     }
@@ -85,7 +84,7 @@ public class CallImplementer {
 
                 if (javaContext.isCollection(param.third)) {
                     String genericType = Generic.extractGeneric(param.third);
-                    if (CJavaPipeline.isBWAPI3() || javaContext.isValueType(genericType)) {
+                    if (javaContext.isValueType(genericType)) {
                         out.println("std::set<" + PointerTest.test(genericType) + "> " + param.second + SEMICOLON);
                     } else {
                         out.println(genericType + "set " + param.second + SEMICOLON);
@@ -186,7 +185,7 @@ public class CallImplementer {
 
     private String wrapInCCollection(String genericType, String javaMethodName) {
         String buffer = "";
-        boolean isBWAPI4Collection = !CJavaPipeline.isBWAPI3() && !genericType.startsWith("BWTA::");
+        boolean isBWAPI4Collection = !genericType.startsWith("BWTA::");
         if (!isBWAPI4Collection) {
             if (javaMethodName.equals("getHoles")) {
                 buffer += "std::vector<";
@@ -207,7 +206,7 @@ public class CallImplementer {
             buffer += "set";
         }
 
-        if (buffer.equals("set") && !CJavaPipeline.isBWAPI3()) {
+        if (buffer.equals("set")) {
             if (javaContext.getPackageName().equals("bwta")) {
                 return "std::vector<" + genericType + ">";
             }

@@ -1,7 +1,6 @@
 package bwmirror.impl;
 
 import bwmirror.c.*;
-import bwmirror.generator.CJavaPipeline;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -113,14 +112,6 @@ public class CApiParser {
                 return LineState.END;
             }
 
-            if(CJavaPipeline.isBWAPI3()) {
-                if (line.endsWith("Types")) {
-                    return LineState.END;
-                }
-                if (line.equals("Races")) {
-                    return LineState.END;
-                }
-            }
             return LineState.SKIP;
         }
 
@@ -254,10 +245,6 @@ public class CApiParser {
 
             if (function.returnType.equals("GameData*")) {
                 System.err.println("function skipped - GameData* return (" + function.name + ")");
-                return null;
-            }
-            if (CJavaPipeline.isBWAPI3() && function.returnType.equals("UnitCommand")) {
-                System.err.println("function skipped - UnitCommand return (" + function.name + ")");
                 return null;
             }
             if (function.returnType.equals("Event")) {
@@ -513,13 +500,11 @@ public class CApiParser {
                     }
                     Clazz clz = new Clazz(clazzName);
 
-                    if(!CJavaPipeline.isBWAPI3()){
-                        if(clazzName.endsWith("Type") || clazzName.equals("Error") || clazzName.equals("Race") || clazzName.equals("Order")){
-                            Function function = new Function();
-                            function.name = "toString";
-                            function.returnType = "string";
-                            clz.fields.add(function);
-                        }
+                    if(clazzName.endsWith("Type") || clazzName.equals("Error") || clazzName.equals("Race") || clazzName.equals("Order")){
+                        Function function = new Function();
+                        function.name = "toString";
+                        function.returnType = "string";
+                        clz.fields.add(function);
                     }
 
                     if (javadoc != null) {

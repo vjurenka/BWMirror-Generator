@@ -2,9 +2,7 @@ package bwmirror.generator.java;
 
 import bwmirror.c.CClass;
 import bwmirror.c.CDeclaration;
-import bwmirror.generator.CJavaPipeline;
 import bwmirror.generator.MirrorContext;
-import bwmirror.javadoc.Crawler;
 import bwmirror.javadoc.CrawlerBWAPI4;
 import bwmirror.javadoc.Documentation;
 import bwmirror.javadoc.DocumentedField;
@@ -56,27 +54,14 @@ public abstract class Mirror {
                 }
             } else {
                 if (field instanceof CClass) {
-                    if (CJavaPipeline.isBWAPI3() /*|| context.getPackage().equals("bwta")*/) {
-
-                        Crawler cl = new Crawler();
-                        if (context.getPackage().equals("bwta")) {
-                            cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
-                        }
-                        documentation = cl.request(getDecl().getName());
-                        if (documentation != null) {
-                            printJavadoc(documentation.header);
-                        }
-                    } else {
-                        CrawlerBWAPI4 cl = new CrawlerBWAPI4();
-                        if (context.getPackage().equals("bwta")) {
-                            cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
-                        }
-                        documentation = cl.request(getDecl().getName());
-                        if (documentation != null) {
-                            printJavadoc(documentation.header);
-                        }
+                    CrawlerBWAPI4 cl = new CrawlerBWAPI4();
+                    if (context.getPackage().equals("bwta")) {
+                        cl.setBaseUrl("https://code.google.com/p/bwta/wiki/");
                     }
-
+                    documentation = cl.request(getDecl().getName());
+                    if (documentation != null) {
+                        printJavadoc(documentation.header);
+                    }
                 }
                 if (documentation == null) {
                     return;

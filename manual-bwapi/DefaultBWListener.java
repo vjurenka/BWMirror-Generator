@@ -6,7 +6,7 @@ import bwapi.Position;
 import bwapi.Unit;
 
 /**
- * A utility stub class providing a default implementation of {@link bwapi.BWEventListener},
+ * A utility stub class providing a default implementation of {@link BWEventListener},
  * override it's methods if you want to handle only some events.
  */
 public class DefaultBWListener implements BWEventListener {

@@ -212,13 +212,6 @@ public class JavaContext {
         return implementCopyReturn(javaType, "cresult");
     }
 
-    public static String checkBWAPI3brackets() {
-        if (CJavaPipeline.isBWAPI3()) {
-            return "()";
-        }
-        return "";
-    }
-
     public String implementCopyReturn(String javaType, String fieldName) {
         switch (javaType) {
             case "Integer":
@@ -237,8 +230,8 @@ public class JavaContext {
             case "Position":
             case "WalkPosition":
             case "Point":
-                return ", " + fieldName + ".x" + checkBWAPI3brackets() +
-                        ", " + fieldName + ".y" + checkBWAPI3brackets();
+                return ", " + fieldName + ".x" +
+                        ", " + fieldName + ".y";
             case "Color":
                 return ", " + fieldName + ".red()" +
                         ", " + fieldName + ".green()" +

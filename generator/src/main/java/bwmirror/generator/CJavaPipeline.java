@@ -31,20 +31,29 @@ import java.util.*;
 @SuppressWarnings("ConstantConditions")
 public class CJavaPipeline {
 
-    public static final int BWAPI_V3 = 3;
-
-    public static final int BWAPI_V4 = 4;
-
-
-    public static int BWAPI_VERSION = BWAPI_V4;
-
     /**
      * Classes from BWAPI 4 that don't need mirroring
-     * Not used in mirroring BWAPI 3
      */
-    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList("Client", "Vectorset", "ConstVectorset", "VSetIterator", "GameWrapper",
-            "Interface", "RectangleArray", "UnitImpl", "PlayerImpl", "GameImpl", "BulletImpl", "ForceImpl", "TournamentModule", "RegionImpl", "SetContainer", "InterfaceEvent", "PositionOrUnit", "Point"));
-
+    private static final List<String> ignoredClasses = new ArrayList<>(Arrays.asList(
+        "Client",
+        "Vectorset",
+        "ConstVectorset",
+        "VSetIterator",
+        "GameWrapper",
+        "Interface",
+        "RectangleArray",
+        "UnitImpl",
+        "PlayerImpl",
+        "GameImpl",
+        "BulletImpl",
+        "ForceImpl",
+        "TournamentModule",
+        "RegionImpl",
+        "SetContainer",
+        "InterfaceEvent",
+        "PositionOrUnit",
+        "Point"
+    ));
 
     private static final HashMap<String, String> superClasses = new HashMap<>();
 
@@ -303,53 +312,27 @@ public class CJavaPipeline {
         System.out.println();
 
         try {
-            if (BWAPI_VERSION == BWAPI_V3) {
+            ignoredClasses.add("Position");
 
-                PackageProcessOptions bwapiOptions = new PackageProcessOptions();
-                bwapiOptions.packageName = "bwapi";
-                bwapiOptions.cHeadersDir = new File(basePath.getPath() + "/bwapi-master");
-                bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi");
+            PackageProcessOptions bwapiOptions = new PackageProcessOptions();
+            bwapiOptions.packageName = "bwapi";
+            bwapiOptions.cHeadersDir = new File(basePath.getPath() + "/bwapi-includes");
+            bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi");
 
-                PackageProcessOptions bwtaOptions = new PackageProcessOptions();
-                bwtaOptions.packageName = "bwta";
-                bwtaOptions.cHeadersDir = new File(basePath.getPath() + "/bwta-c");
-                bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player");
-                bwtaOptions.globalClassName = "BWTA";
+            PackageProcessOptions bwtaOptions = new PackageProcessOptions();
+            bwtaOptions.packageName = "bwta";
+            bwtaOptions.cHeadersDir = new File(basePath.getPath() + "/bwta2-c");
+            bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player", "bwapi.Unit", "bwapi.Pair");
+            bwtaOptions.globalClassName = "BWTA";
 
-                Properties props = new Properties();
-                props.put(COMPILE_DIR_PROPERTY, basePath.getPath() + "/output/compiled");
-                props.put(HEADERS_DIR_PROPERTY, basePath.getPath() + "/output/headers");
-                props.put(HEADER_FILE_PROPERTY, basePath.getPath() + "/output/concat_header.h");
-                props.put(C_IMPLEMENTATION_FILE_PROPERTY, basePath.getPath() + "/output/c/impl.cpp");
-                props.put(GENERATE_TO_DIR, basePath.getPath() + "/output");
+            Properties props = new Properties();
+            props.put(COMPILE_DIR_PROPERTY, basePath.getPath() + "/output/compiled");
+            props.put(HEADERS_DIR_PROPERTY, basePath.getPath() + "/output/headers");
+            props.put(HEADER_FILE_PROPERTY, basePath.getPath() + "/output/concat_header.h");
+            props.put(C_IMPLEMENTATION_FILE_PROPERTY, basePath.getPath() + "/output/c/impl.cpp");
+            props.put(GENERATE_TO_DIR, basePath.getPath() + "/output/generated");
 
-                new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
-            }
-
-            if (BWAPI_VERSION == BWAPI_V4) {
-
-                ignoredClasses.add("Position");
-
-                PackageProcessOptions bwapiOptions = new PackageProcessOptions();
-                bwapiOptions.packageName = "bwapi";
-                bwapiOptions.cHeadersDir = new File(basePath.getPath() + "/bwapi4-includes");
-                bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi4");
-
-                PackageProcessOptions bwtaOptions = new PackageProcessOptions();
-                bwtaOptions.packageName = "bwta";
-                bwtaOptions.cHeadersDir = new File(basePath.getPath() + "/bwta2-c");
-                bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player", "bwapi.Unit", "bwapi.Pair");
-                bwtaOptions.globalClassName = "BWTA";
-
-                Properties props = new Properties();
-                props.put(COMPILE_DIR_PROPERTY, basePath.getPath() + "/output/compiled4");
-                props.put(HEADERS_DIR_PROPERTY, basePath.getPath() + "/output/headers4");
-                props.put(HEADER_FILE_PROPERTY, basePath.getPath() + "/output/concat_header4.h");
-                props.put(C_IMPLEMENTATION_FILE_PROPERTY, basePath.getPath() + "/output/c4/impl.cpp");
-                props.put(GENERATE_TO_DIR, basePath.getPath() + "/output/generated");
-
-                new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
-            }
+            new CJavaPipeline().run(new PackageProcessOptions[]{bwapiOptions, bwtaOptions}, props);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -360,9 +343,4 @@ public class CJavaPipeline {
     private static final String C_IMPLEMENTATION_FILE_PROPERTY = "impl_file";
     private static final String HEADER_FILE_PROPERTY = "header_file";
     private static final String GENERATE_TO_DIR = "generate_to_dir";
-
-    public static boolean isBWAPI3() {
-        return BWAPI_VERSION == BWAPI_V3;
-    }
-
 }

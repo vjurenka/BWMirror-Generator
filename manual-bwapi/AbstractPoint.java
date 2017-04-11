@@ -18,11 +18,11 @@ public abstract class AbstractPoint<T extends AbstractPoint> {
         return getPoint().getY();
     }
 
-    public double distanceTo(AbstractPoint<T> otherPosition) {
-        return distanceTo(otherPosition.getX(), otherPosition.getY());
+    public double getDistance(AbstractPoint<T> otherPosition) {
+        return getDistance(otherPosition.getX(), otherPosition.getY());
     }
 
-    public double distanceTo(int x, int y) {
+    public double getDistance(int x, int y) {
         double dx = x - getX();
         double dy = y - getY();
         return Math.sqrt(dx * dx + dy * dy);

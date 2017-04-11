@@ -4,9 +4,9 @@ import bwapi.BWEventListener;
 
 /**
  * This class receives all events from Broodwar.
- * To process them, receive an AIModule's instance from {@link bwapi.Mirror} and call {@link #setEventListener(BWEventListener)}
- * to set you own {@link bwapi.BWEventListener listener}.
- * There's also a stub class ({@link bwapi.DefaultBWListener}) provided, so you don't have to implement all of the methods.
+ * To process them, receive an AIModule's instance from {@link Mirror} and call {@link #setEventListener(bwapi.BWEventListener)}
+ * to set you own {@link BWEventListener listener}.
+ * There's also a stub class ({@link DefaultBWListener}) provided, so you don't have to implement all of the methods.
  */
 public class AIModule {
 
