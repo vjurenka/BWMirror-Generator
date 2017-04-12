@@ -319,17 +319,29 @@ public class CJavaPipeline {
             System.out.println("Absolute base path: " + basePath.getAbsolutePath());
         System.out.println();
 
+        if (System.getenv("BWAPI_HOME") == null || !(new File(System.getenv("BWAPI_HOME")).exists())) {
+            System.out.println("Missing or unable to read environment variable BWAPI_HOME.");
+            System.exit(1);
+            return;
+        }
+
+        if (System.getenv("BWTA_HOME") == null || !(new File(System.getenv("BWTA_HOME")).exists())) {
+            System.out.println("Missing or unable to read environment variable BWTA_HOME.");
+            System.exit(1);
+            return;
+        }
+
         try {
             ignoredClasses.add("Position");
 
             PackageProcessOptions bwapiOptions = new PackageProcessOptions();
             bwapiOptions.packageName = "bwapi";
-            bwapiOptions.cHeadersDir = new File(basePath.getPath() + "/bwapi-includes");
-            bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi");
+            bwapiOptions.cHeadersDir = new File(System.getenv("BWAPI_HOME") + "/include");
+            bwapiOptions.manualCopyClassesDir = new File(basePath.getPath() + "/manual-bwapi-src");
 
             PackageProcessOptions bwtaOptions = new PackageProcessOptions();
             bwtaOptions.packageName = "bwta";
-            bwtaOptions.cHeadersDir = new File(basePath.getPath() + "/bwta2-includes");
+            bwtaOptions.cHeadersDir = new File(System.getenv("BWTA_HOME") + "/include");
             bwtaOptions.additionalImportClasses = Arrays.asList("bwapi.Position", "bwapi.TilePosition", "bwapi.Player", "bwapi.Unit", "bwapi.Pair");
             bwtaOptions.globalClassName = "BWTA";
 
