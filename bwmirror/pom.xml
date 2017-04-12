@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.clojars.gered</groupId>
+	<groupId>com.github.gered</groupId>
 	<artifactId>bwmirror</artifactId>
 	<version>2.6</version>
 	<packaging>jar</packaging>
@@ -17,14 +17,6 @@
 			<url>https://www.gnu.org/licenses/lgpl.html</url>
 		</license>
 	</licenses>
-
-	<distributionManagement>
-		<repository>
-			<id>clojars</id>
-			<name>Clojars repository</name>
-			<url>https://clojars.org/repo</url>
-		</repository>
-	</distributionManagement>
 
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
